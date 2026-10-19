@@ -37,7 +37,7 @@ import logging
 import math
 import warnings
 from pathlib import Path
-from typing import Dict, List, Optional, Union
+from typing import Dict, List, Optional, Set, Union
 
 import numpy as np
 import pandas as pd
@@ -264,5 +264,252 @@ def load_subset_dataframe(name: str, processed_df: pd.DataFrame, config: Config)
     """Load a subset as a dataframe of full rows (joined against the
     processed training partition)."""
     ids = set(load_subset_ids(name, config))
+    train_df = processed_df[processed_df["original_split"] == TRAIN_SPLIT_NAME]
+    return train_df[train_df["example_id"].isin(ids)].reset_index(drop=True)
+
+
+# --- Multi-seed training-size "ladder" (MDL-vs-LSTM comparison) ------------
+#
+# A second, independent subset-generation path, kept separate from the
+# single-seed percentage/absolute-size subsets above (which are unaffected
+# by any of this). For each of several seeds, generates a nested ladder of
+# *absolute* training sizes using the exact same deterministic,
+# fixed-permutation mechanism as `build_subset` above (so the same nesting
+# guarantee applies, within a seed, across increasing sizes). Both MDL and
+# LSTM must load these exclusively through `load_ladder_subset_dataframe`
+# (never regenerate ids themselves), which is what guarantees they always
+# train on the identical set of example ids for a given (seed, size).
+#
+# On-disk layout, rooted at `config.paths.subsets_dir / "ladder"`:
+#   seed_<seed>/n<size>.json   -- one subset per (seed, size), with
+#                                 `example_ids` and a parallel `labels` list
+#                                 (same order), `class_counts`, etc.
+#   seed_<seed>/manifest.json  -- per-seed summary across all sizes
+#                                 (no ids/labels, for quick inspection).
+#   manifest.json              -- combined summary across all seeds/sizes.
+
+DEFAULT_LADDER_SIZES: List[int] = [100, 250, 500, 1000, 1500, 2000, 2500, 3125]
+DEFAULT_LADDER_SEEDS: List[int] = [42, 43, 44, 45, 46]
+
+
+def _ladder_dir(subsets_dir: Path) -> Path:
+    return subsets_dir / "ladder"
+
+
+def _ladder_seed_dir(subsets_dir: Path, seed: int) -> Path:
+    return _ladder_dir(subsets_dir) / f"seed_{seed}"
+
+
+def generate_ladder_subsets(
+    processed_df: pd.DataFrame,
+    config: Config,
+    sizes: Optional[List[int]] = None,
+    seeds: Optional[List[int]] = None,
+) -> Dict[int, Dict[int, Dict[str, object]]]:
+    """Generate the full (seed x size) ladder of nested, stratified
+    training subsets and write them to disk (see the layout described
+    above), then validate every invariant required by the comparison
+    (:func:`validate_ladder_subsets`) before returning.
+
+    Parameters
+    ----------
+    processed_df:
+        The full processed dataset (all splits), as produced by
+        :mod:`emotion_ait.preprocessing`. Only its training-split rows
+        are ever sampled from; validation/test rows are read only to
+        validate that no leakage occurred.
+    config:
+        Shared project configuration. Defaults for ``sizes``/``seeds``
+        come from ``config.sampling.ladder_sizes`` /
+        ``config.sampling.ladder_seeds`` when not given explicitly.
+    sizes:
+        Absolute training sizes to generate, e.g.
+        ``[100, 250, 500, 1000, 1500, 2000, 2500, 3125]``. Must not
+        exceed the size of the filtered training partition.
+    seeds:
+        Random seeds to generate an independent nested ladder for.
+
+    Returns
+    -------
+    dict
+        ``{seed: {size: subset_dict}}``, where each ``subset_dict`` is
+        the same JSON-serialisable schema written to disk.
+
+    Raises
+    ------
+    ValueError
+        If a requested size exceeds the available training partition,
+        or if any post-generation invariant is violated (see
+        :func:`validate_ladder_subsets`) -- nothing is silently dropped
+        or altered.
+    """
+    sizes = sorted({int(s) for s in (sizes if sizes is not None else config.sampling.ladder_sizes)})
+    seeds = list(seeds if seeds is not None else config.sampling.ladder_seeds)
+
+    train_df = processed_df[processed_df["original_split"] == TRAIN_SPLIT_NAME].reset_index(drop=True)
+    label_names = config.target_task.target_emotions
+    total_train = len(train_df)
+    id_to_label_name = dict(zip(train_df["example_id"], train_df["label_name"]))
+
+    for size in sizes:
+        if size > total_train:
+            raise ValueError(
+                f"Requested ladder size {size} exceeds the filtered training partition "
+                f"({total_train} examples); the maximum achievable training subset under "
+                "the current 4-class single-label filter is "
+                f"{total_train}."
+            )
+
+    ladder_dir = _ladder_dir(config.paths.subsets_dir)
+    ladder_dir.mkdir(parents=True, exist_ok=True)
+
+    results: Dict[int, Dict[int, Dict[str, object]]] = {}
+    for seed in seeds:
+        class_permutations = _class_permutations(train_df, label_names, seed)
+        seed_dir = _ladder_seed_dir(config.paths.subsets_dir, seed)
+        seed_dir.mkdir(parents=True, exist_ok=True)
+
+        per_size: Dict[int, Dict[str, object]] = {}
+        for size in sizes:
+            request = SubsetRequest(name=f"n{size}", absolute_size=size)
+            subset = build_subset(train_df, request, label_names, seed, class_permutations)
+            subset["labels"] = [id_to_label_name[example_id] for example_id in subset["example_ids"]]
+            per_size[size] = subset
+            out_path = seed_dir / f"{request.name}.json"
+            with open(out_path, "w", encoding="utf-8") as fh:
+                json.dump(subset, fh, indent=2)
+            logger.info(
+                "Ladder seed=%d size=%d: requested=%s actual=%d classes=%s",
+                seed,
+                size,
+                subset["requested_size"],
+                subset["actual_size"],
+                subset["class_counts"],
+            )
+        results[seed] = per_size
+
+        seed_manifest = {
+            str(size): {k: v for k, v in subset.items() if k not in ("example_ids", "labels")}
+            for size, subset in per_size.items()
+        }
+        with open(seed_dir / "manifest.json", "w", encoding="utf-8") as fh:
+            json.dump(seed_manifest, fh, indent=2)
+
+    combined_manifest = {
+        str(seed): {
+            str(size): {k: v for k, v in subset.items() if k not in ("example_ids", "labels")}
+            for size, subset in per_size.items()
+        }
+        for seed, per_size in results.items()
+    }
+    with open(ladder_dir / "manifest.json", "w", encoding="utf-8") as fh:
+        json.dump(combined_manifest, fh, indent=2)
+
+    validate_ladder_subsets(results, processed_df, config, label_names)
+
+    return results
+
+
+def validate_ladder_subsets(
+    ladder_results: Dict[int, Dict[int, Dict[str, object]]],
+    processed_df: pd.DataFrame,
+    config: Config,
+    label_names: Optional[List[str]] = None,
+) -> None:
+    """Validate every invariant required by the MDL-vs-LSTM ladder
+    comparison, raising ``ValueError`` immediately (never silently
+    dropping or altering data) if any of them is violated:
+
+    * every selected id actually belongs to the training split, and none
+      belong to validation/test (no leakage);
+    * each subset's reported ``actual_size`` matches its id count, and is
+      within a small rounding tolerance of the requested size (exactly
+      equal when the requested size is the full training partition);
+    * all four target classes are represented (non-zero count) at every
+      (seed, size);
+    * within each seed's ladder, every smaller subset's ids are a subset
+      of every next-larger subset's ids (nesting).
+    """
+    label_names = label_names or config.target_task.target_emotions
+
+    train_ids: Set[str] = set(
+        processed_df.loc[processed_df["original_split"] == TRAIN_SPLIT_NAME, "example_id"]
+    )
+    non_train_ids: Set[str] = set(
+        processed_df.loc[processed_df["original_split"] != TRAIN_SPLIT_NAME, "example_id"]
+    )
+    total_train = len(train_ids)
+
+    for seed, per_size in ladder_results.items():
+        previous_ids: Optional[Set[str]] = None
+        for size in sorted(per_size.keys()):
+            subset = per_size[size]
+            ids: Set[str] = set(subset["example_ids"])
+
+            leaked = ids & non_train_ids
+            if leaked:
+                raise ValueError(
+                    f"Ladder subset (seed={seed}, size={size}) leaks {len(leaked)} "
+                    f"validation/test id(s) into training, e.g. {sorted(leaked)[:5]}."
+                )
+            if not ids <= train_ids:
+                raise ValueError(
+                    f"Ladder subset (seed={seed}, size={size}) contains id(s) that are not "
+                    "part of the training split at all."
+                )
+
+            actual_size = subset["actual_size"]
+            if actual_size != len(ids):
+                raise ValueError(
+                    f"Ladder subset (seed={seed}, size={size}): 'actual_size' ({actual_size}) "
+                    f"does not match the number of selected example ids ({len(ids)})."
+                )
+            tolerance = max(len(label_names), 1)
+            if abs(actual_size - size) > tolerance:
+                raise ValueError(
+                    f"Ladder subset (seed={seed}, size={size}): requested size is not "
+                    f"achievable (actual size {actual_size} differs from the requested "
+                    f"{size} by more than the {tolerance}-example rounding tolerance)."
+                )
+            if size == total_train and actual_size != size:
+                raise ValueError(
+                    f"Ladder subset (seed={seed}, size={size}): requesting the full training "
+                    f"partition ({total_train} examples) must reproduce it exactly, but got "
+                    f"{actual_size}."
+                )
+
+            class_counts = subset["class_counts"]
+            missing = [name for name in label_names if class_counts.get(name, 0) <= 0]
+            if missing:
+                raise ValueError(
+                    f"Ladder subset (seed={seed}, size={size}) is missing class(es) {missing}; "
+                    "all four target classes must be represented at every size."
+                )
+
+            if previous_ids is not None and not previous_ids <= ids:
+                raise ValueError(
+                    f"Ladder subset (seed={seed}, size={size}) is not a superset of the "
+                    "previous (smaller) size's subset; nesting is violated."
+                )
+            previous_ids = ids
+
+
+def load_ladder_subset_ids(seed: int, size: int, config: Config) -> List[str]:
+    """Load the sorted list of example ids for one (seed, size) ladder
+    subset, previously written by :func:`generate_ladder_subsets`."""
+    path = _ladder_seed_dir(config.paths.subsets_dir, seed) / f"n{size}.json"
+    with open(path, "r", encoding="utf-8") as fh:
+        payload = json.load(fh)
+    return list(payload["example_ids"])
+
+
+def load_ladder_subset_dataframe(seed: int, size: int, processed_df: pd.DataFrame, config: Config) -> pd.DataFrame:
+    """Load one (seed, size) ladder subset as a dataframe of full rows,
+    joined against the processed training partition.
+
+    Both MDL and LSTM must call this (never regenerate ids themselves)
+    so they always train on the identical set of examples for a given
+    (seed, size)."""
+    ids = set(load_ladder_subset_ids(seed, size, config))
     train_df = processed_df[processed_df["original_split"] == TRAIN_SPLIT_NAME]
     return train_df[train_df["example_id"].isin(ids)].reset_index(drop=True)
