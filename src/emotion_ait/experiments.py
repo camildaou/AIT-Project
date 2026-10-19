@@ -10,6 +10,7 @@ are implemented, since all three share the same interface.
 
 from __future__ import annotations
 
+import logging
 from typing import Optional
 
 import pandas as pd
@@ -19,6 +20,8 @@ from .evaluation import ResultRecord, Timer, append_result, compute_metrics, war
 from .interfaces import EmotionClassifier
 from .sampling import load_subset_dataframe
 
+logger = logging.getLogger(__name__)
+
 
 def run_experiment(
     model: EmotionClassifier,
@@ -27,6 +30,8 @@ def run_experiment(
     processed_df: pd.DataFrame,
     config: Config,
     config_summary: Optional[dict] = None,
+    save_predictions: bool = True,
+    record_results: bool = True,
 ) -> ResultRecord:
     """Run one full train/evaluate cycle for a model on a named training
     subset, and append the result to the shared results CSV.
@@ -76,6 +81,29 @@ def run_experiment(
     warn_if_missing_classes(test_df["label"].tolist(), id_to_label)
     test_metrics = compute_metrics(test_df["label"].tolist(), test_preds, id_to_label)
 
+    if save_predictions:
+        prediction_df = pd.DataFrame(
+            {
+                "example_id": test_df["example_id"].tolist(),
+                "text": test_df["text"].tolist(),
+                "true_label": test_df["label"].astype(int).tolist(),
+                "predicted_label": [int(label) for label in test_preds],
+            }
+        )
+        prediction_df["true_label_name"] = prediction_df["true_label"].map(id_to_label)
+        prediction_df["predicted_label_name"] = prediction_df["predicted_label"].map(id_to_label)
+        prediction_df.insert(0, "model_name", model_name)
+        prediction_df.insert(1, "train_subset_name", subset_name)
+        prediction_df.insert(2, "seed", int(config.sampling.seed))
+        prediction_path = (
+            config.paths.results_dir
+            / "predictions"
+            / f"{model_name}_{subset_name}_{config.sampling.seed}.csv"
+        )
+        prediction_path.parent.mkdir(parents=True, exist_ok=True)
+        prediction_df.to_csv(prediction_path, index=False)
+        logger.info("Saved %d test predictions to %s", len(prediction_df), prediction_path)
+
     with open(config.paths.subsets_dir / f"{subset_name}.json", "r", encoding="utf-8") as fh:
         import json
 
@@ -95,5 +123,6 @@ def run_experiment(
         inference_time_seconds=inference_time,
         validation_macro_f1=validation_macro_f1,
     )
-    append_result(record, config.paths.results_dir / "metrics")
+    if record_results:
+        append_result(record, config.paths.results_dir / "metrics")
     return record
