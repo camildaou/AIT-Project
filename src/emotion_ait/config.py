@@ -58,6 +58,8 @@ class SamplingConfig:
     seed: int
     percentages: List[float]
     absolute_sizes: List[int]
+    ladder_sizes: List[int]
+    ladder_seeds: List[int]
 
 
 @dataclasses.dataclass(frozen=True)
@@ -113,6 +115,8 @@ def load_config(path: Optional[Path] = None) -> Config:
         seed=int(raw["sampling"]["seed"]),
         percentages=[float(p) for p in raw["sampling"]["percentages"]],
         absolute_sizes=[int(s) for s in raw["sampling"]["absolute_sizes"]],
+        ladder_sizes=[int(s) for s in raw["sampling"]["ladder_sizes"]],
+        ladder_seeds=[int(s) for s in raw["sampling"]["ladder_seeds"]],
     )
 
     return Config(
