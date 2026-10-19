@@ -15,8 +15,8 @@ not answer that question yet -- it only provides the shared data pipeline,
 model interface, and evaluation protocol that both collaborators' answers
 will be built on and compared with.
 
-Only this shared infrastructure is implemented so far. The actual MDL and
-LSTM classifiers are left as documented stubs (see
+The shared infrastructure and the **MDL classifier** are implemented; the
+**LSTM classifier** is still left as a documented stub (see
 [`src/emotion_ait/mdl_classifier.py`](src/emotion_ait/mdl_classifier.py) and
 [`src/emotion_ait/lstm_classifier.py`](src/emotion_ait/lstm_classifier.py)).
 
@@ -194,9 +194,18 @@ load(path: Path) -> EmotionClassifier   # classmethod
 `mdl_classifier.MDLClassifier` and `lstm_classifier.LSTMClassifier` both
 implement this interface and nothing more is shared between them -- their
 internal representations (n-gram language models vs. a PyTorch `nn.Module`)
-are completely private to each module. Both are currently **stubs**: every
-method raises `NotImplementedError` with a docstring explaining what still
-needs to be built, by whom.
+are completely private to each module.
+
+* **`MDLClassifier` (implemented, Person A)**: fits one smoothed n-gram
+  (default: trigram, `n=3`, Laplace/add-`k` smoothing) word-level language
+  model per target emotion on that class's training texts only, then
+  predicts the class whose model assigns the shortest description length
+  (summed negative log2-probability) to the input text -- see the module
+  docstring in [`mdl_classifier.py`](src/emotion_ait/mdl_classifier.py) for
+  the full smoothing/tokenization contract.
+* **`LSTMClassifier` (stub, Person B)**: every method raises
+  `NotImplementedError` with a docstring explaining what still needs to be
+  built.
 
 `emotion_ait.baselines` provides two trivial, fully-working reference
 implementations of the same interface (`MajorityClassBaseline`,
@@ -220,8 +229,18 @@ real training has happened for the two research models.
   name, subset name/percentage/actual size, seed, hyperparameter summary,
   validation macro-F1, test accuracy, test macro-F1, per-class metrics,
   train/inference time, timestamp), appended to `results/metrics/results.csv`
-  (one row per run) with a mirrored per-run JSON file under
-  `results/metrics/json/`.
+  (one row per run, growing), with each run *also* mirrored individually
+  as its own JSON file under `results/metrics/json/` and its own
+  single-row metrics CSV under `results/metrics/csv/`
+  (`<model>_<subset>_<seed>.{json,csv}`, overwritten on re-run) -- so one
+  subset's metrics can be inspected without reading the combined CSV.
+* `save_predictions(...)` -- one row per evaluated test example
+  (`example_id`, `text`, true/predicted label, a `correct` flag, and --
+  when the model exposes a `description_lengths` diagnostic, e.g.
+  `MDLClassifier` -- one `bits_<emotion>` column per candidate class),
+  written to `results/predictions/<model>_<subset>_<seed>.csv` for
+  qualitative/error analysis. Called automatically by `run_experiment`
+  (see below) unless `save_test_predictions=False`.
 
 `emotion_ait.experiments.run_experiment(model, model_name, subset_name,
 processed_df, config)` wires all of the above together generically and
@@ -252,7 +271,7 @@ emotion-ait/ (this repo)
 │   ├── sampling.py                 <- deterministic nested stratified subsets
 │   ├── interfaces.py               <- shared EmotionClassifier ABC
 │   ├── baselines.py                <- fully-working trivial reference models
-│   ├── mdl_classifier.py           <- MDL classifier STUB (Person A)
+│   ├── mdl_classifier.py           <- MDL classifier (implemented, Person A)
 │   ├── lstm_classifier.py          <- LSTM classifier STUB (Person B)
 │   ├── evaluation.py               <- shared metrics + results schema
 │   └── experiments.py              <- orchestration glue
@@ -261,7 +280,7 @@ emotion-ait/ (this repo)
 │   └── verify_data.py              <- integrity checks, human-readable report
 ├── tests/                          <- synthetic-data unit tests (no network needed)
 └── results/
-    ├── metrics/                    <- results.csv + per-run JSON (small, committable)
+    ├── metrics/                    <- results.csv + per-run JSON/CSV mirrors (small, committable)
     ├── predictions/                <- git-ignored (potentially large)
     └── figures/                    <- git-ignored (regenerable)
 ```

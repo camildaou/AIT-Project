@@ -16,7 +16,7 @@ from typing import Optional
 import pandas as pd
 
 from .config import Config
-from .evaluation import ResultRecord, Timer, append_result, compute_metrics, warn_if_missing_classes
+from .evaluation import ResultRecord, Timer, append_result, compute_metrics, save_predictions, warn_if_missing_classes
 from .interfaces import EmotionClassifier
 from .sampling import load_subset_dataframe
 
@@ -30,8 +30,12 @@ def run_experiment(
     processed_df: pd.DataFrame,
     config: Config,
     config_summary: Optional[dict] = None,
+<<<<<<< HEAD
     save_predictions: bool = True,
     record_results: bool = True,
+=======
+    save_test_predictions: bool = True,
+>>>>>>> f257ff619a6babc0765e101e5ee16096e6370fd6
 ) -> ResultRecord:
     """Run one full train/evaluate cycle for a model on a named training
     subset, and append the result to the shared results CSV.
@@ -56,6 +60,12 @@ def run_experiment(
     config_summary:
         Optional free-form dict of hyperparameters to embed in the
         results schema for reproducibility.
+    save_test_predictions:
+        If True (default), also persist one row per test example (true
+        vs. predicted label, and per-class description lengths when the
+        model exposes them) via
+        :func:`emotion_ait.evaluation.save_predictions`, for qualitative
+        / error analysis.
     """
     train_df = load_subset_dataframe(subset_name, processed_df, config)
     validation_df = processed_df[processed_df["original_split"] == "validation"].reset_index(drop=True)
@@ -81,6 +91,7 @@ def run_experiment(
     warn_if_missing_classes(test_df["label"].tolist(), id_to_label)
     test_metrics = compute_metrics(test_df["label"].tolist(), test_preds, id_to_label)
 
+<<<<<<< HEAD
     if save_predictions:
         prediction_df = pd.DataFrame(
             {
@@ -103,6 +114,25 @@ def run_experiment(
         prediction_path.parent.mkdir(parents=True, exist_ok=True)
         prediction_df.to_csv(prediction_path, index=False)
         logger.info("Saved %d test predictions to %s", len(prediction_df), prediction_path)
+=======
+    if save_test_predictions and not test_df.empty:
+        description_lengths = None
+        describe = getattr(model, "description_lengths", None)
+        if callable(describe):
+            description_lengths = describe(test_df["text"].tolist())
+        save_predictions(
+            model_name=model_name,
+            subset_name=subset_name,
+            seed=config.sampling.seed,
+            example_ids=test_df["example_id"].tolist(),
+            texts=test_df["text"].tolist(),
+            y_true=test_df["label"].tolist(),
+            y_pred=test_preds,
+            label_names=id_to_label,
+            results_dir=config.paths.results_dir,
+            description_lengths=description_lengths,
+        )
+>>>>>>> f257ff619a6babc0765e101e5ee16096e6370fd6
 
     with open(config.paths.subsets_dir / f"{subset_name}.json", "r", encoding="utf-8") as fh:
         import json
