@@ -1,0 +1,75 @@
+# Default configuration for the emotion-ait shared data pipeline.
+# Both the MDL and LSTM collaborators should load this file via
+# `emotion_ait.config.load_config` rather than hard-coding values.
+
+# --- Dataset source -----------------------------------------------------
+dataset:
+  # Hugging Face dataset repository id.
+  hub_id: "google-research-datasets/go_emotions"
+  # The GoEmotions repo exposes two Hugging Face dataset *configs*:
+  # "simplified" (single train/validation/test splits, multi-label ids)
+  # and "raw" (per-rater rows). We use "simplified", which is the config
+  # that actually provides the official train/validation/test splits.
+  # NOTE: this is not literally named "go_emotions" on the Hub -- see the
+  # verification note in README.md.
+  hub_config: "simplified"
+  splits: ["train", "validation", "test"]
+  # Full list of the 28 original GoEmotions label names, in the exact
+  # order used by the dataset's ClassLabel feature. This order matters
+  # because the raw `labels` column stores integer indices into this list.
+  original_label_names:
+    - admiration
+    - amusement
+    - anger
+    - annoyance
+    - approval
+    - caring
+    - confusion
+    - curiosity
+    - desire
+    - disappointment
+    - disapproval
+    - disgust
+    - embarrassment
+    - excitement
+    - fear
+    - gratitude
+    - grief
+    - joy
+    - love
+    - nervousness
+    - optimism
+    - pride
+    - realization
+    - relief
+    - remorse
+    - sadness
+    - surprise
+    - neutral
+
+# --- Target task: 4-class single-label subset ---------------------------
+target_task:
+  # Fixed, documented mapping from emotion name to integer class id.
+  # Do not change these ids once results have been generated -- they are
+  # part of the shared contract between the MDL and LSTM collaborators.
+  label_mapping:
+    anger: 0
+    fear: 1
+    joy: 2
+    sadness: 3
+
+# --- Paths ----------------------------------------------------------------
+paths:
+  raw_dir: "data/raw"
+  processed_dir: "data/processed"
+  subsets_dir: "data/subsets"
+  results_dir: "results"
+
+# --- Reproducible subset sampling -----------------------------------------
+sampling:
+  seed: 42
+  # Percentages are relative to the *filtered* training partition.
+  percentages: [5, 10, 20, 40, 70, 100]
+  # Absolute sizes are only generated when the filtered training
+  # partition is large enough to support them (see sampling.py).
+  absolute_sizes: [100, 250, 500]

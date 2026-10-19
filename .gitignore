@@ -1,0 +1,50 @@
+# Byte-compiled / build artifacts
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Downloaded datasets and the Hugging Face cache
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/subsets/*
+!data/subsets/.gitkeep
+.cache/
+huggingface/
+
+# Model weights / large generated artifacts
+*.pt
+*.pth
+*.bin
+*.ckpt
+results/predictions/*
+!results/predictions/.gitkeep
+results/figures/*
+!results/figures/.gitkeep
+
+# Credentials
+.env
+*.key
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/

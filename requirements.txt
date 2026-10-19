@@ -1,0 +1,21 @@
+# Core data stack
+pandas>=2.0
+numpy>=1.24
+scikit-learn>=1.3
+PyYAML>=6.0
+
+# Dataset access
+datasets>=2.19
+
+# Future LSTM classifier
+torch>=2.1
+
+# Plotting (used sparingly, per project scope)
+matplotlib>=3.7
+seaborn>=0.12
+
+# Notebooks
+ipykernel>=6.25
+
+# Testing
+pytest>=7.4
