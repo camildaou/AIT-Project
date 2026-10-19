@@ -1,0 +1,392 @@
+example_id,text,true_label,true_label_name,predicted_label,predicted_label_name,correct,bits_anger,bits_fear,bits_joy,bits_sadness
+eecwqtt,"I’m really sorry about your situation :( Although I love the names Sapphira, Cirilla, and Scarlett!",3,sadness,0,anger,False,154.59698552792335,155.54863843848918,154.84640370493645,154.8441191517419
+eeni74k,"Girlfriend weak as well, that jump was pathetic.",3,sadness,1,fear,False,83.24374327106052,83.20012625650992,83.23011140547275,83.22782685227821
+edk4e66,I've also heard that intriguing but also kinda scary,1,fear,3,sadness,False,92.48453460322249,92.44091758867188,92.47090273763472,91.47100083575116
+ed2e00i,The thought of shooting anything at asylum seekers is appalling.,1,fear,3,sadness,False,100.72770858669544,101.68170892083384,100.71407672110767,100.71179216791312
+edafngg,I’m so sorry 🤪,3,sadness,0,anger,False,43.707489541979825,44.65914245254565,43.95690771899293,43.95462316579838
+ee5s4hc,"Help, help, I'm being repressed!",1,fear,1,fear,True,55.521369274574646,55.47775226002404,55.50773740898688,55.50545285579233
+ee2miso,death of fear is certain.,1,fear,1,fear,True,55.521369274574646,55.47775226002404,55.50773740898688,55.50545285579233
+ed99kw8,Because of this bad situation some people are afraid of becoming youtubers because of this,1,fear,1,fear,True,147.93643055012723,147.88804823295465,147.91565073060647,147.91813148003394
+eesstwu,That's too many pills,0,anger,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+edfa1xi,Talk about an oldddd school shit coin.,0,anger,1,fear,False,74.00295193889856,73.96410022696995,73.9893200733108,73.98703552011625
+ed4bex7,"Wow that’s scary, she’s so young and healthy. I hate that. ",1,fear,1,fear,True,129.45246130596405,129.40408291731973,129.43406806628255,129.43416616439902
+efegrrd,How dare you! Don’t you know seatbelts cause autism!,0,anger,1,fear,False,101.73009123800644,101.68647029492757,101.71169406979668,101.70940951660214
+ed6qwkd,"Damnit Morty! D'you see wha-rrrgh-t you've done!? We're fucked Morty, the squirrels - they're recruiting dolphins now Morty. ",0,anger,1,fear,False,184.8924479248421,184.8488309102915,184.87881605925432,184.8765315060598
+ef4byo4,Fuck you.,0,anger,0,anger,True,24.808514110681408,27.755378263538176,27.785363412501013,27.783078859306464
+eejn8qt,"No, what’s sad is saying the same message like it’s news. He’s a copy paste machine. No original thought.",3,sadness,2,joy,False,211.61720457263897,212.57358755808838,211.0257503032065,212.59890550254568
+edh8fue,"My friend and I have been having good fun queuing Mei/Winston, trololo, and 2 bottles of whisky.",2,joy,1,fear,False,175.65641796677386,174.61042222944053,175.63802472709236,175.63574017389783
+eczf1y3,"I am generally a happy person. If you like to pay millions of dollars to semi-literates to represent your government, it's up to you!",2,joy,0,anger,False,237.764107517381,238.71576042794683,238.0135256943941,238.00885848988855
+eey5v8c,"Tl, dr - Take the abuse. Squirming only gets them off more.",1,fear,1,fear,True,110.96611726754641,110.9225002529958,110.95248540195864,110.9502008487641
+ef7jyoy,You're probably joking but [NAME] has been pretty insightful regarding the yellow vests in France. I was impressed.,2,joy,1,fear,False,175.65165659268013,175.61042222944053,175.64040737840335,175.63812282520882
+edxysbg,I did twist my ankle trying to play that on DDR.,3,sadness,2,joy,False,108.39302886711354,109.34229912636837,107.64720841822037,108.6377798396211
+een6y2q,I genuinely think that would be an iconic shot if it was in a famous horror film. The way the legs just keep on coming is terrifying.,1,fear,3,sadness,False,256.2456901817049,256.1973430922707,256.495108358718,255.50472920502193
+eex60my,The sad part about this is that these memes are more Gen Z if anything...,3,sadness,2,joy,False,146.93404789881623,147.89043088426564,146.91803338191747,146.9181314800339
+eec6zh5,> it will not make her look like an idiot It would be hard to make her look any more like an idiot than she already does.,0,anger,3,sadness,False,249.57798724997582,248.53675288673622,249.56435538438805,246.99377903259278
+edo16o4,Yikes that's cringe,1,fear,1,fear,True,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+eeok732,"And then you're stuck on that medication for life, sounds like a scary trade-off.",1,fear,3,sadness,False,146.93404789881623,147.88566558164365,147.91565073060647,145.9205141313449
+eedhkjf,He’s going to the Bengals at 11 and I hate it so much,0,anger,3,sadness,False,138.695635289437,138.64725690079268,138.6772420497555,137.67734014787194
+eduylqg,This just reminded me to continue designing that bloody website.,0,anger,1,fear,False,100.72770858669544,100.68409157214484,100.71407672110767,101.70940951660214
+edcmhdm,Oh god another injury,3,sadness,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+ee3xlfx,it's hurting my heart :( why did you leave me,3,sadness,0,anger,False,91.48929990584448,92.44091758867188,92.47090273763472,92.46861818444017
+edhzgg4,You need to recheck your science. A simple Google search will yield research articles showing a biological and genetic basis for being LGBT. Happy reading!,2,joy,0,anger,False,238.02477490867088,240.29357890326327,240.3235640522261,240.32127949903156
+efbok4w,Lmfao lonzo? That guy is not nba talent. World is gonna spank that ass,0,anger,1,fear,False,138.68849126403228,138.6448742494817,138.6772420497555,138.67257484524998
+eedrfyd,"Had one good year that was it, then joins a god squad that struggles to qualify",2,joy,1,fear,False,157.1724565796672,157.1288395651166,157.15644206276843,157.1541575095739
+eep85vg,One dumbass who hasn’t watched Hereditary complaining about meaningless awards on the Internet means... eh. I lost my point. Go watch Hereditary,0,anger,1,fear,False,221.85561325348993,221.81199623893934,221.84198138790217,221.84207948601863
+eemtapo,What the fuck is this about?,0,anger,1,fear,False,61.77169121198058,60.73045684874097,64.74852874114883,64.74624418795429
+edj1n44,Are you fucking serious? That’s a foul??,0,anger,1,fear,False,83.24374327106052,83.20012625650992,83.23011140547275,83.22782685227821
+ee8wf77,[NAME] I hate my hometown,0,anger,0,anger,True,53.94592952204094,55.47775226002404,54.51012006029787,54.51021815841432
+ee3mw0h,You shut your mouth,0,anger,0,anger,True,43.968156933269704,46.236960927862086,46.26694607682492,46.26466152363037
+edu79o2,Oof that’s terrible,1,fear,1,fear,True,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+edej0vb,I would hate to see another [NAME] situation where [NAME] gets hurt again because he wasn't fully recovered.,0,anger,3,sadness,False,173.07856819224727,174.0278384515021,173.32560371794938,172.3280844673768
+eenni73,I know a couple of people who are. It's amazing to watch.,2,joy,0,anger,False,117.6362028505865,118.58309045853034,117.88085572497761,117.88333647440506
+eenv1pb,Must be a tough life when all you can think about is sad stories to keep you from enjoying anything.,3,sadness,1,fear,False,194.13562190831504,194.08962224245346,194.12199004272728,194.11732283822175
+edm27fi,"Do you have any non anecdotal stuff to say or? Also burden of proof is a thing, you made a claim, prove it or fuck off",0,anger,1,fear,False,249.5827525525978,249.53437023542523,249.56435538438805,249.56207083119352
+ee60k0m,Toxic feminism is ti blame,0,anger,1,fear,False,55.521369274574646,55.47775226002404,55.50773740898688,55.50545285579233
+eetta44,so glad we picked this guy up. was absolutely terrified when we played against him. dude was in the zone.,2,joy,1,fear,False,194.13323925700405,194.08962224245346,194.11960739141628,194.12208421231549
+ee69cgm,"Wow, you folks sure are salty about losing the midterms! Pathetic?",3,sadness,1,fear,False,110.96611726754641,110.9225002529958,110.95248540195864,110.9502008487641
+ee4hcgp,"I'll pass the ""I'm not crying you're crying!"" part. Yeah I'm crying. ",3,sadness,1,fear,False,120.20690859970837,120.16329158515776,120.1956593854316,120.19099218092606
+ee5j15q,"Exactly. We’re only here for the money, assholes. ",0,anger,1,fear,False,92.48453460322249,92.44091758867188,92.47328538894571,92.47100083575117
+eey42p5,She is probably cheating on you. :(,3,sadness,3,sadness,True,64.7621606067366,64.718543592186,64.74852874114883,63.75100949057627
+ef9wj5f,"It would be mostly home-grown terrorism, angry at all the people fleeing from overseas terrorism.",0,anger,3,sadness,False,157.1748392309782,156.1288395651166,157.15644206276843,154.58110040835118
+edmu7gq,You should've smashed his head into it.,0,anger,0,anger,True,71.69053092975557,73.95933492434796,73.9893200733108,73.98703552011625
+ed5u59i,Maybe [NAME].,0,anger,1,fear,False,27.798995278088782,27.755378263538176,27.785363412501013,27.783078859306464
+ed7rdog,I don't know any but my own I'm afraid.,1,fear,2,joy,False,89.91144620278962,90.86309911335545,89.16324703111371,90.15619717529718
+edm95ms,If that’s true it’s very desperate. You would think he had some better way of communicating.,3,sadness,1,fear,False,175.65165659268013,175.60803957812954,175.63802472709236,175.63574017389783
+eedop51,Because the hierarchy is afraid they’ll get burned.,1,fear,1,fear,True,92.48453460322249,92.44091758867188,92.47090273763472,92.46861818444017
+eeitn01,"Not at all. It's great of course for financial reasons, but it then makes me worried about how much time she'll have for a relationship.",3,sadness,1,fear,False,240.33957856912485,239.29596155457426,240.3235640522261,240.32366215034256
+ede5aoj,"Matchroom squad dismiss [NAME] as not existing anymore, the sky media influence is scary ",1,fear,1,fear,True,138.68849126403228,138.6448742494817,138.6748593984445,138.67257484524998
+ef4n4vp,"Unfortunately for you, no one of importance cares about your absurd views. ",3,sadness,1,fear,False,120.20929125101937,120.16329158515776,120.1932767341206,120.19575748354805
+eevyzvq,"I provoked by breathing too hard. And yes, I hate that. ",0,anger,0,anger,True,108.39779024120726,109.34229912636837,108.64006439281565,108.6401624909321
+eempufb,Fuuuuuck. That’s the worst I’ve seen.,0,anger,1,fear,False,83.24374327106052,83.20012625650992,83.23011140547275,83.22782685227821
+eev5q9y,"College is a very lonely place. Very stressful, very lonely. [NAME]. Good luck out there man.",3,sadness,1,fear,False,157.1724565796672,157.1264569138056,157.15644206276843,157.1565401608849
+efbbztw,Someone with erectile dysfunction already can't (conventionally) orgasm. What the fuck are you talking about?,0,anger,1,fear,False,146.93404789881623,146.89043088426564,147.91565073060647,147.91336617741194
+ed00rv5,This is creepy.,1,fear,1,fear,True,35.04455191287273,35.00093489832212,36.02853739597396,37.026252842779414
+ed8yt80,Sorry you had to live there. Good news is they are demolishing it in 2020.,3,sadness,1,fear,False,147.93166524750524,147.88566558164365,147.91565073060647,147.91336617741194
+edqxehq,Well the good news is once all the boomers die off you won't have any pesky old people to blame anymore.,2,joy,0,anger,False,202.376413240477,203.33041357461542,203.36039872357824,203.35811417038371
+efcwwfj,Yeah thank you you ungrateful bast.....,0,anger,2,joy,False,64.7621606067366,64.718543592186,63.75091139245983,64.74624418795429
+eduwluz,Well [NAME] made me laugh,2,joy,0,anger,False,54.52375192588564,55.47775226002404,55.50773740898688,55.50783550710332
+ee9b5a6,"""Here's your fucking well done with pink in the center [NAME], jsut like youre stupid fucking table wants!""",0,anger,1,fear,False,175.65403924399112,175.60803957812954,175.63802472709236,175.64050154799153
+ef9xt3b,"Honestly, I'm just happy I got traded to you guys, rather than a team like the Leafs or H*bs",2,joy,1,fear,False,194.13323925700405,194.09200489376445,194.11960739141628,194.11732283822175
+ed1amhd,If it's true i'm sad he's leaving but I wish him nothing but the best.,3,sadness,1,fear,False,147.92928259619424,147.88566558164365,147.91803338191747,147.91336617741194
+eex3krx,[NAME] wept.,3,sadness,0,anger,False,26.218794151461353,27.755378263538176,26.78774606381201,27.783078859306464
+edvey02,"If I ever see that in my area, that will be a bullet to the head. Fuck Reddit's rules.",0,anger,0,anger,True,183.89721322746408,184.8512135616025,184.8835813618763,184.8789141573708
+ed3w5cd,"It will be carefully tailored to piss their parents off, which I will enjoy greatly :-)",2,joy,3,sadness,False,147.93166524750524,146.88804823295465,147.91565073060647,146.3331650507845
+edclugt,These refs are remarkably terrible tonight. So are the sabres but wow some terrible calls.,1,fear,1,fear,True,147.93166524750524,147.88566558164365,147.91565073060647,147.91336617741194
+ed3iidx,"""Moose killed my parents.""",0,anger,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+edkk0e0,This made my rainy day,2,joy,1,fear,False,54.52375192588564,54.480134911335035,54.51012006029787,55.50545285579233
+efetssk,Ouch. Hurts because it's true.,3,sadness,1,fear,False,55.521369274574646,55.47775226002404,55.50773740898688,55.50545285579233
+edv3o9n,Feels good man,2,joy,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+edvdy44,Threatening to drive your sisters into the ocean is illegal. It's called making a terroristic threat or menacing and can cause her to lose access to your sisters,1,fear,1,fear,True,268.05956991429974,268.01595289974915,268.04593804871195,268.04365349551745
+edpt47k,I’m sorry but [NAME] has better memes,3,sadness,0,anger,False,80.67065487062766,81.62230778119348,80.92007304764076,80.91778849444621
+eeu4dq8,> pushed all of them Hey dumbass you pushed the emergency button,0,anger,1,fear,False,110.96611726754641,110.9225002529958,110.95248540195864,110.9502008487641
+edjhfz7,At home with a viral infection right now! Praying for death and to the god of paracetamol. Ugh.,3,sadness,1,fear,False,175.65165659268013,175.60803957812954,175.64040737840335,175.63574017389783
+eea2j7t,i hate [NAME] and 20 good men,0,anger,0,anger,True,69.84966241183827,72.37913379772053,71.6768990641678,70.67699716228425
+ed038bu,I didn’t know I’m sorry,3,sadness,0,anger,False,71.4298635384657,72.38389910034252,71.6792817154788,71.67699716228425
+edegdbo,"None, I know nobody or have anyone nearby who can help.",3,sadness,1,fear,False,110.9684999188574,110.9225002529958,110.95248540195864,110.9525835000751
+eec4yxi,"Any one of us could be a journalist, and that level of journalism feeding the masses is mildly scary.",1,fear,1,fear,True,184.89721322746408,184.8488309102915,184.88119871056531,184.8789141573708
+edf9nth,How tf do you not expect people to find them they're the first things that show up when you search joji,0,anger,0,anger,True,202.378795891788,203.33041357461542,203.36039872357824,203.3604968216947
+eelix3n,Don't you're making me paranoid man,1,fear,1,fear,True,64.7621606067366,64.718543592186,64.74852874114883,64.74624418795429
+ee47wii,Wtf? Really?,0,anger,1,fear,False,27.798995278088782,27.755378263538176,27.785363412501013,27.783078859306464
+edi3w9p,"Anti-vaxers aren't funny anymore, now they're just scary...",1,fear,1,fear,True,92.48453460322249,92.44091758867188,92.47090273763472,92.46861818444017
+eek35cr,NEVER RUNNING FROM A REAL FIGHT!,0,anger,1,fear,False,64.7621606067366,64.718543592186,64.74852874114883,64.74862683926528
+edxyu9t,So what you are saying is that you are not a serious guitarist is you use finger guards?,0,anger,1,fear,False,175.65642189530212,175.61518753206252,175.64755533233634,175.63574017389783
+edlk9z2,I miss [NAME],3,sadness,0,anger,False,34.46669820981787,35.4159684690727,34.71373373551998,34.71144918232543
+efgeoye,Reading this made me happy and I don't even know you. Keep doing your thing!🙌🏼,2,joy,1,fear,False,147.93166524750524,147.88566558164365,147.91803338191747,147.91813148003394
+edpnqu4,I wanna die!,3,sadness,0,anger,False,34.46669820981787,35.4159684690727,34.71373373551998,34.71144918232543
+eer7ups,Wow... I’m so glad that my dog is lazy like me.,2,joy,1,fear,False,120.20690859970837,120.16805688777976,120.1956593854316,120.19337483223705
+ed7t8y6,Beast milk. My favourite!,2,joy,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+efgqmll,-9 and I’m out shopping. Sun is out feels great.,2,joy,1,fear,False,110.96611726754641,110.9248829043068,110.95486805326964,110.9525835000751
+edtikix,I heard the ostrich was sick.,3,sadness,0,anger,False,62.189072206303734,63.138342465558566,62.436107732005844,62.433823178811295
+edw6wjq,"ah, it does me heart good to see NIMBYs in the wild",2,joy,2,joy,True,120.20690859970837,120.16329158515776,119.1956593854316,120.19813620633077
+edw2nto,I do remember this and wanted nothing more than to kill that guy,0,anger,0,anger,True,126.87461153143747,127.8238817906923,127.12164705713957,127.11936250394503
+edcjfei,Can't relate because the sadness and loneliness is constant 😎,3,sadness,1,fear,False,92.48453460322249,92.44091758867188,92.47090273763472,92.46861818444017
+edhfomd,"It's good though because itll make you cherish the happy times while youre in them, instead of lookinf back on them.",2,joy,0,anger,False,202.376413240477,203.33041357461542,203.36039872357824,203.35811417038371
+edj3f5m,Holy shit bro,0,anger,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+eev6gpc,Just reading this makes me sick,3,sadness,2,joy,False,64.7621606067366,64.718543592186,63.1683276145214,64.74624418795429
+ee6qy6d,I remember running into teachers at the grocery store or whatever when I was a little kid and having that same feeling!,2,joy,0,anger,False,210.0464988235171,210.99815173408294,210.2959170005302,210.28886714471366
+ee2907w,This is terrifying,1,fear,1,fear,True,35.04455191287273,34.00331754963312,36.02853739597396,37.026252842779414
+edkts4d,Yikes. This kind of freaks me out.,1,fear,1,fear,True,74.00295193889856,73.95933492434796,73.9893200733108,73.98703552011625
+ed6rodh,Read divorce busting and kill all marriage counselors. As much as it sucks...youve been given a gift by him giving you time.,0,anger,1,fear,False,221.85561325348993,221.81199623893934,221.84198138790217,221.83969683470764
+ee7ezvs,It is genuinely hard to imagine what the Magic basketball experience will be like when these two legends are no longer in their roles.,3,sadness,1,fear,False,231.1011698882739,229.0599355250343,231.08277272006413,229.50743106564687
+eezix0c,Just get him out of my sight I’m tired of losing and those who contribute to it,0,anger,0,anger,True,173.6588045466131,175.61042222944053,174.06020625177592,175.64050547651982
+edotntk,"Yo where they at, I want to celebrate with them.",2,joy,1,fear,False,101.72770858669544,101.68170892083384,101.71169406979668,101.70940951660214
+edg5ose,Please post any news you may find about her fate. This is so sad and so wrong. We need to know what happens to her.,3,sadness,1,fear,False,240.33957856912485,240.29596155457426,240.32594670353708,240.33081010427554
+ef0c1vh,THIS IS TRAUMATISING,3,sadness,1,fear,False,35.04455191287273,35.00093489832212,36.02853739597396,37.026252842779414
+eedhapw,"Thoughts and Prayers... Go get fucked, fascist redneck scum!",0,anger,1,fear,False,92.48453460322249,92.44091758867188,92.47090273763472,92.46861818444017
+edw7tfe,"This is something kids do on their twitch streams to get subs, pretty sad.",3,sadness,1,fear,False,136.69325656665427,136.64963955210368,137.6772420497555,138.67495749656098
+edi0iyi,"How dare you, she's in your flair too!",0,anger,1,fear,False,83.24374327106052,83.20012625650992,83.23011140547275,83.22782685227821
+edk8sml,"The wage, you Fucking troll. But you don't care do you? See your post history.",0,anger,3,sadness,False,146.93166524750524,147.88566558164365,146.91803338191747,146.9157488287229
+ee07cnm,Happy MLK day,2,joy,2,joy,True,37.03978661025074,36.99616959570013,36.02853739597396,37.02387019146842
+ef3ti8c,"I’m scared of shots, but I’m more scared of dying. What Anti-vaxxers are scared of is autism",1,fear,0,anger,False,191.5601508565712,192.51418641844802,191.8143343362063,191.80966713170073
+eeu0cdq,Glad someone brought that up.,2,joy,2,joy,True,55.521369274574646,55.480134911335035,54.51012006029787,55.50545285579233
+edxjj1s,"Firm, but gentle. Baby hamsters or live goldfish. Soft female hands caressing my balls is a wonderful feeling. ",2,joy,1,fear,False,175.65403924399112,175.60803957812954,175.63802472709236,175.63574017389783
+eeykr1i,you dirty karma theft,0,anger,0,anger,True,43.968156933269704,46.236960927862086,46.26694607682492,46.26466152363037
+ee2n1yl,No because thats stupid,0,anger,2,joy,False,45.282960593723686,46.236960927862086,44.68674495019749,46.26466152363037
+edhaghb,This is exactly what it's been like. I feel personally victimised by it all,3,sadness,1,fear,False,136.69325656665427,136.64963955210368,137.6772420497555,138.67734014787197
+edbyeqs,Enjoy it! You have a good one for your first!,2,joy,2,joy,True,101.73246211666608,101.68170892083384,100.71884202372966,101.70940951660214
+ef1wsmt,Keep going man. I’ve been enjoying reading your posts. All the best!,2,joy,1,fear,False,129.44769993187032,129.40408291731973,129.43406806628255,129.43178351308802
+ef0ekxx,What a beautiful memory for you to have found. So sorry for your loss ❤️,3,sadness,1,fear,False,137.69087391534327,137.64725690079268,138.6796247010665,138.67257484524998
+edi86iy,Honestly his post was a little sad. The fact that it got upvotes makes me want to avoid this sub over the summer.,3,sadness,3,sadness,True,221.85799590480093,221.81676154156133,220.84912934183515,220.8444621373296
+ef8g3xn,Yeah that was inexcusable,0,anger,2,joy,False,46.282960593723686,46.23934357917308,45.26932872813592,46.26466152363037
+ed71zss,I for one am happy for [NAME] ballin out. Now let's go win this game !!!!,2,joy,0,anger,False,145.3561941957614,146.30546445501622,145.6032297214635,145.60094516826894
+edp09u3,"Sad, but American",3,sadness,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+eek85lm,Outrage over something that isnt even true. Thats sad man Edit: well the bandwaggoning part is true,3,sadness,1,fear,False,166.41086526051816,166.36724824596757,166.3972333949304,166.39494884173587
+ee0xvmh,This makes me so happy!,2,joy,1,fear,False,54.52375192588564,54.480134911335035,54.51012006029787,55.50545285579233
+edanmu0,Yeah... THEY are the one looking for attention. This type of comments should be ignored. I hate troll comments.,0,anger,2,joy,False,184.9043572528688,184.8488309102915,183.88119871056531,184.8789141573708
+ee7s1jk,"Hold my wine, I have to go vomit in sorrow. ",3,sadness,1,fear,False,101.73008730947818,100.68647422345583,101.71169406979668,101.70940951660214
+edjw23t,"Just like that fucking idiot that was just trying to kidnap that woman, and chased her into a Karate studio... turned out just about the same.",0,anger,2,joy,False,249.5851352039088,249.53913553804722,247.99129828316535,249.56207083119352
+eeoi9xd,This just makes me feel inferior at this point.,3,sadness,1,fear,False,91.48691725453348,90.44806554260487,91.47328538894571,92.46861818444017
+eejga22,Hurr durr everyone needs to worry about other people’s problems,3,sadness,1,fear,False,110.96611726754641,110.9225002529958,110.95248540195864,110.9502008487641
+edx6l0q,"Haha, some days I channel Dory from finding nemo- ""Just keep swimming, just keep swimming"". Glad to hear you have a break coming. ",2,joy,1,fear,False,221.86274943477156,221.81199623893934,221.84436403921316,221.83969683470764
+eemvd5h,Scary stuff.,1,fear,1,fear,True,27.798995278088782,27.755378263538176,27.785363412501013,27.783078859306464
+edp9hn5,"Yeah, sadly, looks like this champ will be pretty opressive. ",3,sadness,2,joy,False,101.72770858669544,101.68170892083384,100.71407672110767,101.70940951660214
+edt92z8,"Yeah I know what you meant. Fuck the police, most of them are vile pieces of shit, they deserve every kick in the back they get.",0,anger,2,joy,False,249.5827525525978,249.53437023542523,247.57150333832104,249.57159750790925
+eepo2rm,Meanwhile my sister won’t even hug my goodbye when I drop her off at school.,3,sadness,1,fear,False,157.1700739283562,157.1288395651166,157.15882471407943,157.1541575095739
+edkdcgk,I'm happy I live in a country where machete attacks don't have to be a real concern.,2,joy,3,sadness,False,166.41324791182916,165.37201354858956,165.40676400017438,164.8171303664194
+ed3klo0,Couldn't have happened to a nicer person.,3,sadness,1,fear,False,74.00295193889856,73.95933492434796,73.9893200733108,73.98703552011625
+eepefiy,THIS MADE ME CRY,3,sadness,1,fear,False,45.282960593723686,45.23934357917308,45.26932872813592,45.269426826252364
+eczkjma,Are you daft ... ? That is and always has been the proposal. [NAME] don't listen and don't care though. Fucking dumbass.,0,anger,1,fear,False,194.13323925700405,194.09200489376445,194.11960739141628,194.11970548953275
+eeah80k,Glad he survived or it might have become a *dead*lift.,2,joy,2,joy,True,110.96611726754641,110.9225002529958,109.95725070458063,110.9502008487641
+eelr0wx,"I stand corrected. As I said, wonderful charities. I will always enjoy GDQ, just not revalant to my experience.",2,joy,0,anger,False,182.31935952440924,183.26862978366407,182.56877770142233,182.56411049691678
+ef2mfzy,I don't feel so financially secure,1,fear,0,anger,False,62.189072206303734,63.138342465558566,62.43849038331684,62.433823178811295
+eeiqkjv,"😂 i need one too i’m on break and honestly my life revolves around reddit at this point, cake day is special enjoy it! ",2,joy,1,fear,False,228.52569883653004,228.48211704971786,228.77749573632587,228.77283246034858
+efecbk3,[NAME] FIRED.,0,anger,0,anger,True,26.218794151461353,27.755378263538176,26.78774606381201,27.783078859306464
+ee5oo2m,Except [NAME] still went with the happy ending instead of ending it at the Aningaaq scene.,2,joy,2,joy,True,157.1724565796672,157.1264569138056,156.15882471407943,157.1565401608849
+ed2c5f7,"""You can't stop me"" Ah yes, those playful words when referring to a sexual act...",0,anger,0,anger,True,145.61924423836226,147.88566558164365,147.91565073060647,147.91336617741194
+eex15d6,I feel so bad for [NAME]. It was probably hard to concentrate on this match with the things going on in his personal life,3,sadness,3,sadness,True,228.52569883653004,229.47258644447388,228.77273436223214,226.77521511165958
+ef6kojt,I would play the fuck out of this game,0,anger,0,anger,True,89.91621150541161,90.86309911335545,90.15848172849172,90.15857982660818
+ed50yyw,"Those are different, you don't tie that shit to the weakest part, they just stay on there by magic",0,anger,1,fear,False,184.89483057615308,184.8488309102915,184.88119871056531,184.8765315060598
+eeiyx66,"Wow, so he was pulling his own little mini [NAME] scam. Explains why he couldn't use your reporting tool.",2,joy,1,fear,False,184.8924479248421,184.8488309102915,184.87881605925432,184.8765315060598
+efbi2bv,I'm really happy he and [NAME] are finding success,2,joy,3,sadness,False,92.48453460322249,91.44330023998288,91.47328538894571,90.88841705781273
+ed3z4b8,"This happens to me all the time I’m so sorry 😣 it’s always with burgers, too. So painful. ",3,sadness,1,fear,False,183.89483057615308,183.8535962129135,183.8835813618763,184.8789141573708
+edf1gzs,"BEN ""[NAME]"" LOVEJOY!",0,anger,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+edc8jzv,I punch them in the throat before they get the chance to speak.,0,anger,0,anger,True,126.87461153143747,127.8238817906923,127.12164705713957,127.12412387803874
+edy7ngu,"Very cool toys, very cool video, very cool hostd",2,joy,1,fear,False,92.48453460322249,92.44091758867188,92.47090273763472,92.46861818444017
+ef3hloa,">the decades after WWII That includes 1950. If you want to insult me, read your own fucking post first",0,anger,2,joy,False,183.89483057615308,184.8488309102915,183.88119871056531,183.88129680868175
+eeg14j5,"I want to go scuba diving so bad, but swimming in anything bigger than a pool terrifies me.",1,fear,0,anger,False,173.08095084355827,174.0302211028131,173.32560371794938,173.32331916475482
+edlzkq1,I enjoy that general area. Sections 203-205 are good sections pricewide and view wise,2,joy,0,anger,False,145.3561941957614,146.30546445501622,145.6032297214635,145.60094516826894
+ee2gc6b,"sadly it would take wayyyyyy more than this to ever change custody agreements. documenting it for her own sanity is a good idea, though.",3,sadness,3,sadness,True,231.0987872369629,231.0527875711013,231.08515537137512,229.50505234286413
+eeqogg9,"It was SO hard to click the upvote button on this one. It's one of those ""I hate it. Well done"" moments.",0,anger,3,sadness,False,212.6219659467327,211.57358755808838,212.6059553583622,211.0258523298512
+edc8vp2,"I doubt people are *happy*, but they probably aren’t sad about someone who was potentially endangering others through their anti-science views.",3,sadness,0,anger,False,219.28490750436808,220.23179511231191,219.5295603787592,219.52965847687562
+ee7eze4,I wanna die I don't wanna live anymore I really wanna die so bad Please return me to the dark abyss I long for death’s sweet kiss,3,sadness,0,anger,False,265.48648151386686,266.4357517731217,265.740664993502,265.73123248637444
+edy973x,Maybe so. Should I try to ask her about it? I'm worried that will only scare her more,1,fear,1,fear,True,175.65403924399112,175.61042222944053,175.63802472709236,175.63574017389783
+ed1oiyg,Going to my favorite greasy burger place in Madison tonight to celebrate my ability to eat delicious burgers whenever I want because I'm in my early 20's,2,joy,1,fear,False,258.8235438847598,258.7775442188982,258.807529367861,258.8052448146665
+ef7vxhx,I’m always reminded by my relatives on my birthday asking me if I have a girlfriend yet. Sorry bro ima yeet out of the social norm.,3,sadness,0,anger,False,254.68452672026274,257.1973430922707,256.497491010029,256.49520645683447
+eduyvb4,I live in Canterbury haha,2,joy,0,anger,False,52.94828087414178,53.89755113339661,53.19531639984389,53.19303184664934
+eeyyq99,Happy Together. It feels so natural.,2,joy,2,joy,True,64.7621606067366,64.718543592186,63.75091139245983,64.74624418795429
+ef4x5ph,Glad I tend to post pics of my cats and not myself.,2,joy,2,joy,True,120.20929125101937,120.16329158515776,119.20042075952531,120.19099218092606
+edayjff,Oh hell yeah,0,anger,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+edlqicf,i'm enjoying this so much,2,joy,3,sadness,False,55.521369274574646,54.480134911335035,54.51012006029787,53.92525172916489
+eem5k1k,I don’t like [NAME] in the slightest but I hate [NAME] even more. Get her Belcalis,0,anger,1,fear,False,163.84492088549,162.79419114474484,164.0871950370984,164.0896718579976
+eetgbyi,Kick him out. Overgrown baby.,0,anger,1,fear,False,55.521369274574646,55.47775226002404,55.50773740898688,55.50545285579233
+edc4l1j,"It's like an Arts school but with dangerous, easily weaponizable spells being flung all over the place!",1,fear,0,anger,False,165.41324791182916,166.36724824596757,166.3972333949304,166.39494884173587
+eevwgbf,I do this but but feel better in the end because I use it for procrastination. It's a weird combinational to feel better and worse while cleaning.,0,anger,0,anger,True,256.2456901817049,257.19496044095973,256.495108358718,256.4952025283062
+edtejkr,Such bullshit. Reloading components included? Not that they'd let that stand in subsequent laws if it is.,0,anger,1,fear,False,166.41086526051816,166.36963089727857,166.3972333949304,166.3997102158296
+ed2g85q,Found my flair.,2,joy,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+eeu3zv0,Way too much fuuuck,0,anger,1,fear,False,46.28057794241269,46.236960927862086,46.26932872813592,46.26466152363037
+edlpzp9,"As an [NAME], I apologize for the cranky old conservatives who are probably making ridiculously uninformed comments about your country right now :/",3,sadness,3,sadness,True,212.61482192132797,212.57120490677738,212.6011900557402,211.60128815385664
+edfcumq,"This hits hard, sadly both of my relationships have been toxic so I've decided not to start any new ones until I start going to uni ",3,sadness,1,fear,False,248.5851352039088,248.53675288673622,248.56673803569905,249.56207083119352
+ee7nerz,You don't really work for the TSA if they aren't paying you. You are a slave. Go home.,0,anger,0,anger,True,173.33923558353715,175.61042222944053,175.64040737840335,175.63574017389783
+eff6flv,I'm more worried about it randomly saying daddy across the top ... Like that's normal,1,fear,3,sadness,False,138.68849126403228,137.64725690079268,137.6772420497555,137.09237371862253
+ee1evdb,Its hard to explain i feel everything is distant.,3,sadness,2,joy,False,92.48453460322249,92.44091758867188,91.47328538894571,92.47338348706216
+edy5dg0,"Seriously, it really made me happy! I hope when OP scrolled through she felt a little tingle of happiness too.",2,joy,1,fear,False,194.13323925700405,194.08962224245346,194.11960739141628,194.12208814084374
+ed6vcfh,That all-star who won the calder,2,joy,1,fear,False,73.00533459020956,72.37913379772053,72.99170272462179,72.98941817142723
+ef629xy,This is a hate sub,0,anger,0,anger,True,52.52851722850763,53.48251756264603,54.51012006029787,55.50783550710332
+ef9vgw2,I was JUST thinking about how much I enjoyed Swalla la laaaa last night too!,2,joy,2,joy,True,145.3561941957614,146.30784710632722,144.60799502408548,145.60094516826894
+eeo2054,They are all good right now. Pick the one that interests you and enjoy yourself.,2,joy,1,fear,False,147.93404789881623,147.88566558164365,147.91565073060647,147.91336617741194
+ed3hg8c,I'm just glad we'll be getting either [NAME] or [NAME]. They both seem like they'll be beasts and it'll fill our greatest position of need,2,joy,3,sadness,False,240.33719591781386,239.29596155457426,239.32594670353708,238.7410783724041
+eecxvy7,"I see notifications of people commenting the source but this sub must auto delete or something. Sorry, guys. I binged her and found me quick though. ",3,sadness,0,anger,False,246.00728150085396,247.9565517601088,247.25193437524507,247.2520324733615
+ee3o6qp,I know it's like this hipster phrase it's so stupid like you're not from the south you dumb motherfuker.,0,anger,0,anger,True,182.32174217572023,183.26862978366407,182.56877770142233,182.56887579953877
+edtgrhv,what the fuck do you learn in first grade that’s so important anyway?,0,anger,1,fear,False,136.69563921796527,135.65202220341467,138.6748593984445,138.67257484524998
+eegn6i5,">Have a good time debating the people in your head, looks like you're having fun.",2,joy,2,joy,True,147.9364187774759,147.88566558164365,146.92041603322846,147.91336617741194
+eecg2ly,"What a horrible way to find out, though. My sympathies to the dead man.",1,fear,1,fear,True,137.69325656665427,137.64963955210368,138.6796247010665,138.67257484524998
+ef3uxax,It was received on Jan 25th at 9:22 am .81627 BTC and $3800. for it with a $600. fee. Happy!,2,joy,3,sadness,False,203.374030589166,202.33279622592642,203.36278137488924,201.77791304375626
+ed7lqu4,Ded game we should be happy we have a new hero,2,joy,2,joy,True,110.97563610013903,110.9225002529958,109.95725070458063,110.9502008487641
+ee0ug24,His smile is so damn creepy,1,fear,1,fear,True,64.7621606067366,64.718543592186,64.74852874114883,64.74862683926528
+edx1m4z,I would say make it NSFW but I won't joke. We don't work here,0,anger,0,anger,True,136.11540286359943,137.06467312285426,136.36482104061253,136.36015383610697
+ee9wkpl,"BOUNDARIES. have some boundaries. say no. don't go. this is frustrating to read, honestly. don't do things that you hate doing.",0,anger,1,fear,False,203.376413240477,203.33279622592642,203.36039872357824,203.3604968216947
+eelehyb,"The constant pressure definitely isn't helping. I'm already on anti-depressants, but I am terrified of PPD.",1,fear,3,sadness,False,165.41324791182916,166.36963089727857,165.4019986975524,165.39733149304683
+eerfyqo,"Omg enough of all the damn hashtags, it’s not 2016 anymore",0,anger,1,fear,False,120.20690859970837,120.16329158515776,120.1932767341206,120.19099218092606
+edxoipc,I literally cried out IS THAT MATT BERRY?!?!?!?!?!,3,sadness,0,anger,False,80.67065487062766,81.62230778119348,80.91769039632976,80.91540584313522
+efdv7m4,Damn. As a [NAME] [NAME] I fear who the last Greek restauranteur in this death triangle will be :(,1,fear,1,fear,True,175.65642189530212,175.60803957812954,175.63802472709236,175.63574017389783
+edziqjn,"Take a note to PM me if you do, I'll happily pay for one!",2,joy,1,fear,False,138.68849126403228,138.6448742494817,138.6748593984445,138.67257484524998
+edp7quw,trailer fabulous!!! i miss it,3,sadness,1,fear,False,55.521369274574646,55.47775226002404,55.50773740898688,55.50545285579233
+ef4litv,"If you have schools in your city, I got bad news for ya champ...",3,sadness,1,fear,False,138.68849126403228,138.64725690079268,138.6748593984445,138.67257484524998
+edihnax,"The attraction and the action are two separate things, and you know that. No one chooses who they are attracted to. Stop it. ",0,anger,2,joy,False,220.8675265100449,221.81199623893934,220.84436403921316,220.8468447886406
+eeidamx,"For the people and finding out how they end up? Sure. Other than that, it’s not great. Frustrating at best. ",0,anger,1,fear,False,203.374030589166,203.33041357461542,203.36039872357824,203.35811417038371
+efa5ht4,>cat beby the fuck is wrong with you,0,anger,1,fear,False,82.24850857368251,82.20489155913191,83.23011140547275,83.23020950358921
+edokegg,"America is not a country, it's a fucking business. if you have zero money, no one cares about you.",0,anger,2,joy,False,184.8924479248421,184.8488309102915,183.8835813618763,184.8789141573708
+ee6iphy,WHAT THE HELL!,0,anger,1,fear,False,36.04455191287273,35.00093489832212,37.02615474466297,37.02387019146842
+eff3mwu,Oh. Sorry.,3,sadness,1,fear,False,27.798995278088782,27.755378263538176,27.785363412501013,27.783078859306464
+ed9vbms,they dont pay shit,0,anger,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+eczfbty,happy new year buddy!,2,joy,2,joy,True,46.28057794241269,46.236960927862086,45.26932872813592,46.26466152363037
+eetfduz,16-37 and 25 fta. [NAME] is so fucking overrated. Volume chucker/flopper in a fast paced no defense league.,0,anger,1,fear,False,194.13323925700405,194.09200489376445,194.12199004272728,194.12208814084374
+edng1aq,"Today's Recaptchas were fun. I'm very good at identifying store fronts, apparently...",2,joy,1,fear,False,120.20690859970837,120.16329158515776,120.1932767341206,120.19099218092606
+eec8s5u,Cheers lad :),2,joy,2,joy,True,27.798995278088782,27.755378263538176,26.78774606381201,27.783078859306464
+eczl4db,The third period is going to be uncomfortable and I preemptively hate it.,0,anger,3,sadness,False,128.4548478858033,129.40408291731973,128.43883336890454,128.434166164399
+ed6pkzv,"holy shit that's bad, maybe the extremist right can't meme either?",0,anger,1,fear,False,110.96611726754641,110.9225002529958,110.95248540195864,110.9502008487641
+ef67xn0,"Omg, unbelievably scary. Insane ",1,fear,1,fear,True,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+edinn3n,I think the biggest fucking thing is that apparently reaper has a goddamn family himself.,0,anger,0,anger,True,145.35857684707238,146.30784710632722,145.6032297214635,145.60094516826894
+ee31iqr,THATS WHAT SHE SAID...HAHAHAHAHAHAHA!,2,joy,1,fear,False,55.521369274574646,55.47775226002404,55.50773740898688,55.50545285579233
+efbm1g4,"Nihilism makes me happy, but I know that’s just my opinion.",2,joy,1,fear,False,120.20929125101937,120.16329158515776,120.1956593854316,120.19337483223705
+edjl93i,Glad I took the 1st half spread,2,joy,2,joy,True,74.00295193889856,73.95933492434796,72.9964640987155,73.98703552011625
+ee75uj1,Fuck a newspaper,0,anger,0,anger,True,35.04692279153237,36.99616959570013,37.02615474466297,37.02387019146842
+ee1z4ot,Still is glitched to this day.... sad,3,sadness,1,fear,False,74.00295193889856,73.95933492434796,73.9893200733108,73.98703552011625
+ed5zozk,"Bro, he left his team in the middle of the game... idc what argument you have with [NAME] you still left your team.",0,anger,3,sadness,False,221.86037855611193,221.81199623893934,221.84198138790217,220.84922351142333
+ed96sxm,"Yeah, he does. Just because he draws different conclusions than you doesn't mean he isn't reading [NAME]. Get out of your little bubble.",0,anger,2,joy,False,220.86276120742292,221.81437889025034,220.84436403921316,221.83969683470764
+ee4miqe,Fuck so obvious,0,anger,0,anger,True,35.04692279153237,36.99616959570013,37.02615474466297,37.02387019146842
+edeutkm,So you then took that lie and began aggressively cheating on him? Your post history. Wow.,0,anger,1,fear,False,157.1700739283562,157.1264569138056,157.15644206276843,157.1541575095739
+efc3kii,"Aaaand I'm still here. I don't have a alt account but whoever you reported I""m sure is alive and well. You're terrible.",1,fear,1,fear,True,221.86274943477156,221.81437889025034,221.84912934183515,221.84207948601863
+ef09k1c,Im so sad how that movie turned out. We could have achived something good,3,sadness,1,fear,False,138.68849126403228,138.6448742494817,138.6748593984445,138.67495749656098
+edrb24b,I beat my dad,0,anger,0,anger,True,43.707489541979825,44.65675980123466,43.954525067681935,43.952240514487386
+edwcpgk,Except forming an opinion of a topic without even having basic knowledge of said topic makes you sound pretty arrogant and entirely undercuts your opinion.,0,anger,2,joy,False,240.33957856912485,240.29357890326327,239.32594670353708,240.32127949903156
+efdqjsb,Worried me there,1,fear,1,fear,True,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+ee7g7q2,Help me [NAME] I'm bully in high school for no reason.,1,fear,1,fear,True,110.96611726754641,110.9225002529958,110.95248540195864,110.9525835000751
+edcqf5m,that was so sad :(,3,sadness,1,fear,False,44.28534324503468,43.65914245254565,45.26932872813592,45.269426826252364
+eevkkqw,I thought that type of camouflage failed horribly because the high contrast and defined shapes made the ships really stand out.,1,fear,0,anger,False,200.80094218873316,201.750212447988,201.04797771443526,201.0480758125517
+ef32sdd,I'm literally screaming.,3,sadness,3,sadness,True,37.03978661025074,35.998552247011126,36.02853739597396,35.44366906484098
+ee2rrgs,No you are providing more than enough evidence. Post histories do exist. Now fuck off.,0,anger,2,joy,False,146.93404789881623,147.88804823295465,146.33783225529004,147.91336617741194
+eens4w2,Damn [NAME] is KILLING it,0,anger,1,fear,False,55.521369274574646,55.480134911335035,55.51012006029787,55.50545285579233
+ede81cn,Sadly there's a good chance that you still need a car anyway because that affordable neighborhood will involve a one hour commute.,3,sadness,3,sadness,True,212.61720457263897,212.57120490677738,212.6035727070512,211.01870437591822
+ed6syhw,You fool! Now look what you've unleashed!,0,anger,0,anger,True,71.69291358106656,73.95933492434796,73.9893200733108,73.98703552011625
+een4s88,[NAME] is a MOTHERFUCKER,0,anger,2,joy,False,44.70275946709626,46.23934357917308,44.27171137944691,46.26466152363037
+eevcnj0,Quite enjoying this tbh,2,joy,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+eelv98w,Damned asshole trouble maker!! Someone has mummy issues. 👀,0,anger,1,fear,False,83.24374327106052,83.20012625650992,83.23011140547275,83.22782685227821
+eezsr2a,Soooo [NAME] is f**ked,0,anger,1,fear,False,55.521369274574646,55.480134911335035,55.51012006029787,55.50545285579233
+eewzmut,Is this a real thing? I'm a terrible stoner.,1,fear,1,fear,True,92.48453460322249,90.44568289129387,92.47328538894571,92.46861818444017
+ed7bg7i,It's honestly the best news I've heard all season.,2,joy,0,anger,False,91.48691725453348,92.44091758867188,92.47090273763472,92.46861818444017
+eeo6ius,What the frick. I ordered a x box card,0,anger,1,fear,False,91.48929990584448,90.44568289129387,92.47090273763472,92.46861818444017
+eecrq51,"Tranlated: Wooooo be afraid of the spooky ""shadowban"" so don't do the thing that gets your message to a wider audience. Smh",1,fear,1,fear,True,212.61958722394996,212.57358755808838,212.6011900557402,212.60128815385667
+edk6gbr,"Calm down snowflake. Comment stalking from a week ago is really sad, especially when you're whining about something that I'm 100% right on. ",3,sadness,1,fear,False,221.85561325348993,221.81199623893934,221.84198138790217,221.84446213732963
+eems49s,Feels good getting a number next to our name again.,2,joy,1,fear,False,101.72532593538445,101.68170892083384,101.71169406979668,101.70940951660214
+ee92had,So this is how democracy dies... With thunderous upvotes.,0,anger,1,fear,False,92.48691725453348,92.44330023998288,92.47090273763472,92.47100083575117
+eep6w1l,Fuck [NAME] pai,0,anger,0,anger,True,35.04692279153237,36.99616959570013,37.02615474466297,37.02387019146842
+ed2hvlf,Any rap song because I hate it,0,anger,1,fear,False,74.0077133129923,73.95933492434796,73.9893200733108,73.98941817142725
+efh50bc,That’s horrible. What country? If you don’t mind. My [NAME] was abused by her heavily religious (Pentecostal) father.,1,fear,1,fear,True,193.13800455962604,192.51418248991973,193.12199004272728,193.11970548953272
+edbyvi1,> punishment for saying no to rape Surely if you wanted to rape someone you'd have to punish them for saying yes...,0,anger,1,fear,False,203.374030589166,203.33279622592642,203.36039872357824,203.35811417038371
+eeecutl,What the hell was that,0,anger,1,fear,False,54.526134577196636,53.48251756264603,55.50773740898688,55.50545285579233
+eezzt7a,You are fucking retarded,0,anger,0,anger,True,43.968156933269704,46.23934357917308,46.26932872813592,46.26466152363037
+edm9lwz,Your manager sounds like an idiot. Not saying he/she is. Just sounds like it from this.,0,anger,1,fear,False,166.41563056314016,166.36724824596757,166.3972333949304,166.40209679566885
+ef2p9mw,Congrats!!! Happy for you.,2,joy,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+edq3vgn,the most romantic thing that can possibly happen to me,2,joy,2,joy,True,100.72770858669544,101.68170892083384,100.71407672110767,100.71417481922411
+ee0psvl,So happy for you :),2,joy,1,fear,False,46.28057794241269,46.236960927862086,46.26694607682492,46.26466152363037
+eedn836,I don’t know why but watching this makes me super happy!,2,joy,1,fear,False,117.6362028505865,115.59261713524604,117.88085572497761,117.87857117178307
+ed60o6e,One of my worst nightmares. Ugh.,1,fear,1,fear,True,64.76692590935859,64.72092624349699,64.74852874114883,64.74862683926528
+edj84ja,My wife is divorcing me because I glued [NAME] face onto all of our family photos He looks good with her body,3,sadness,1,fear,False,212.61482192132797,211.57358755808838,212.6011900557402,212.60128815385667
+ee5ede3,Sending love and strength vibes <3,2,joy,1,fear,False,64.7621606067366,64.718543592186,64.74852874114883,64.74624418795429
+ee5xvwn,I hate these memes because [NAME] never cared if he did or didn't have a nose.,0,anger,0,anger,True,153.02630323388854,155.54625578717818,154.84640370493645,153.84888445436388
+ee36ak1,"No problem, glad to help.",2,joy,2,joy,True,54.52375192588564,55.47775226002404,52.92991893367044,55.50545285579233
+edoa8hc,Of course he will lie cheat and steal to make him self relevant to the public. Horrible person.,1,fear,1,fear,True,175.65165659268013,175.60803957812954,175.64040737840335,175.63574017389783
+ef9y4uz,[NAME] is a hungry little bastard.,0,anger,2,joy,False,63.184342131420166,64.72092624349699,62.75329404377082,64.74624418795429
+ee3wcxe,"And there you have it, the left who argue with personal attacks and cnn buzzwords.",0,anger,3,sadness,False,147.92928259619424,147.88566558164365,147.91565073060647,146.9157488287229
+ed9s8qe,I’m going to die right now I’m so scared tears and snot everywhere,1,fear,0,anger,False,145.35857684707238,146.3102297576382,145.60799502408548,145.60571047089093
+ef3r8uo,"Because they enjoy their toxic umoderated cesspool, apparently. Either way i'm done trying to care.",2,joy,1,fear,False,147.92928259619424,147.88804823295465,147.91803338191747,147.91574882872294
+edwv5o1,Me me big sad.,3,sadness,1,fear,False,46.28057794241269,45.23934357917308,46.26694607682492,46.26466152363037
+edjcfwz,[NAME] is fucking destroying Bama and I LOVE IT,2,joy,2,joy,True,90.90433347659506,92.44330023998288,90.4756680402567,92.46861818444017
+eczjbdy,I despise [NAME] and all his cronies,0,anger,0,anger,True,71.4298635384657,72.37913379772053,71.6768990641678,71.67461451097326
+ef12uz4,This makes me want to get nipple piercings but I’m too scared to :/,1,fear,1,fear,True,137.69087391534327,136.6567835775084,137.6820073523775,138.67495749656098
+edhjtlr,I'd piss right on their floor. Fuck this.,0,anger,1,fear,False,83.24374327106052,83.20012625650992,83.23011140547275,83.22782685227821
+ef0xnr3,Not really cringe. Just sad.,3,sadness,1,fear,False,55.521369274574646,54.480134911335035,55.50773740898688,55.50545285579233
+edcmiq3,Happy Mic Day!,2,joy,2,joy,True,37.03978661025074,36.99616959570013,36.02853739597396,37.02387019146842
+edelrki,"Happy that you're happy, and good to see someone highlighting the good parts! Any particular streaming service you're looking to get? :D",2,joy,2,joy,True,212.61482192132797,212.57120490677738,211.6035727070512,212.60128815385667
+ee6r0ks,Tell your husband. Its lies by omissions. Who are you to pick and choose what HE wants to know.,0,anger,1,fear,False,184.8924479248421,184.8512135616025,184.88119871056531,184.8765315060598
+ee1kg09,"That's the problem I'm pointing, the media use stupid clicbait names and people get dumber and dumber.",0,anger,1,fear,False,166.41086526051816,166.36724824596757,166.3996160462414,166.39494884173587
+edm5qv7,"Deathly afraid, the undersides of boats too. I can't look if I see them in a picture or movie",1,fear,1,fear,True,184.89483057615308,184.8512135616025,184.87881605925432,184.8789141573708
+edd0jx1,Also Strike Anywhere. This thread makes my heart happy. <3,2,joy,1,fear,False,101.72532593538445,101.68170892083384,101.71169406979668,101.70940951660214
+eelbr0z,I'd smash,0,anger,1,fear,False,27.798995278088782,27.755378263538176,27.785363412501013,27.783078859306464
+eewjd3i,Glad you came to your senses. Go feel uncomfortable about Lola bunny in Space Jam again.,2,joy,2,joy,True,157.1700739283562,157.1264569138056,155.16120736539042,157.1541575095739
+eercjmw,Well 216 is out now and Im crying. [NAME] why?,3,sadness,0,anger,False,100.72770858669544,101.68170892083384,101.71169406979668,101.70940951660214
+edghuit,Men are the worst.,0,anger,1,fear,False,46.282960593723686,46.236960927862086,46.26694607682492,46.26466152363037
+eeg40z9,Somebody gettin fired,0,anger,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+eennfur,"This, in top of my already terrible mental health, is the reason why I'm severely underweight and need help.",3,sadness,1,fear,False,183.89721322746408,183.8535962129135,183.8835813618763,184.8789141573708
+efe39wm,"[NAME] instead of [NAME] for me, but glad to see [NAME] is doing well.",2,joy,0,anger,False,137.10829013740485,138.64963955210368,137.6820073523775,138.67495749656098
+ed50bmw,I find that relatable: I too am terrified of myself.,1,fear,0,anger,False,99.15223753495158,100.10150779420641,99.39927306065368,99.39698850745914
+edhkbec,"Not sure, I'm not good at expressing my feelings, and sometimes I get angry and say things that very hurtful",0,anger,1,fear,False,194.1427620051915,193.09200489376445,194.12199004272728,194.11732283822175
+eegn38f,I'm sad for the bot. They only want a purpose,3,sadness,3,sadness,True,101.72532593538445,100.68409157214484,100.71407672110767,100.13159104128569
+ed0cmts,Left handers are rejoicing over this,2,joy,1,fear,False,64.7621606067366,64.718543592186,64.74852874114883,64.74624418795429
+ed4m0qz,My husband and I have been circling the drain for years. :(,3,sadness,1,fear,False,110.97087864164014,109.9248829043068,110.95248540195864,110.9502008487641
+eddpto7,This hit me with de good ol memories,2,joy,1,fear,False,82.24612592237152,82.20250890782091,82.23249405678375,83.22782685227821
+ef7c27s,I enjoyed this nearly as much as I enjoy too many pints.,2,joy,0,anger,False,117.6338201992755,118.58309045853034,117.8832383762886,117.87857117178307
+eekv307,My friends that were badly injured from the first fight. Read my backstory comment.,3,sadness,1,fear,False,138.69087391534327,137.64725690079268,138.6748593984445,138.67257484524998
+eek89ki,i curse you,0,anger,0,anger,True,34.46669820981787,35.4159684690727,34.71373373551998,34.71144918232543
+eewboco,[NAME] living her best life in Germany.,2,joy,0,anger,False,72.42275081227113,73.95933492434796,72.99170272462179,73.98703552011625
+ed88ihl,The fact you have to explain this at the third grade level is pathetic. People think somone preventing his own murder is a tragedy.,3,sadness,2,joy,False,230.10355253958488,231.0551702224123,229.08753802268612,230.08287081818057
+ed10dfd,Gonna be sad when Gameday is inside a gym for shooty hoops. I already miss CFB :(,3,sadness,1,fear,False,157.1700739283562,157.1264569138056,157.15644206276843,157.1541575095739
+ed184ql,"My fiancé and I went to a friends house and just hung out until midnight and watched fireworks, it was so chill and perfect!",2,joy,1,fear,False,231.0964045856519,230.0551702224123,231.08515537137512,231.0804881668696
+eekyspm,I have but I sugar discreetly and I’m genuinely afraid to have that compromised due to the field I’m in,1,fear,0,anger,False,210.04649489498883,210.99815173408294,210.2982996518412,210.29124979602466
+eeo4ds5,Is...Is this a Hitman themed FE Shitpost?...I dunno whether to be happy or impressed by this.,2,joy,1,fear,False,175.65165659268013,174.61280488075153,175.64040737840335,175.63574017389783
+ef1eq85,"“Guys watch out, the scary looking kid is coming down the hall”",1,fear,1,fear,True,120.20690859970837,120.16329158515776,120.1932767341206,120.19099218092606
+efcx9uv,i feel like slapping /s after everything sucks the fun out. it's not my fault people are autistic.... /s,0,anger,3,sadness,False,182.32174217572023,183.26862978366407,182.56877770142233,181.56649314822778
+ee6peah,So much lonely,3,sadness,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+eeeg69u,I have an issue metabolizing medications fast. I'll wake up during surgeries so they give me a lot of drugs.,3,sadness,0,anger,False,191.5649122306649,192.51180376713702,191.8071863822733,191.80490182907874
+edow9ya,Monero enthusiast here. Make me happy and call me a liar again.,2,joy,1,fear,False,120.20690859970837,120.16329158515776,120.1932767341206,120.19099218092606
+ed9feu7,Ooh you made them?! Awesome!! I hope you enjoyed them. 5 cheeses sounds like a great decision.,2,joy,3,sadness,False,165.41563056314016,166.36724824596757,166.3972333949304,165.39971414435786
+edplze2,"I've have a serious fear of getting winded, this video made my balls fall off ",1,fear,3,sadness,False,147.9364187774759,147.88566558164365,147.91803338191747,146.9157488287229
+ee24uie,The comments on this thread are what I expected and that makes me sad.,3,sadness,3,sadness,True,137.69325656665427,138.6448742494817,137.6772420497555,137.67495749656095
+ed0fw6m,I honestly predict a riot on the scale of the 2011 ones if we undergo a no-deal brexit - possibly even worse. It's terrifying.,1,fear,0,anger,False,228.52808148784104,229.47258644447388,228.77035171092115,228.7704498090376
+edfs5k1,Oh man that hurt to watch,3,sadness,1,fear,False,64.7621606067366,64.718543592186,64.74852874114883,64.74624418795429
+ef1h4if,mystery solved.,2,joy,1,fear,False,27.798995278088782,27.755378263538176,27.785363412501013,27.783078859306464
+eea97o5,Let's kill and eat them all. That'll stop those damned animals from deforesting my forests,0,anger,1,fear,False,147.92928259619424,147.88566558164365,147.91565073060647,147.91336617741194
+ee2bd7a,"It was a terrible, terrible thing to do. He did every day of his time for it, has expressed regret, and has not repeated it.",1,fear,3,sadness,False,240.34196122043585,239.29834420588526,239.33071200615908,238.7458436750261
+eesioex,I'm sorry it happened like that for you. I really can't imagine.,3,sadness,3,sadness,True,120.20690859970837,119.16567423646876,119.19804203674259,117.03058992767119
+efet0j4,Yeah cause no man has ever been falsely imprisoned due to allegations proven later to be false,0,anger,2,joy,False,166.41086526051816,166.36724824596757,165.4019986975524,166.39494884173587
+ee21vqz,"What a loser, sad. ",3,sadness,1,fear,False,45.282960593723686,45.23934357917308,46.26932872813592,46.26466152363037
+ef5nlo9,I'm afraid of having a sit down with them amd not being heard. But I might have to for my safety.,1,fear,1,fear,True,203.374030589166,201.3399441798594,202.36516402620023,201.77791304375626
+edujmcx,"Too bad he went back home to Nepal, it's always great seeing these young spinners getting a go in the BBL.",3,sadness,1,fear,False,203.374030589166,203.33041357461542,203.36039872357824,203.36287554447745
+ee9su7o,BASED AND REDPILLED,0,anger,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+ee7j2ux,Now *I’M* angry,0,anger,1,fear,False,46.28057794241269,46.23934357917308,46.26932872813592,46.26704417494137
+ed4cpjo,"[NAME] shot has been quite frankly terrible tonight, wayy too strong on most of his looks",1,fear,0,anger,False,155.58987280172877,157.1264569138056,156.15882471407943,157.1565401608849
+eell134,I'm sad can someone make me feel better Feel like shit rn just want [NAME] back,3,sadness,3,sadness,True,157.1700739283562,156.1288395651166,156.15882471407943,155.57395638294645
+eeibo6i,[NAME] just wants to post pics of her facetuned of herself for attention while acting morally superior to those other girls. fuck off,0,anger,0,anger,True,220.2777947781735,221.81199623893934,220.84436403921316,221.83969683470764
+efgz3es,I'm glad you made a Reddit account to inform us how much you totes don't care bro,2,joy,3,sadness,False,166.41324791182916,165.37201354858956,165.40438134886338,164.8147477151084
+edbye2t,I’m kind of scared to talk to my manager about it,1,fear,1,fear,True,117.6338201992755,117.59261713524604,117.8856210275996,117.88095382309406
+efh6oic,Everytime I get to hug someone.,2,joy,1,fear,False,64.76692198083033,64.718543592186,64.75091139245983,64.74862683926528
+efcz1ee,"It was a painful cringe, too. Are we masochists?",3,sadness,3,sadness,True,92.48691725453348,91.44568289129387,91.4756680402567,90.88841705781273
+edjeqnb,Them boys smelling even more blood in the water. Rack them fuckin points up boys!,0,anger,1,fear,False,147.92928259619424,147.88566558164365,147.91565073060647,147.91812755150565
+ed44yea,"For [NAME] sake, they used OFFICIAL ones , my god. Fucking animals.",0,anger,1,fear,False,110.96611726754641,110.9225002529958,110.95248540195864,110.9502008487641
+eel9csq,"2 Minute [NAME] is the scariest [NAME]. I fear they have yet again, like the regular season game, scored too soon.",1,fear,1,fear,True,203.374030589166,203.3351788772374,203.36278137488924,203.3604968216947
+ef462vc,"You really don't comprehend anything my man, now do you? Goodness gracious the amount of stupidity. ",0,anger,0,anger,True,154.85765291921322,157.1264569138056,157.15644206276843,157.1541575095739
+edoqnr3,That shit sent me on a fucking journey to read.,0,anger,1,fear,False,100.72770858669544,100.10150779420641,100.71645937241867,100.71179216791312
+edj6bdj,This is clearly the world's most dangerous gang,1,fear,1,fear,True,81.24850857368251,81.20489155913191,82.23249405678375,83.23020950358921
+eeidol8,I'm afraid I'll pick something else.,1,fear,1,fear,True,64.7621606067366,62.723308894807985,63.75091139245983,63.166043061326846
+eduq5ma,For both of you together? The fuck company are you using.,0,anger,1,fear,False,110.9684999188574,110.9272655556178,110.95248540195864,110.9502008487641
+edpg57t,"That's that frequency dying in your ears. Enjoy it, because you will never hear that exact frequency again",2,joy,1,fear,False,175.65403924399112,175.60803957812954,175.63802472709236,175.63574017389783
+ed1ms3j,I don't think you're allowed to administer a vaccine to someone who is sick/injured.,3,sadness,0,anger,False,145.3561941957614,146.30546445501622,145.6056123727745,145.60332781957993
+ed2h0l8,Happy cake day!,2,joy,2,joy,True,37.03978661025074,36.99616959570013,31.868135142719105,37.02387019146842
+ed003qq,"I feel sorry for people that think Reddit (or even some random sub-reddit) is ""an international stage"".",3,sadness,3,sadness,True,173.07856819224727,174.0278384515021,173.32560371794938,172.32570181606582
+edzmkbp,"It's hard to have a nuanced opinion, innit? But I don't like everything he does. This is one if them.",0,anger,0,anger,True,193.14514074090766,194.09200489376445,194.12675534534927,194.12208814084374
+ededg5v,I don't drink at all specifically because the next day is sheer terror.,1,fear,0,anger,False,126.87699418274846,127.8238817906923,127.12402970845056,127.11936250394503
+eekby4q,ok so that was fucking sick,3,sadness,1,fear,False,64.7645432580476,64.72092624349699,64.74852874114883,64.74624418795429
+eeaothh,"I’ll be honest I really don’t care. I’m happy to know that others care about this, but eh you do you",2,joy,2,joy,True,228.52569883653004,229.47973046987858,226.78226496747612,228.7704498090376
+edl27ai,It was done before and it was terrible,1,fear,3,sadness,False,83.24374327106052,82.20250890782091,83.23487670809475,81.65000837696176
+eezcz2y,I want to so bad it hurts. I guess I'm just scared.,1,fear,0,anger,False,117.6362028505865,118.58309045853034,117.88085572497761,117.87857117178307
+eemn1s5,"Help, I'm scared and want to go back.",1,fear,1,fear,True,83.24374327106052,83.20250890782091,83.23011140547275,83.22782685227821
+edlmoh8,So happy for your strong stance and to help him on his way out of your life.,2,joy,1,fear,False,166.4180092859229,166.36724824596757,166.3996160462414,166.39494884173587
+ee3uztg,Fuck the haters [NAME] > Everybody,0,anger,0,anger,True,53.528505455856276,55.47775226002404,55.50773740898688,55.50545285579233
+edem6q7,literally I feel like crying,3,sadness,1,fear,False,55.521369274574646,55.47775226002404,55.50773740898688,55.50783550710332
+ef6mwwv,Glad to see [NAME] back,2,joy,2,joy,True,55.521369274574646,55.47775226002404,54.51012006029787,55.50783550710332
+efb7e1k,I was in awe the whole hour I spent in there.,1,fear,2,joy,False,108.39302886711354,109.34468177767937,107.64244704412665,108.6377798396211
+edlt0qm,Cool! Glad to see some cooperation.,2,joy,1,fear,False,64.7621606067366,64.718543592186,64.74852874114883,64.74862683926528
+edoy5ok,"Blow me you feckless moron, I was out of state. ",0,anger,1,fear,False,101.72770858669544,101.68409157214484,101.71407672110767,101.70940951660214
+ee9rhdo,Maybe it's fantasy.....I just feel like the stock for a lot of these Ducks is reallllll low right now,3,sadness,1,fear,False,194.13323925700405,194.08962224245346,194.12199004272728,194.11970548953275
+eeg71ym,I am trying they try to say I’m fake even though I’m trying it’s painful to talk to them sometimes,3,sadness,0,anger,False,219.28252485305708,220.2413257175559,219.53432568138118,219.53204112818662
+edext4x,So. This is scary as fuck.,1,fear,1,fear,True,64.7645432580476,64.72092624349699,64.74852874114883,64.74862683926528
+efeymfg,And that smilie she gave the fiancé when he sat down with the sandwich....I would be scared if I was him.,1,fear,3,sadness,False,212.61482192132797,212.57358755808838,212.6035727070512,211.60604952795038
+eesnlsb,I see you utilized it. 3.5? Sad.,3,sadness,0,anger,False,79.67303752193865,81.61992512988249,80.91769039632976,80.91540584313522
+ee8mjqp,It's sad how long it took me to get that. Haha got em,3,sadness,0,anger,False,128.4500825831813,129.40408291731973,129.43406806628255,129.43178351308802
+ed702q1,My kitten just got very happy when Pasta scored. Such loud purrs! I was happy too.,2,joy,1,fear,False,157.1700739283562,156.1312222164276,157.15882471407943,157.1541575095739
+eerk3up,Sad thing is it would probably forcibly ground the plane.,3,sadness,1,fear,False,101.72532593538445,101.68170892083384,101.71169406979668,101.71179216791313
+ed21elv,This whole sub makes me sad.,3,sadness,1,fear,False,63.764543258047595,63.72092624349699,63.75091139245983,64.74624418795429
+eettn7f,I always feel so bad for [NAME] when I watch this scene.,3,sadness,0,anger,False,117.6338201992755,118.58547310984133,117.8832383762886,117.87857117178307
+eekx665,HOLY SHIT CHANCE,0,anger,1,fear,False,37.03978661025074,36.99616959570013,37.02615474466297,37.02387019146842
+edeq0rd,I am unconcerned.,3,sadness,0,anger,False,34.46669820981787,35.4183511203837,34.71373373551998,34.71144918232543
+eeg90ek,Or just get the fuck out and never look back.,0,anger,1,fear,False,101.72770858669544,101.68647422345583,101.71169406979668,101.70940951660214
+edxgh62,It also makes me cry! but because it shows how far [NAME] has fallen...,3,sadness,3,sadness,True,138.68849126403228,137.64725690079268,138.6748593984445,137.09475636993352
+edfmk6s,Good for you for shutting that door! You are not responsible for him. He’s a grown ass man who made his own mistakes.,0,anger,1,fear,False,231.0964045856519,231.0575528737233,231.08515537137512,231.0828708181806
+edp44sl,I miss the confetti cakes :(,3,sadness,0,anger,False,52.94828087414178,53.89755113339661,53.19531639984389,53.19303184664934
+eeodqq2,"I'm a little sad that there's not actually a video called Dance of the Hillary, virus or not.",3,sadness,3,sadness,True,175.65403924399112,174.61042222944053,173.64279002971435,173.06506965251435
+edl43g4,"I had a friend send me a 3+ hour paranoid conspiracy documentary, zeitgeist I think it was called... Wasted 10 minutes before I noped the fuck out..",0,anger,0,anger,True,256.2480728330159,257.1973430922707,256.495108358718,256.49282380552347
+ef94f03,Wife left me and I am just broken. relapsed tonight from 7 years clean and just not seeing a point anymore,3,sadness,1,fear,False,203.374030589166,203.33279622592642,203.36039872357824,203.35811417038371
+eeeved3,I really pity those unfree Cuban babies. It’s just sad.,3,sadness,2,joy,False,108.39302886711354,109.34229912636837,107.64244704412665,108.6377798396211
+ee4utnt,Ik I’m crying rn,3,sadness,1,fear,False,55.521369274574646,55.480134911335035,55.51012006029787,55.50783550710332
+eeb2y2u,The sea was angry that day my friends...,0,anger,3,sadness,False,82.24612592237152,83.20012625650992,82.23249405678375,82.2302095035892
