@@ -29,8 +29,6 @@ huggingface/
 *.pth
 *.bin
 *.ckpt
-results/predictions/*
-!results/predictions/.gitkeep
 results/figures/*
 !results/figures/.gitkeep
 

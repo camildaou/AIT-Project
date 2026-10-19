@@ -281,7 +281,7 @@ emotion-ait/ (this repo)
 ├── tests/                          <- synthetic-data unit tests (no network needed)
 └── results/
     ├── metrics/                    <- results.csv + per-run JSON/CSV mirrors (small, committable)
-    ├── predictions/                <- git-ignored (potentially large)
+    ├── predictions/                <- per-example predictions CSVs (committed)
     └── figures/                    <- git-ignored (regenerable)
 ```
 
