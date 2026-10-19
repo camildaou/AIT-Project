@@ -1,0 +1,392 @@
+model_name,train_subset_name,seed,example_id,text,true_label,predicted_label,true_label_name,predicted_label_name
+mdl,ladder_n100,44,eecwqtt,"I’m really sorry about your situation :( Although I love the names Sapphira, Cirilla, and Scarlett!",3,2,sadness,joy
+mdl,ladder_n100,44,eeni74k,"Girlfriend weak as well, that jump was pathetic.",3,1,sadness,fear
+mdl,ladder_n100,44,edk4e66,I've also heard that intriguing but also kinda scary,1,1,fear,fear
+mdl,ladder_n100,44,ed2e00i,The thought of shooting anything at asylum seekers is appalling.,1,3,fear,sadness
+mdl,ladder_n100,44,edafngg,I’m so sorry 🤪,3,2,sadness,joy
+mdl,ladder_n100,44,ee5s4hc,"Help, help, I'm being repressed!",1,1,fear,fear
+mdl,ladder_n100,44,ee2miso,death of fear is certain.,1,1,fear,fear
+mdl,ladder_n100,44,ed99kw8,Because of this bad situation some people are afraid of becoming youtubers because of this,1,0,fear,anger
+mdl,ladder_n100,44,eesstwu,That's too many pills,0,2,anger,joy
+mdl,ladder_n100,44,edfa1xi,Talk about an oldddd school shit coin.,0,1,anger,fear
+mdl,ladder_n100,44,ed4bex7,"Wow that’s scary, she’s so young and healthy. I hate that. ",1,0,fear,anger
+mdl,ladder_n100,44,efegrrd,How dare you! Don’t you know seatbelts cause autism!,0,0,anger,anger
+mdl,ladder_n100,44,ed6qwkd,"Damnit Morty! D'you see wha-rrrgh-t you've done!? We're fucked Morty, the squirrels - they're recruiting dolphins now Morty. ",0,1,anger,fear
+mdl,ladder_n100,44,ef4byo4,Fuck you.,0,1,anger,fear
+mdl,ladder_n100,44,eejn8qt,"No, what’s sad is saying the same message like it’s news. He’s a copy paste machine. No original thought.",3,1,sadness,fear
+mdl,ladder_n100,44,edh8fue,"My friend and I have been having good fun queuing Mei/Winston, trololo, and 2 bottles of whisky.",2,1,joy,fear
+mdl,ladder_n100,44,eczf1y3,"I am generally a happy person. If you like to pay millions of dollars to semi-literates to represent your government, it's up to you!",2,3,joy,sadness
+mdl,ladder_n100,44,eey5v8c,"Tl, dr - Take the abuse. Squirming only gets them off more.",1,1,fear,fear
+mdl,ladder_n100,44,ef7jyoy,You're probably joking but [NAME] has been pretty insightful regarding the yellow vests in France. I was impressed.,2,1,joy,fear
+mdl,ladder_n100,44,edxysbg,I did twist my ankle trying to play that on DDR.,3,3,sadness,sadness
+mdl,ladder_n100,44,een6y2q,I genuinely think that would be an iconic shot if it was in a famous horror film. The way the legs just keep on coming is terrifying.,1,3,fear,sadness
+mdl,ladder_n100,44,eex60my,The sad part about this is that these memes are more Gen Z if anything...,3,3,sadness,sadness
+mdl,ladder_n100,44,eec6zh5,> it will not make her look like an idiot It would be hard to make her look any more like an idiot than she already does.,0,1,anger,fear
+mdl,ladder_n100,44,edo16o4,Yikes that's cringe,1,1,fear,fear
+mdl,ladder_n100,44,eeok732,"And then you're stuck on that medication for life, sounds like a scary trade-off.",1,3,fear,sadness
+mdl,ladder_n100,44,eedhkjf,He’s going to the Bengals at 11 and I hate it so much,0,1,anger,fear
+mdl,ladder_n100,44,eduylqg,This just reminded me to continue designing that bloody website.,0,1,anger,fear
+mdl,ladder_n100,44,edcmhdm,Oh god another injury,3,1,sadness,fear
+mdl,ladder_n100,44,ee3xlfx,it's hurting my heart :( why did you leave me,3,1,sadness,fear
+mdl,ladder_n100,44,edhzgg4,You need to recheck your science. A simple Google search will yield research articles showing a biological and genetic basis for being LGBT. Happy reading!,2,1,joy,fear
+mdl,ladder_n100,44,efbok4w,Lmfao lonzo? That guy is not nba talent. World is gonna spank that ass,0,1,anger,fear
+mdl,ladder_n100,44,eedrfyd,"Had one good year that was it, then joins a god squad that struggles to qualify",2,1,joy,fear
+mdl,ladder_n100,44,eep85vg,One dumbass who hasn’t watched Hereditary complaining about meaningless awards on the Internet means... eh. I lost my point. Go watch Hereditary,0,2,anger,joy
+mdl,ladder_n100,44,eemtapo,What the fuck is this about?,0,0,anger,anger
+mdl,ladder_n100,44,edj1n44,Are you fucking serious? That’s a foul??,0,1,anger,fear
+mdl,ladder_n100,44,ee8wf77,[NAME] I hate my hometown,0,3,anger,sadness
+mdl,ladder_n100,44,ee3mw0h,You shut your mouth,0,1,anger,fear
+mdl,ladder_n100,44,edu79o2,Oof that’s terrible,1,1,fear,fear
+mdl,ladder_n100,44,edej0vb,I would hate to see another [NAME] situation where [NAME] gets hurt again because he wasn't fully recovered.,0,3,anger,sadness
+mdl,ladder_n100,44,eenni73,I know a couple of people who are. It's amazing to watch.,2,2,joy,joy
+mdl,ladder_n100,44,eenv1pb,Must be a tough life when all you can think about is sad stories to keep you from enjoying anything.,3,1,sadness,fear
+mdl,ladder_n100,44,edm27fi,"Do you have any non anecdotal stuff to say or? Also burden of proof is a thing, you made a claim, prove it or fuck off",0,1,anger,fear
+mdl,ladder_n100,44,ee60k0m,Toxic feminism is ti blame,0,1,anger,fear
+mdl,ladder_n100,44,eetta44,so glad we picked this guy up. was absolutely terrified when we played against him. dude was in the zone.,2,3,joy,sadness
+mdl,ladder_n100,44,ee69cgm,"Wow, you folks sure are salty about losing the midterms! Pathetic?",3,1,sadness,fear
+mdl,ladder_n100,44,ee4hcgp,"I'll pass the ""I'm not crying you're crying!"" part. Yeah I'm crying. ",3,1,sadness,fear
+mdl,ladder_n100,44,ee5j15q,"Exactly. We’re only here for the money, assholes. ",0,0,anger,anger
+mdl,ladder_n100,44,eey42p5,She is probably cheating on you. :(,3,2,sadness,joy
+mdl,ladder_n100,44,ef9wj5f,"It would be mostly home-grown terrorism, angry at all the people fleeing from overseas terrorism.",0,1,anger,fear
+mdl,ladder_n100,44,edmu7gq,You should've smashed his head into it.,0,1,anger,fear
+mdl,ladder_n100,44,ed5u59i,Maybe [NAME].,0,1,anger,fear
+mdl,ladder_n100,44,ed7rdog,I don't know any but my own I'm afraid.,1,3,fear,sadness
+mdl,ladder_n100,44,edm95ms,If that’s true it’s very desperate. You would think he had some better way of communicating.,3,1,sadness,fear
+mdl,ladder_n100,44,eedop51,Because the hierarchy is afraid they’ll get burned.,1,1,fear,fear
+mdl,ladder_n100,44,eeitn01,"Not at all. It's great of course for financial reasons, but it then makes me worried about how much time she'll have for a relationship.",3,1,sadness,fear
+mdl,ladder_n100,44,ede5aoj,"Matchroom squad dismiss [NAME] as not existing anymore, the sky media influence is scary ",1,1,fear,fear
+mdl,ladder_n100,44,ef4n4vp,"Unfortunately for you, no one of importance cares about your absurd views. ",3,1,sadness,fear
+mdl,ladder_n100,44,eevyzvq,"I provoked by breathing too hard. And yes, I hate that. ",0,3,anger,sadness
+mdl,ladder_n100,44,eempufb,Fuuuuuck. That’s the worst I’ve seen.,0,1,anger,fear
+mdl,ladder_n100,44,eev5q9y,"College is a very lonely place. Very stressful, very lonely. [NAME]. Good luck out there man.",3,1,sadness,fear
+mdl,ladder_n100,44,efbbztw,Someone with erectile dysfunction already can't (conventionally) orgasm. What the fuck are you talking about?,0,0,anger,anger
+mdl,ladder_n100,44,ed00rv5,This is creepy.,1,1,fear,fear
+mdl,ladder_n100,44,ed8yt80,Sorry you had to live there. Good news is they are demolishing it in 2020.,3,1,sadness,fear
+mdl,ladder_n100,44,edqxehq,Well the good news is once all the boomers die off you won't have any pesky old people to blame anymore.,2,3,joy,sadness
+mdl,ladder_n100,44,efcwwfj,Yeah thank you you ungrateful bast.....,0,3,anger,sadness
+mdl,ladder_n100,44,eduwluz,Well [NAME] made me laugh,2,3,joy,sadness
+mdl,ladder_n100,44,ee9b5a6,"""Here's your fucking well done with pink in the center [NAME], jsut like youre stupid fucking table wants!""",0,1,anger,fear
+mdl,ladder_n100,44,ef9xt3b,"Honestly, I'm just happy I got traded to you guys, rather than a team like the Leafs or H*bs",2,2,joy,joy
+mdl,ladder_n100,44,ed1amhd,If it's true i'm sad he's leaving but I wish him nothing but the best.,3,1,sadness,fear
+mdl,ladder_n100,44,eex3krx,[NAME] wept.,3,3,sadness,sadness
+mdl,ladder_n100,44,edvey02,"If I ever see that in my area, that will be a bullet to the head. Fuck Reddit's rules.",0,1,anger,fear
+mdl,ladder_n100,44,ed3w5cd,"It will be carefully tailored to piss their parents off, which I will enjoy greatly :-)",2,1,joy,fear
+mdl,ladder_n100,44,edclugt,These refs are remarkably terrible tonight. So are the sabres but wow some terrible calls.,1,1,fear,fear
+mdl,ladder_n100,44,ed3iidx,"""Moose killed my parents.""",0,1,anger,fear
+mdl,ladder_n100,44,edkk0e0,This made my rainy day,2,1,joy,fear
+mdl,ladder_n100,44,efetssk,Ouch. Hurts because it's true.,3,1,sadness,fear
+mdl,ladder_n100,44,edv3o9n,Feels good man,2,1,joy,fear
+mdl,ladder_n100,44,edvdy44,Threatening to drive your sisters into the ocean is illegal. It's called making a terroristic threat or menacing and can cause her to lose access to your sisters,1,1,fear,fear
+mdl,ladder_n100,44,edpt47k,I’m sorry but [NAME] has better memes,3,2,sadness,joy
+mdl,ladder_n100,44,eeu4dq8,> pushed all of them Hey dumbass you pushed the emergency button,0,1,anger,fear
+mdl,ladder_n100,44,edjhfz7,At home with a viral infection right now! Praying for death and to the god of paracetamol. Ugh.,3,1,sadness,fear
+mdl,ladder_n100,44,eea2j7t,i hate [NAME] and 20 good men,0,3,anger,sadness
+mdl,ladder_n100,44,ed038bu,I didn’t know I’m sorry,3,3,sadness,sadness
+mdl,ladder_n100,44,edegdbo,"None, I know nobody or have anyone nearby who can help.",3,1,sadness,fear
+mdl,ladder_n100,44,eec4yxi,"Any one of us could be a journalist, and that level of journalism feeding the masses is mildly scary.",1,1,fear,fear
+mdl,ladder_n100,44,edf9nth,How tf do you not expect people to find them they're the first things that show up when you search joji,0,0,anger,anger
+mdl,ladder_n100,44,eelix3n,Don't you're making me paranoid man,1,1,fear,fear
+mdl,ladder_n100,44,ee47wii,Wtf? Really?,0,1,anger,fear
+mdl,ladder_n100,44,edi3w9p,"Anti-vaxers aren't funny anymore, now they're just scary...",1,1,fear,fear
+mdl,ladder_n100,44,eek35cr,NEVER RUNNING FROM A REAL FIGHT!,0,1,anger,fear
+mdl,ladder_n100,44,edxyu9t,So what you are saying is that you are not a serious guitarist is you use finger guards?,0,3,anger,sadness
+mdl,ladder_n100,44,edlk9z2,I miss [NAME],3,3,sadness,sadness
+mdl,ladder_n100,44,efgeoye,Reading this made me happy and I don't even know you. Keep doing your thing!🙌🏼,2,1,joy,fear
+mdl,ladder_n100,44,edpnqu4,I wanna die!,3,3,sadness,sadness
+mdl,ladder_n100,44,eer7ups,Wow... I’m so glad that my dog is lazy like me.,2,1,joy,fear
+mdl,ladder_n100,44,ed7t8y6,Beast milk. My favourite!,2,1,joy,fear
+mdl,ladder_n100,44,efgqmll,-9 and I’m out shopping. Sun is out feels great.,2,1,joy,fear
+mdl,ladder_n100,44,edtikix,I heard the ostrich was sick.,3,3,sadness,sadness
+mdl,ladder_n100,44,edw6wjq,"ah, it does me heart good to see NIMBYs in the wild",2,2,joy,joy
+mdl,ladder_n100,44,edw2nto,I do remember this and wanted nothing more than to kill that guy,0,3,anger,sadness
+mdl,ladder_n100,44,edcjfei,Can't relate because the sadness and loneliness is constant 😎,3,1,sadness,fear
+mdl,ladder_n100,44,edhfomd,"It's good though because itll make you cherish the happy times while youre in them, instead of lookinf back on them.",2,1,joy,fear
+mdl,ladder_n100,44,edj3f5m,Holy shit bro,0,1,anger,fear
+mdl,ladder_n100,44,eev6gpc,Just reading this makes me sick,3,0,sadness,anger
+mdl,ladder_n100,44,ee6qy6d,I remember running into teachers at the grocery store or whatever when I was a little kid and having that same feeling!,2,3,joy,sadness
+mdl,ladder_n100,44,ee2907w,This is terrifying,1,1,fear,fear
+mdl,ladder_n100,44,edkts4d,Yikes. This kind of freaks me out.,1,1,fear,fear
+mdl,ladder_n100,44,ed6rodh,Read divorce busting and kill all marriage counselors. As much as it sucks...youve been given a gift by him giving you time.,0,1,anger,fear
+mdl,ladder_n100,44,ee7ezvs,It is genuinely hard to imagine what the Magic basketball experience will be like when these two legends are no longer in their roles.,3,1,sadness,fear
+mdl,ladder_n100,44,eezix0c,Just get him out of my sight I’m tired of losing and those who contribute to it,0,0,anger,anger
+mdl,ladder_n100,44,edotntk,"Yo where they at, I want to celebrate with them.",2,3,joy,sadness
+mdl,ladder_n100,44,edg5ose,Please post any news you may find about her fate. This is so sad and so wrong. We need to know what happens to her.,3,0,sadness,anger
+mdl,ladder_n100,44,ef0c1vh,THIS IS TRAUMATISING,3,1,sadness,fear
+mdl,ladder_n100,44,eedhapw,"Thoughts and Prayers... Go get fucked, fascist redneck scum!",0,1,anger,fear
+mdl,ladder_n100,44,edw7tfe,"This is something kids do on their twitch streams to get subs, pretty sad.",3,1,sadness,fear
+mdl,ladder_n100,44,edi0iyi,"How dare you, she's in your flair too!",0,0,anger,anger
+mdl,ladder_n100,44,edk8sml,"The wage, you Fucking troll. But you don't care do you? See your post history.",0,3,anger,sadness
+mdl,ladder_n100,44,ee07cnm,Happy MLK day,2,2,joy,joy
+mdl,ladder_n100,44,ef3ti8c,"I’m scared of shots, but I’m more scared of dying. What Anti-vaxxers are scared of is autism",1,2,fear,joy
+mdl,ladder_n100,44,eeu0cdq,Glad someone brought that up.,2,2,joy,joy
+mdl,ladder_n100,44,edxjj1s,"Firm, but gentle. Baby hamsters or live goldfish. Soft female hands caressing my balls is a wonderful feeling. ",2,1,joy,fear
+mdl,ladder_n100,44,eeykr1i,you dirty karma theft,0,1,anger,fear
+mdl,ladder_n100,44,ee2n1yl,No because thats stupid,0,1,anger,fear
+mdl,ladder_n100,44,edhaghb,This is exactly what it's been like. I feel personally victimised by it all,3,1,sadness,fear
+mdl,ladder_n100,44,edbyeqs,Enjoy it! You have a good one for your first!,2,2,joy,joy
+mdl,ladder_n100,44,ef1wsmt,Keep going man. I’ve been enjoying reading your posts. All the best!,2,1,joy,fear
+mdl,ladder_n100,44,ef0ekxx,What a beautiful memory for you to have found. So sorry for your loss ❤️,3,0,sadness,anger
+mdl,ladder_n100,44,edi86iy,Honestly his post was a little sad. The fact that it got upvotes makes me want to avoid this sub over the summer.,3,1,sadness,fear
+mdl,ladder_n100,44,ef8g3xn,Yeah that was inexcusable,0,3,anger,sadness
+mdl,ladder_n100,44,ed71zss,I for one am happy for [NAME] ballin out. Now let's go win this game !!!!,2,3,joy,sadness
+mdl,ladder_n100,44,edp09u3,"Sad, but American",3,1,sadness,fear
+mdl,ladder_n100,44,eek85lm,Outrage over something that isnt even true. Thats sad man Edit: well the bandwaggoning part is true,3,1,sadness,fear
+mdl,ladder_n100,44,ee0xvmh,This makes me so happy!,2,1,joy,fear
+mdl,ladder_n100,44,edanmu0,Yeah... THEY are the one looking for attention. This type of comments should be ignored. I hate troll comments.,0,3,anger,sadness
+mdl,ladder_n100,44,ee7s1jk,"Hold my wine, I have to go vomit in sorrow. ",3,1,sadness,fear
+mdl,ladder_n100,44,edjw23t,"Just like that fucking idiot that was just trying to kidnap that woman, and chased her into a Karate studio... turned out just about the same.",0,0,anger,anger
+mdl,ladder_n100,44,eeoi9xd,This just makes me feel inferior at this point.,3,1,sadness,fear
+mdl,ladder_n100,44,eejga22,Hurr durr everyone needs to worry about other people’s problems,3,1,sadness,fear
+mdl,ladder_n100,44,edx6l0q,"Haha, some days I channel Dory from finding nemo- ""Just keep swimming, just keep swimming"". Glad to hear you have a break coming. ",2,2,joy,joy
+mdl,ladder_n100,44,eemvd5h,Scary stuff.,1,1,fear,fear
+mdl,ladder_n100,44,edp9hn5,"Yeah, sadly, looks like this champ will be pretty opressive. ",3,3,sadness,sadness
+mdl,ladder_n100,44,edt92z8,"Yeah I know what you meant. Fuck the police, most of them are vile pieces of shit, they deserve every kick in the back they get.",0,3,anger,sadness
+mdl,ladder_n100,44,eepo2rm,Meanwhile my sister won’t even hug my goodbye when I drop her off at school.,3,1,sadness,fear
+mdl,ladder_n100,44,edkdcgk,I'm happy I live in a country where machete attacks don't have to be a real concern.,2,2,joy,joy
+mdl,ladder_n100,44,ed3klo0,Couldn't have happened to a nicer person.,3,1,sadness,fear
+mdl,ladder_n100,44,eepefiy,THIS MADE ME CRY,3,1,sadness,fear
+mdl,ladder_n100,44,eczkjma,Are you daft ... ? That is and always has been the proposal. [NAME] don't listen and don't care though. Fucking dumbass.,0,1,anger,fear
+mdl,ladder_n100,44,eeah80k,Glad he survived or it might have become a *dead*lift.,2,2,joy,joy
+mdl,ladder_n100,44,eelr0wx,"I stand corrected. As I said, wonderful charities. I will always enjoy GDQ, just not revalant to my experience.",2,3,joy,sadness
+mdl,ladder_n100,44,ef2mfzy,I don't feel so financially secure,1,3,fear,sadness
+mdl,ladder_n100,44,eeiqkjv,"😂 i need one too i’m on break and honestly my life revolves around reddit at this point, cake day is special enjoy it! ",2,3,joy,sadness
+mdl,ladder_n100,44,efecbk3,[NAME] FIRED.,0,3,anger,sadness
+mdl,ladder_n100,44,ee5oo2m,Except [NAME] still went with the happy ending instead of ending it at the Aningaaq scene.,2,1,joy,fear
+mdl,ladder_n100,44,ed2c5f7,"""You can't stop me"" Ah yes, those playful words when referring to a sexual act...",0,1,anger,fear
+mdl,ladder_n100,44,eex15d6,I feel so bad for [NAME]. It was probably hard to concentrate on this match with the things going on in his personal life,3,3,sadness,sadness
+mdl,ladder_n100,44,ef6kojt,I would play the fuck out of this game,0,3,anger,sadness
+mdl,ladder_n100,44,ed50yyw,"Those are different, you don't tie that shit to the weakest part, they just stay on there by magic",0,1,anger,fear
+mdl,ladder_n100,44,eeiyx66,"Wow, so he was pulling his own little mini [NAME] scam. Explains why he couldn't use your reporting tool.",2,1,joy,fear
+mdl,ladder_n100,44,efbi2bv,I'm really happy he and [NAME] are finding success,2,2,joy,joy
+mdl,ladder_n100,44,ed3z4b8,"This happens to me all the time I’m so sorry 😣 it’s always with burgers, too. So painful. ",3,1,sadness,fear
+mdl,ladder_n100,44,edf1gzs,"BEN ""[NAME]"" LOVEJOY!",0,1,anger,fear
+mdl,ladder_n100,44,edc8jzv,I punch them in the throat before they get the chance to speak.,0,3,anger,sadness
+mdl,ladder_n100,44,edy7ngu,"Very cool toys, very cool video, very cool hostd",2,1,joy,fear
+mdl,ladder_n100,44,ef3hloa,">the decades after WWII That includes 1950. If you want to insult me, read your own fucking post first",0,3,anger,sadness
+mdl,ladder_n100,44,eeg14j5,"I want to go scuba diving so bad, but swimming in anything bigger than a pool terrifies me.",1,3,fear,sadness
+mdl,ladder_n100,44,edlzkq1,I enjoy that general area. Sections 203-205 are good sections pricewide and view wise,2,3,joy,sadness
+mdl,ladder_n100,44,ee2gc6b,"sadly it would take wayyyyyy more than this to ever change custody agreements. documenting it for her own sanity is a good idea, though.",3,1,sadness,fear
+mdl,ladder_n100,44,eeqogg9,"It was SO hard to click the upvote button on this one. It's one of those ""I hate it. Well done"" moments.",0,1,anger,fear
+mdl,ladder_n100,44,edc8vp2,"I doubt people are *happy*, but they probably aren’t sad about someone who was potentially endangering others through their anti-science views.",3,3,sadness,sadness
+mdl,ladder_n100,44,ee7eze4,I wanna die I don't wanna live anymore I really wanna die so bad Please return me to the dark abyss I long for death’s sweet kiss,3,3,sadness,sadness
+mdl,ladder_n100,44,edy973x,Maybe so. Should I try to ask her about it? I'm worried that will only scare her more,1,1,fear,fear
+mdl,ladder_n100,44,ed1oiyg,Going to my favorite greasy burger place in Madison tonight to celebrate my ability to eat delicious burgers whenever I want because I'm in my early 20's,2,1,joy,fear
+mdl,ladder_n100,44,ef7vxhx,I’m always reminded by my relatives on my birthday asking me if I have a girlfriend yet. Sorry bro ima yeet out of the social norm.,3,2,sadness,joy
+mdl,ladder_n100,44,eduyvb4,I live in Canterbury haha,2,3,joy,sadness
+mdl,ladder_n100,44,eeyyq99,Happy Together. It feels so natural.,2,2,joy,joy
+mdl,ladder_n100,44,ef4x5ph,Glad I tend to post pics of my cats and not myself.,2,2,joy,joy
+mdl,ladder_n100,44,edayjff,Oh hell yeah,0,1,anger,fear
+mdl,ladder_n100,44,edlqicf,i'm enjoying this so much,2,2,joy,joy
+mdl,ladder_n100,44,eem5k1k,I don’t like [NAME] in the slightest but I hate [NAME] even more. Get her Belcalis,0,3,anger,sadness
+mdl,ladder_n100,44,eetgbyi,Kick him out. Overgrown baby.,0,1,anger,fear
+mdl,ladder_n100,44,edc4l1j,"It's like an Arts school but with dangerous, easily weaponizable spells being flung all over the place!",1,1,fear,fear
+mdl,ladder_n100,44,eevwgbf,I do this but but feel better in the end because I use it for procrastination. It's a weird combinational to feel better and worse while cleaning.,0,3,anger,sadness
+mdl,ladder_n100,44,edtejkr,Such bullshit. Reloading components included? Not that they'd let that stand in subsequent laws if it is.,0,1,anger,fear
+mdl,ladder_n100,44,ed2g85q,Found my flair.,2,1,joy,fear
+mdl,ladder_n100,44,eeu3zv0,Way too much fuuuck,0,1,anger,fear
+mdl,ladder_n100,44,edlpzp9,"As an [NAME], I apologize for the cranky old conservatives who are probably making ridiculously uninformed comments about your country right now :/",3,0,sadness,anger
+mdl,ladder_n100,44,edfcumq,"This hits hard, sadly both of my relationships have been toxic so I've decided not to start any new ones until I start going to uni ",3,1,sadness,fear
+mdl,ladder_n100,44,ee7nerz,You don't really work for the TSA if they aren't paying you. You are a slave. Go home.,0,1,anger,fear
+mdl,ladder_n100,44,eff6flv,I'm more worried about it randomly saying daddy across the top ... Like that's normal,1,2,fear,joy
+mdl,ladder_n100,44,ee1evdb,Its hard to explain i feel everything is distant.,3,2,sadness,joy
+mdl,ladder_n100,44,edy5dg0,"Seriously, it really made me happy! I hope when OP scrolled through she felt a little tingle of happiness too.",2,1,joy,fear
+mdl,ladder_n100,44,ed6vcfh,That all-star who won the calder,2,1,joy,fear
+mdl,ladder_n100,44,ef629xy,This is a hate sub,0,1,anger,fear
+mdl,ladder_n100,44,ef9vgw2,I was JUST thinking about how much I enjoyed Swalla la laaaa last night too!,2,3,joy,sadness
+mdl,ladder_n100,44,eeo2054,They are all good right now. Pick the one that interests you and enjoy yourself.,2,0,joy,anger
+mdl,ladder_n100,44,ed3hg8c,I'm just glad we'll be getting either [NAME] or [NAME]. They both seem like they'll be beasts and it'll fill our greatest position of need,2,2,joy,joy
+mdl,ladder_n100,44,eecxvy7,"I see notifications of people commenting the source but this sub must auto delete or something. Sorry, guys. I binged her and found me quick though. ",3,3,sadness,sadness
+mdl,ladder_n100,44,ee3o6qp,I know it's like this hipster phrase it's so stupid like you're not from the south you dumb motherfuker.,0,3,anger,sadness
+mdl,ladder_n100,44,edtgrhv,what the fuck do you learn in first grade that’s so important anyway?,0,0,anger,anger
+mdl,ladder_n100,44,eegn6i5,">Have a good time debating the people in your head, looks like you're having fun.",2,1,joy,fear
+mdl,ladder_n100,44,eecg2ly,"What a horrible way to find out, though. My sympathies to the dead man.",1,0,fear,anger
+mdl,ladder_n100,44,ef3uxax,It was received on Jan 25th at 9:22 am .81627 BTC and $3800. for it with a $600. fee. Happy!,2,1,joy,fear
+mdl,ladder_n100,44,ed7lqu4,Ded game we should be happy we have a new hero,2,1,joy,fear
+mdl,ladder_n100,44,ee0ug24,His smile is so damn creepy,1,1,fear,fear
+mdl,ladder_n100,44,edx1m4z,I would say make it NSFW but I won't joke. We don't work here,0,3,anger,sadness
+mdl,ladder_n100,44,ee9wkpl,"BOUNDARIES. have some boundaries. say no. don't go. this is frustrating to read, honestly. don't do things that you hate doing.",0,1,anger,fear
+mdl,ladder_n100,44,eelehyb,"The constant pressure definitely isn't helping. I'm already on anti-depressants, but I am terrified of PPD.",1,3,fear,sadness
+mdl,ladder_n100,44,eerfyqo,"Omg enough of all the damn hashtags, it’s not 2016 anymore",0,1,anger,fear
+mdl,ladder_n100,44,edxoipc,I literally cried out IS THAT MATT BERRY?!?!?!?!?!,3,3,sadness,sadness
+mdl,ladder_n100,44,efdv7m4,Damn. As a [NAME] [NAME] I fear who the last Greek restauranteur in this death triangle will be :(,1,0,fear,anger
+mdl,ladder_n100,44,edziqjn,"Take a note to PM me if you do, I'll happily pay for one!",2,1,joy,fear
+mdl,ladder_n100,44,edp7quw,trailer fabulous!!! i miss it,3,1,sadness,fear
+mdl,ladder_n100,44,ef4litv,"If you have schools in your city, I got bad news for ya champ...",3,1,sadness,fear
+mdl,ladder_n100,44,edihnax,"The attraction and the action are two separate things, and you know that. No one chooses who they are attracted to. Stop it. ",0,3,anger,sadness
+mdl,ladder_n100,44,eeidamx,"For the people and finding out how they end up? Sure. Other than that, it’s not great. Frustrating at best. ",0,1,anger,fear
+mdl,ladder_n100,44,efa5ht4,>cat beby the fuck is wrong with you,0,0,anger,anger
+mdl,ladder_n100,44,edokegg,"America is not a country, it's a fucking business. if you have zero money, no one cares about you.",0,1,anger,fear
+mdl,ladder_n100,44,ee6iphy,WHAT THE HELL!,0,0,anger,anger
+mdl,ladder_n100,44,eff3mwu,Oh. Sorry.,3,1,sadness,fear
+mdl,ladder_n100,44,ed9vbms,they dont pay shit,0,0,anger,anger
+mdl,ladder_n100,44,eczfbty,happy new year buddy!,2,2,joy,joy
+mdl,ladder_n100,44,eetfduz,16-37 and 25 fta. [NAME] is so fucking overrated. Volume chucker/flopper in a fast paced no defense league.,0,1,anger,fear
+mdl,ladder_n100,44,edng1aq,"Today's Recaptchas were fun. I'm very good at identifying store fronts, apparently...",2,1,joy,fear
+mdl,ladder_n100,44,eec8s5u,Cheers lad :),2,1,joy,fear
+mdl,ladder_n100,44,eczl4db,The third period is going to be uncomfortable and I preemptively hate it.,0,3,anger,sadness
+mdl,ladder_n100,44,ed6pkzv,"holy shit that's bad, maybe the extremist right can't meme either?",0,1,anger,fear
+mdl,ladder_n100,44,ef67xn0,"Omg, unbelievably scary. Insane ",1,1,fear,fear
+mdl,ladder_n100,44,edinn3n,I think the biggest fucking thing is that apparently reaper has a goddamn family himself.,0,3,anger,sadness
+mdl,ladder_n100,44,ee31iqr,THATS WHAT SHE SAID...HAHAHAHAHAHAHA!,2,1,joy,fear
+mdl,ladder_n100,44,efbm1g4,"Nihilism makes me happy, but I know that’s just my opinion.",2,2,joy,joy
+mdl,ladder_n100,44,edjl93i,Glad I took the 1st half spread,2,2,joy,joy
+mdl,ladder_n100,44,ee75uj1,Fuck a newspaper,0,1,anger,fear
+mdl,ladder_n100,44,ee1z4ot,Still is glitched to this day.... sad,3,1,sadness,fear
+mdl,ladder_n100,44,ed5zozk,"Bro, he left his team in the middle of the game... idc what argument you have with [NAME] you still left your team.",0,1,anger,fear
+mdl,ladder_n100,44,ed96sxm,"Yeah, he does. Just because he draws different conclusions than you doesn't mean he isn't reading [NAME]. Get out of your little bubble.",0,3,anger,sadness
+mdl,ladder_n100,44,ee4miqe,Fuck so obvious,0,1,anger,fear
+mdl,ladder_n100,44,edeutkm,So you then took that lie and began aggressively cheating on him? Your post history. Wow.,0,3,anger,sadness
+mdl,ladder_n100,44,efc3kii,"Aaaand I'm still here. I don't have a alt account but whoever you reported I""m sure is alive and well. You're terrible.",1,1,fear,fear
+mdl,ladder_n100,44,ef09k1c,Im so sad how that movie turned out. We could have achived something good,3,1,sadness,fear
+mdl,ladder_n100,44,edrb24b,I beat my dad,0,3,anger,sadness
+mdl,ladder_n100,44,edwcpgk,Except forming an opinion of a topic without even having basic knowledge of said topic makes you sound pretty arrogant and entirely undercuts your opinion.,0,1,anger,fear
+mdl,ladder_n100,44,efdqjsb,Worried me there,1,1,fear,fear
+mdl,ladder_n100,44,ee7g7q2,Help me [NAME] I'm bully in high school for no reason.,1,1,fear,fear
+mdl,ladder_n100,44,edcqf5m,that was so sad :(,3,1,sadness,fear
+mdl,ladder_n100,44,eevkkqw,I thought that type of camouflage failed horribly because the high contrast and defined shapes made the ships really stand out.,1,3,fear,sadness
+mdl,ladder_n100,44,ef32sdd,I'm literally screaming.,3,2,sadness,joy
+mdl,ladder_n100,44,ee2rrgs,No you are providing more than enough evidence. Post histories do exist. Now fuck off.,0,1,anger,fear
+mdl,ladder_n100,44,eens4w2,Damn [NAME] is KILLING it,0,0,anger,anger
+mdl,ladder_n100,44,ede81cn,Sadly there's a good chance that you still need a car anyway because that affordable neighborhood will involve a one hour commute.,3,1,sadness,fear
+mdl,ladder_n100,44,ed6syhw,You fool! Now look what you've unleashed!,0,1,anger,fear
+mdl,ladder_n100,44,een4s88,[NAME] is a MOTHERFUCKER,0,3,anger,sadness
+mdl,ladder_n100,44,eevcnj0,Quite enjoying this tbh,2,1,joy,fear
+mdl,ladder_n100,44,eelv98w,Damned asshole trouble maker!! Someone has mummy issues. 👀,0,1,anger,fear
+mdl,ladder_n100,44,eezsr2a,Soooo [NAME] is f**ked,0,1,anger,fear
+mdl,ladder_n100,44,eewzmut,Is this a real thing? I'm a terrible stoner.,1,1,fear,fear
+mdl,ladder_n100,44,ed7bg7i,It's honestly the best news I've heard all season.,2,1,joy,fear
+mdl,ladder_n100,44,eeo6ius,What the frick. I ordered a x box card,0,0,anger,anger
+mdl,ladder_n100,44,eecrq51,"Tranlated: Wooooo be afraid of the spooky ""shadowban"" so don't do the thing that gets your message to a wider audience. Smh",1,1,fear,fear
+mdl,ladder_n100,44,edk6gbr,"Calm down snowflake. Comment stalking from a week ago is really sad, especially when you're whining about something that I'm 100% right on. ",3,1,sadness,fear
+mdl,ladder_n100,44,eems49s,Feels good getting a number next to our name again.,2,1,joy,fear
+mdl,ladder_n100,44,ee92had,So this is how democracy dies... With thunderous upvotes.,0,3,anger,sadness
+mdl,ladder_n100,44,eep6w1l,Fuck [NAME] pai,0,1,anger,fear
+mdl,ladder_n100,44,ed2hvlf,Any rap song because I hate it,0,1,anger,fear
+mdl,ladder_n100,44,efh50bc,That’s horrible. What country? If you don’t mind. My [NAME] was abused by her heavily religious (Pentecostal) father.,1,1,fear,fear
+mdl,ladder_n100,44,edbyvi1,> punishment for saying no to rape Surely if you wanted to rape someone you'd have to punish them for saying yes...,0,1,anger,fear
+mdl,ladder_n100,44,eeecutl,What the hell was that,0,0,anger,anger
+mdl,ladder_n100,44,eezzt7a,You are fucking retarded,0,1,anger,fear
+mdl,ladder_n100,44,edm9lwz,Your manager sounds like an idiot. Not saying he/she is. Just sounds like it from this.,0,1,anger,fear
+mdl,ladder_n100,44,ef2p9mw,Congrats!!! Happy for you.,2,2,joy,joy
+mdl,ladder_n100,44,edq3vgn,the most romantic thing that can possibly happen to me,2,3,joy,sadness
+mdl,ladder_n100,44,ee0psvl,So happy for you :),2,2,joy,joy
+mdl,ladder_n100,44,eedn836,I don’t know why but watching this makes me super happy!,2,2,joy,joy
+mdl,ladder_n100,44,ed60o6e,One of my worst nightmares. Ugh.,1,2,fear,joy
+mdl,ladder_n100,44,edj84ja,My wife is divorcing me because I glued [NAME] face onto all of our family photos He looks good with her body,3,1,sadness,fear
+mdl,ladder_n100,44,ee5ede3,Sending love and strength vibes <3,2,1,joy,fear
+mdl,ladder_n100,44,ee5xvwn,I hate these memes because [NAME] never cared if he did or didn't have a nose.,0,3,anger,sadness
+mdl,ladder_n100,44,ee36ak1,"No problem, glad to help.",2,1,joy,fear
+mdl,ladder_n100,44,edoa8hc,Of course he will lie cheat and steal to make him self relevant to the public. Horrible person.,1,1,fear,fear
+mdl,ladder_n100,44,ef9y4uz,[NAME] is a hungry little bastard.,0,3,anger,sadness
+mdl,ladder_n100,44,ee3wcxe,"And there you have it, the left who argue with personal attacks and cnn buzzwords.",0,3,anger,sadness
+mdl,ladder_n100,44,ed9s8qe,I’m going to die right now I’m so scared tears and snot everywhere,1,2,fear,joy
+mdl,ladder_n100,44,ef3r8uo,"Because they enjoy their toxic umoderated cesspool, apparently. Either way i'm done trying to care.",2,1,joy,fear
+mdl,ladder_n100,44,edwv5o1,Me me big sad.,3,2,sadness,joy
+mdl,ladder_n100,44,edjcfwz,[NAME] is fucking destroying Bama and I LOVE IT,2,3,joy,sadness
+mdl,ladder_n100,44,eczjbdy,I despise [NAME] and all his cronies,0,3,anger,sadness
+mdl,ladder_n100,44,ef12uz4,This makes me want to get nipple piercings but I’m too scared to :/,1,1,fear,fear
+mdl,ladder_n100,44,edhjtlr,I'd piss right on their floor. Fuck this.,0,0,anger,anger
+mdl,ladder_n100,44,ef0xnr3,Not really cringe. Just sad.,3,1,sadness,fear
+mdl,ladder_n100,44,edcmiq3,Happy Mic Day!,2,2,joy,joy
+mdl,ladder_n100,44,edelrki,"Happy that you're happy, and good to see someone highlighting the good parts! Any particular streaming service you're looking to get? :D",2,2,joy,joy
+mdl,ladder_n100,44,ee6r0ks,Tell your husband. Its lies by omissions. Who are you to pick and choose what HE wants to know.,0,1,anger,fear
+mdl,ladder_n100,44,ee1kg09,"That's the problem I'm pointing, the media use stupid clicbait names and people get dumber and dumber.",0,2,anger,joy
+mdl,ladder_n100,44,edm5qv7,"Deathly afraid, the undersides of boats too. I can't look if I see them in a picture or movie",1,0,fear,anger
+mdl,ladder_n100,44,edd0jx1,Also Strike Anywhere. This thread makes my heart happy. <3,2,1,joy,fear
+mdl,ladder_n100,44,eelbr0z,I'd smash,0,0,anger,anger
+mdl,ladder_n100,44,eewjd3i,Glad you came to your senses. Go feel uncomfortable about Lola bunny in Space Jam again.,2,2,joy,joy
+mdl,ladder_n100,44,eercjmw,Well 216 is out now and Im crying. [NAME] why?,3,3,sadness,sadness
+mdl,ladder_n100,44,edghuit,Men are the worst.,0,1,anger,fear
+mdl,ladder_n100,44,eeg40z9,Somebody gettin fired,0,3,anger,sadness
+mdl,ladder_n100,44,eennfur,"This, in top of my already terrible mental health, is the reason why I'm severely underweight and need help.",3,1,sadness,fear
+mdl,ladder_n100,44,efe39wm,"[NAME] instead of [NAME] for me, but glad to see [NAME] is doing well.",2,3,joy,sadness
+mdl,ladder_n100,44,ed50bmw,I find that relatable: I too am terrified of myself.,1,3,fear,sadness
+mdl,ladder_n100,44,edhkbec,"Not sure, I'm not good at expressing my feelings, and sometimes I get angry and say things that very hurtful",0,1,anger,fear
+mdl,ladder_n100,44,eegn38f,I'm sad for the bot. They only want a purpose,3,3,sadness,sadness
+mdl,ladder_n100,44,ed0cmts,Left handers are rejoicing over this,2,1,joy,fear
+mdl,ladder_n100,44,ed4m0qz,My husband and I have been circling the drain for years. :(,3,1,sadness,fear
+mdl,ladder_n100,44,eddpto7,This hit me with de good ol memories,2,1,joy,fear
+mdl,ladder_n100,44,ef7c27s,I enjoyed this nearly as much as I enjoy too many pints.,2,3,joy,sadness
+mdl,ladder_n100,44,eekv307,My friends that were badly injured from the first fight. Read my backstory comment.,3,1,sadness,fear
+mdl,ladder_n100,44,eek89ki,i curse you,0,3,anger,sadness
+mdl,ladder_n100,44,eewboco,[NAME] living her best life in Germany.,2,3,joy,sadness
+mdl,ladder_n100,44,ed88ihl,The fact you have to explain this at the third grade level is pathetic. People think somone preventing his own murder is a tragedy.,3,3,sadness,sadness
+mdl,ladder_n100,44,ed10dfd,Gonna be sad when Gameday is inside a gym for shooty hoops. I already miss CFB :(,3,1,sadness,fear
+mdl,ladder_n100,44,ed184ql,"My fiancé and I went to a friends house and just hung out until midnight and watched fireworks, it was so chill and perfect!",2,1,joy,fear
+mdl,ladder_n100,44,eekyspm,I have but I sugar discreetly and I’m genuinely afraid to have that compromised due to the field I’m in,1,3,fear,sadness
+mdl,ladder_n100,44,eeo4ds5,Is...Is this a Hitman themed FE Shitpost?...I dunno whether to be happy or impressed by this.,2,1,joy,fear
+mdl,ladder_n100,44,ef1eq85,"“Guys watch out, the scary looking kid is coming down the hall”",1,1,fear,fear
+mdl,ladder_n100,44,efcx9uv,i feel like slapping /s after everything sucks the fun out. it's not my fault people are autistic.... /s,0,3,anger,sadness
+mdl,ladder_n100,44,ee6peah,So much lonely,3,3,sadness,sadness
+mdl,ladder_n100,44,eeeg69u,I have an issue metabolizing medications fast. I'll wake up during surgeries so they give me a lot of drugs.,3,2,sadness,joy
+mdl,ladder_n100,44,edow9ya,Monero enthusiast here. Make me happy and call me a liar again.,2,1,joy,fear
+mdl,ladder_n100,44,ed9feu7,Ooh you made them?! Awesome!! I hope you enjoyed them. 5 cheeses sounds like a great decision.,2,2,joy,joy
+mdl,ladder_n100,44,edplze2,"I've have a serious fear of getting winded, this video made my balls fall off ",1,1,fear,fear
+mdl,ladder_n100,44,ee24uie,The comments on this thread are what I expected and that makes me sad.,3,3,sadness,sadness
+mdl,ladder_n100,44,ed0fw6m,I honestly predict a riot on the scale of the 2011 ones if we undergo a no-deal brexit - possibly even worse. It's terrifying.,1,3,fear,sadness
+mdl,ladder_n100,44,edfs5k1,Oh man that hurt to watch,3,1,sadness,fear
+mdl,ladder_n100,44,ef1h4if,mystery solved.,2,1,joy,fear
+mdl,ladder_n100,44,eea97o5,Let's kill and eat them all. That'll stop those damned animals from deforesting my forests,0,1,anger,fear
+mdl,ladder_n100,44,ee2bd7a,"It was a terrible, terrible thing to do. He did every day of his time for it, has expressed regret, and has not repeated it.",1,1,fear,fear
+mdl,ladder_n100,44,eesioex,I'm sorry it happened like that for you. I really can't imagine.,3,2,sadness,joy
+mdl,ladder_n100,44,efet0j4,Yeah cause no man has ever been falsely imprisoned due to allegations proven later to be false,0,3,anger,sadness
+mdl,ladder_n100,44,ee21vqz,"What a loser, sad. ",3,0,sadness,anger
+mdl,ladder_n100,44,ef5nlo9,I'm afraid of having a sit down with them amd not being heard. But I might have to for my safety.,1,2,fear,joy
+mdl,ladder_n100,44,edujmcx,"Too bad he went back home to Nepal, it's always great seeing these young spinners getting a go in the BBL.",3,1,sadness,fear
+mdl,ladder_n100,44,ee9su7o,BASED AND REDPILLED,0,1,anger,fear
+mdl,ladder_n100,44,ee7j2ux,Now *I’M* angry,0,1,anger,fear
+mdl,ladder_n100,44,ed4cpjo,"[NAME] shot has been quite frankly terrible tonight, wayy too strong on most of his looks",1,3,fear,sadness
+mdl,ladder_n100,44,eell134,I'm sad can someone make me feel better Feel like shit rn just want [NAME] back,3,3,sadness,sadness
+mdl,ladder_n100,44,eeibo6i,[NAME] just wants to post pics of her facetuned of herself for attention while acting morally superior to those other girls. fuck off,0,0,anger,anger
+mdl,ladder_n100,44,efgz3es,I'm glad you made a Reddit account to inform us how much you totes don't care bro,2,2,joy,joy
+mdl,ladder_n100,44,edbye2t,I’m kind of scared to talk to my manager about it,1,2,fear,joy
+mdl,ladder_n100,44,efh6oic,Everytime I get to hug someone.,2,1,joy,fear
+mdl,ladder_n100,44,efcz1ee,"It was a painful cringe, too. Are we masochists?",3,1,sadness,fear
+mdl,ladder_n100,44,edjeqnb,Them boys smelling even more blood in the water. Rack them fuckin points up boys!,0,1,anger,fear
+mdl,ladder_n100,44,ed44yea,"For [NAME] sake, they used OFFICIAL ones , my god. Fucking animals.",0,1,anger,fear
+mdl,ladder_n100,44,eel9csq,"2 Minute [NAME] is the scariest [NAME]. I fear they have yet again, like the regular season game, scored too soon.",1,1,fear,fear
+mdl,ladder_n100,44,ef462vc,"You really don't comprehend anything my man, now do you? Goodness gracious the amount of stupidity. ",0,1,anger,fear
+mdl,ladder_n100,44,edoqnr3,That shit sent me on a fucking journey to read.,0,1,anger,fear
+mdl,ladder_n100,44,edj6bdj,This is clearly the world's most dangerous gang,1,1,fear,fear
+mdl,ladder_n100,44,eeidol8,I'm afraid I'll pick something else.,1,2,fear,joy
+mdl,ladder_n100,44,eduq5ma,For both of you together? The fuck company are you using.,0,1,anger,fear
+mdl,ladder_n100,44,edpg57t,"That's that frequency dying in your ears. Enjoy it, because you will never hear that exact frequency again",2,2,joy,joy
+mdl,ladder_n100,44,ed1ms3j,I don't think you're allowed to administer a vaccine to someone who is sick/injured.,3,3,sadness,sadness
+mdl,ladder_n100,44,ed2h0l8,Happy cake day!,2,2,joy,joy
+mdl,ladder_n100,44,ed003qq,"I feel sorry for people that think Reddit (or even some random sub-reddit) is ""an international stage"".",3,3,sadness,sadness
+mdl,ladder_n100,44,edzmkbp,"It's hard to have a nuanced opinion, innit? But I don't like everything he does. This is one if them.",0,1,anger,fear
+mdl,ladder_n100,44,ededg5v,I don't drink at all specifically because the next day is sheer terror.,1,3,fear,sadness
+mdl,ladder_n100,44,eekby4q,ok so that was fucking sick,3,1,sadness,fear
+mdl,ladder_n100,44,eeaothh,"I’ll be honest I really don’t care. I’m happy to know that others care about this, but eh you do you",2,3,joy,sadness
+mdl,ladder_n100,44,edl27ai,It was done before and it was terrible,1,1,fear,fear
+mdl,ladder_n100,44,eezcz2y,I want to so bad it hurts. I guess I'm just scared.,1,3,fear,sadness
+mdl,ladder_n100,44,eemn1s5,"Help, I'm scared and want to go back.",1,1,fear,fear
+mdl,ladder_n100,44,edlmoh8,So happy for your strong stance and to help him on his way out of your life.,2,3,joy,sadness
+mdl,ladder_n100,44,ee3uztg,Fuck the haters [NAME] > Everybody,0,1,anger,fear
+mdl,ladder_n100,44,edem6q7,literally I feel like crying,3,1,sadness,fear
+mdl,ladder_n100,44,ef6mwwv,Glad to see [NAME] back,2,2,joy,joy
+mdl,ladder_n100,44,efb7e1k,I was in awe the whole hour I spent in there.,1,3,fear,sadness
+mdl,ladder_n100,44,edlt0qm,Cool! Glad to see some cooperation.,2,2,joy,joy
+mdl,ladder_n100,44,edoy5ok,"Blow me you feckless moron, I was out of state. ",0,1,anger,fear
+mdl,ladder_n100,44,ee9rhdo,Maybe it's fantasy.....I just feel like the stock for a lot of these Ducks is reallllll low right now,3,2,sadness,joy
+mdl,ladder_n100,44,eeg71ym,I am trying they try to say I’m fake even though I’m trying it’s painful to talk to them sometimes,3,3,sadness,sadness
+mdl,ladder_n100,44,edext4x,So. This is scary as fuck.,1,3,fear,sadness
+mdl,ladder_n100,44,efeymfg,And that smilie she gave the fiancé when he sat down with the sandwich....I would be scared if I was him.,1,3,fear,sadness
+mdl,ladder_n100,44,eesnlsb,I see you utilized it. 3.5? Sad.,3,3,sadness,sadness
+mdl,ladder_n100,44,ee8mjqp,It's sad how long it took me to get that. Haha got em,3,1,sadness,fear
+mdl,ladder_n100,44,ed702q1,My kitten just got very happy when Pasta scored. Such loud purrs! I was happy too.,2,1,joy,fear
+mdl,ladder_n100,44,eerk3up,Sad thing is it would probably forcibly ground the plane.,3,3,sadness,sadness
+mdl,ladder_n100,44,ed21elv,This whole sub makes me sad.,3,1,sadness,fear
+mdl,ladder_n100,44,eettn7f,I always feel so bad for [NAME] when I watch this scene.,3,3,sadness,sadness
+mdl,ladder_n100,44,eekx665,HOLY SHIT CHANCE,0,1,anger,fear
+mdl,ladder_n100,44,edeq0rd,I am unconcerned.,3,3,sadness,sadness
+mdl,ladder_n100,44,eeg90ek,Or just get the fuck out and never look back.,0,1,anger,fear
+mdl,ladder_n100,44,edxgh62,It also makes me cry! but because it shows how far [NAME] has fallen...,3,1,sadness,fear
+mdl,ladder_n100,44,edfmk6s,Good for you for shutting that door! You are not responsible for him. He’s a grown ass man who made his own mistakes.,0,2,anger,joy
+mdl,ladder_n100,44,edp44sl,I miss the confetti cakes :(,3,3,sadness,sadness
+mdl,ladder_n100,44,eeodqq2,"I'm a little sad that there's not actually a video called Dance of the Hillary, virus or not.",3,2,sadness,joy
+mdl,ladder_n100,44,edl43g4,"I had a friend send me a 3+ hour paranoid conspiracy documentary, zeitgeist I think it was called... Wasted 10 minutes before I noped the fuck out..",0,3,anger,sadness
+mdl,ladder_n100,44,ef94f03,Wife left me and I am just broken. relapsed tonight from 7 years clean and just not seeing a point anymore,3,1,sadness,fear
+mdl,ladder_n100,44,eeeved3,I really pity those unfree Cuban babies. It’s just sad.,3,3,sadness,sadness
+mdl,ladder_n100,44,ee4utnt,Ik I’m crying rn,3,1,sadness,fear
+mdl,ladder_n100,44,eeb2y2u,The sea was angry that day my friends...,0,3,anger,sadness
