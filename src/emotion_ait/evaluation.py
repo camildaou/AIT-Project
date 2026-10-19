@@ -134,9 +134,17 @@ class ResultRecord:
 
 
 def append_result(record: ResultRecord, results_dir: Path, filename: str = "results.csv") -> Path:
-    """Append one result record to the shared results CSV, creating it
-    (with header) on first use. Also mirrors every record as its own
-    JSON file under ``results_dir / "json"`` for easy diffing."""
+    """Append one result record to the shared, combined results CSV,
+    creating it (with header) on first use. Also mirrors every record
+    individually under ``results_dir``:
+
+    * ``json/<model>_<subset>_<seed>.json`` -- the full record as JSON.
+    * ``csv/<model>_<subset>_<seed>.csv`` -- the same flattened row as a
+      single-row CSV, so one subset's metrics can be inspected (or
+      diffed/reloaded) without reading the combined CSV.
+
+    Both per-run mirrors are overwritten on re-run (unlike the combined
+    CSV, which only ever grows)."""
     results_dir.mkdir(parents=True, exist_ok=True)
     csv_path = results_dir / filename
     flat = record.to_flat_dict()
@@ -149,11 +157,16 @@ def append_result(record: ResultRecord, results_dir: Path, filename: str = "resu
         combined = row_df
     combined.to_csv(csv_path, index=False)
 
+    run_name = f"{record.model_name}_{record.train_subset_name}_{record.seed}"
+
     json_dir = results_dir / "json"
     json_dir.mkdir(parents=True, exist_ok=True)
-    json_name = f"{record.model_name}_{record.train_subset_name}_{record.seed}.json"
-    with open(json_dir / json_name, "w", encoding="utf-8") as fh:
+    with open(json_dir / f"{run_name}.json", "w", encoding="utf-8") as fh:
         json.dump(dataclasses.asdict(record), fh, indent=2)
+
+    per_run_csv_dir = results_dir / "csv"
+    per_run_csv_dir.mkdir(parents=True, exist_ok=True)
+    row_df.to_csv(per_run_csv_dir / f"{run_name}.csv", index=False)
 
     return csv_path
 
@@ -166,3 +179,55 @@ def warn_if_missing_classes(y_true: Sequence[int], label_names: Dict[int, str]) 
     missing = [label_names[i] for i in sorted(label_names) if i not in present]
     if missing:
         warnings.warn(f"Evaluation set is missing classes: {missing}. Their metrics will be 0.0.")
+
+
+def save_predictions(
+    model_name: str,
+    subset_name: str,
+    seed: int,
+    example_ids: Sequence[str],
+    texts: Sequence[str],
+    y_true: Sequence[int],
+    y_pred: Sequence[int],
+    label_names: Dict[int, str],
+    results_dir: Path,
+    description_lengths: Optional[Sequence[Dict[int, float]]] = None,
+) -> Path:
+    """Persist one row per evaluated example for qualitative/error
+    analysis: ``example_id``, ``text``, true/predicted label (id and
+    name), a ``correct`` flag, and -- when the model exposes a
+    ``description_lengths`` diagnostic (e.g. :class:`MDLClassifier`) --
+    one ``bits_<label_name>`` column per candidate class, so individual
+    misclassifications can be inspected alongside their scores.
+
+    Written to ``results_dir / "predictions" / "<model_name>_<subset_name>_<seed>.csv"``,
+    overwriting any previous file for the same (model, subset, seed)
+    combination (unlike the aggregate metrics CSV, this is a per-run
+    snapshot rather than an append-only log).
+    """
+    if not (len(example_ids) == len(texts) == len(y_true) == len(y_pred)):
+        raise ValueError("example_ids, texts, y_true, and y_pred must all have the same length.")
+
+    rows = []
+    for i, example_id in enumerate(example_ids):
+        true_id = int(y_true[i])
+        pred_id = int(y_pred[i])
+        row = {
+            "example_id": example_id,
+            "text": texts[i],
+            "true_label": true_id,
+            "true_label_name": label_names[true_id],
+            "predicted_label": pred_id,
+            "predicted_label_name": label_names[pred_id],
+            "correct": true_id == pred_id,
+        }
+        if description_lengths is not None:
+            for class_id, bits in sorted(description_lengths[i].items()):
+                row[f"bits_{label_names[class_id]}"] = bits
+        rows.append(row)
+
+    predictions_dir = results_dir / "predictions"
+    predictions_dir.mkdir(parents=True, exist_ok=True)
+    out_path = predictions_dir / f"{model_name}_{subset_name}_{seed}.csv"
+    pd.DataFrame(rows).to_csv(out_path, index=False)
+    return out_path
