@@ -12,17 +12,17 @@ The score-chart y-axes are narrowed to show differences more clearly, while stay
 
 Values below are Macro-F1 / accuracy, shown as percentages.
 
-| Training size | MDL | LSTM | Macro-F1 lead |
-|---:|---:|---:|---:|
-| 100 | 28.7 / 29.2 | 21.6 / 37.1 | MDL +7.1 pp |
-| 157 | 31.0 / 30.7 | 30.7 / 41.2 | MDL +0.3 pp |
-| 249 | 35.2 / 34.8 | 34.4 / 38.1 | MDL +0.8 pp |
-| 313 | 38.6 / 38.4 | 37.6 / 44.8 | MDL +1.0 pp |
-| 500 | 43.3 / 43.7 | 33.3 / 38.6 | MDL +10.0 pp |
-| 625 | 42.5 / 43.0 | 53.9 / 54.0 | LSTM +11.4 pp |
-| 1,250 | 45.7 / 47.1 | 52.9 / 56.8 | LSTM +7.2 pp |
-| 2,188 | 48.7 / 50.4 | 61.3 / 61.9 | LSTM +12.7 pp |
-| 3,125 | 49.5 / 51.7 | 66.1 / 66.2 | LSTM +16.6 pp |
+| Training size | MDL Macro-F1 | MDL accuracy | LSTM Macro-F1 | LSTM accuracy | Macro-F1 lead |
+|---:|---:|---:|---:|---:|---:|
+| 100 | 28.7% | 29.2% | 21.6% | 37.1% | MDL +7.1 pp |
+| 157 | 31.0% | 30.7% | 30.7% | 41.2% | MDL +0.3 pp |
+| 249 | 35.2% | 34.8% | 34.4% | 38.1% | MDL +0.8 pp |
+| 313 | 38.6% | 38.4% | 37.6% | 44.8% | MDL +1.0 pp |
+| 500 | 43.3% | 43.7% | 33.3% | 38.6% | MDL +10.0 pp |
+| 625 | 42.5% | 43.0% | 53.9% | 54.0% | LSTM +11.4 pp |
+| 1,250 | 45.7% | 47.1% | 52.9% | 56.8% | LSTM +7.2 pp |
+| 2,188 | 48.7% | 50.4% | 61.3% | 61.9% | LSTM +12.7 pp |
+| 3,125 | 49.5% | 51.7% | 66.1% | 66.2% | LSTM +16.6 pp |
 
 MDL has higher Macro-F1 through 500 examples, although the gaps at 157, 249, and 313 examples are small. LSTM takes the lead at 625 examples and has a larger margin at 2,188 and 3,125. From 100 to 3,125, Macro-F1 rises 20.7 percentage points for MDL and 44.4 points for LSTM.
 
@@ -34,16 +34,16 @@ At 100 examples, LSTM accuracy is 37.1%, above MDL's 29.2%, but its Macro-F1 is 
 
 Values are mean Macro-F1 ± standard deviation / mean accuracy, in percentages.
 
-| Training size | MDL Macro-F1 ± SD / accuracy | LSTM Macro-F1 ± SD / accuracy | Mean Macro-F1 lead |
-|---:|---:|---:|---:|
-| 100 | 29.9 ± 2.4 / 29.9 | 24.1 ± 2.5 / 36.5 | MDL +5.8 pp |
-| 249 | 35.6 ± 1.0 / 35.3 | 34.9 ± 5.1 / 41.4 | MDL +0.7 pp |
-| 500 | 42.2 ± 1.6 / 42.7 | 44.4 ± 6.8 / 49.2 | LSTM +2.2 pp |
-| 1,000 | 43.6 ± 2.1 / 44.7 | 51.5 ± 6.8 / 53.4 | LSTM +7.9 pp |
-| 1,499 | 46.7 ± 1.8 / 48.1 | 58.6 ± 1.3 / 61.5 | LSTM +11.9 pp |
-| 2,000 | 48.6 ± 2.1 / 50.1 | 61.2 ± 3.3 / 62.5 | LSTM +12.7 pp |
-| 2,500 | 48.4 ± 1.1 / 50.2 | 65.8 ± 1.7 / 67.1 | LSTM +17.4 pp |
-| 3,125 | 49.5 ± 0.0 / 51.7 | 64.5 ± 5.6 / 65.6 | LSTM +15.0 pp |
+| Training size | MDL Macro-F1 (mean ± SD) | MDL accuracy | LSTM Macro-F1 (mean ± SD) | LSTM accuracy | Mean Macro-F1 lead |
+|---:|---:|---:|---:|---:|---:|
+| 100 | 29.9% ± 2.4 | 29.9% | 24.1% ± 2.5 | 36.5% | MDL +5.8 pp |
+| 249 | 35.6% ± 1.0 | 35.3% | 34.9% ± 5.1 | 41.4% | MDL +0.7 pp |
+| 500 | 42.2% ± 1.6 | 42.7% | 44.4% ± 6.8 | 49.2% | LSTM +2.2 pp |
+| 1,000 | 43.6% ± 2.1 | 44.7% | 51.5% ± 6.8 | 53.4% | LSTM +7.9 pp |
+| 1,499 | 46.7% ± 1.8 | 48.1% | 58.6% ± 1.3 | 61.5% | LSTM +11.9 pp |
+| 2,000 | 48.6% ± 2.1 | 50.1% | 61.2% ± 3.3 | 62.5% | LSTM +12.7 pp |
+| 2,500 | 48.4% ± 1.1 | 50.2% | 65.8% ± 1.7 | 67.1% | LSTM +17.4 pp |
+| 3,125 | 49.5% ± 0.0 | 51.7% | 64.5% ± 5.6 | 65.6% | LSTM +15.0 pp |
 
 MDL improves steadily overall, from 29.9% Macro-F1 at 100 examples to 49.5% at 3,125. Its curve flattens after about 1,499 examples: the score changes from 46.7% to 49.5% over the remaining sizes, with a small dip at 2,500. LSTM gains more as data grows, rising from 24.1% to 65.8% at 2,500, then averaging 64.5% at 3,125. Its net increase from 100 to 3,125 is 40.4 percentage points.
 
