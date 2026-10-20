@@ -66,6 +66,44 @@ Fear is MDL's weakest class across the ladder: its mean F1 is 31.3% at 500, then
 
 At full size, LSTM's strongest mean class is anger (69.8%), followed by joy (68.1%), sadness (64.3%), and fear (55.9%). The largest final gain over MDL is fear, at 22.6 percentage points. LSTM still varies by seed for individual classes: at full size, its fear F1 ranges from 46.0% to 62.9%, and joy ranges from 51.5% to 77.1%. The per-seed class plots make this variation visible.
 
+### How results change by seed
+
+The next table compares each seed's smallest and largest ladder runs. Changes are in percentage points (pp). The final column is LSTM Macro-F1 minus MDL Macro-F1 at 3,125 examples.
+
+| Seed | MDL Macro-F1, 100 → 3,125 (change) | LSTM Macro-F1, 100 → 3,125 (change) | MDL accuracy, 100 → 3,125 (change) | LSTM accuracy, 100 → 3,125 (change) | LSTM lead at 3,125 |
+|---:|---:|---:|---:|---:|---:|
+| 42 | 28.7% → 49.5% (+20.7 pp) | 21.6% → 66.1% (+44.4 pp) | 29.2% → 51.7% (+22.5 pp) | 37.1% → 66.2% (+29.2 pp) | +16.6 pp |
+| 43 | 30.5% → 49.5% (+18.9 pp) | 21.5% → 54.7% (+33.1 pp) | 30.2% → 51.7% (+21.5 pp) | 37.1% → 55.2% (+18.2 pp) | +5.2 pp |
+| 44 | 29.1% → 49.5% (+20.4 pp) | 25.0% → 66.0% (+41.0 pp) | 28.4% → 51.7% (+23.3 pp) | 36.6% → 66.5% (+29.9 pp) | +16.5 pp |
+| 45 | 33.6% → 49.5% (+15.9 pp) | 27.3% → 68.2% (+41.0 pp) | 33.2% → 51.7% (+18.4 pp) | 33.2% → 69.6% (+36.3 pp) | +18.7 pp |
+| 46 | 27.4% → 49.5% (+22.0 pp) | 25.0% → 67.6% (+42.6 pp) | 28.4% → 51.7% (+23.3 pp) | 38.4% → 70.3% (+32.0 pp) | +18.1 pp |
+
+All five seeds show substantial gains for both methods as the training subset grows. MDL's full-size result is identical across seeds (49.5% Macro-F1 and 51.7% accuracy). LSTM varies more: its full-size Macro-F1 ranges from 54.7% (seed 43) to 68.2% (seed 45), and accuracy ranges from 55.2% to 70.3%. LSTM still leads MDL at full size for every seed, but the size of that lead ranges from 5.2 to 18.7 points.
+
+The amount of data at which LSTM first beats MDL on Macro-F1 depends on the seed: at 249 examples for seeds 44 and 45, 500 for seeds 43 and 46, and 1,499 for seed 42. At 100, MDL wins for all five seeds. At 249, MDL wins three seeds and LSTM two; at 500 and 1,000, LSTM wins four seeds; from 1,499 through 3,125, LSTM wins all five. Accuracy changes hands earlier: LSTM is higher for four seeds and tied for one at size 100, and higher for all five at size 249.
+
+The individual trajectories explain the remaining variation. Seed 45's LSTM Macro-F1 rises at every size, from 27.3% to 68.2%. Seed 42 dips at 500 (33.3%, down from 34.4% at 249) before rising to 66.1%. Seed 43 rises to 64.3% at 2,500, then falls to 54.7% at 3,125; the other four LSTM seeds are flat or higher at the final step. Seeds 44 and 46 reach their best LSTM Macro-F1 at 2,500 (67.2% and 67.6%) and are slightly lower or unchanged at full size. MDL is steadier at larger sizes: each seed finishes at 49.5%, with its highest score between 2,000 and 3,125 examples.
+
+Per-class F1 also changes differently by seed. The values below are the change from 100 to 3,125 examples for each class, in percentage points.
+
+| Seed | MDL anger | MDL fear | MDL joy | MDL sadness |
+|---:|---:|---:|---:|---:|
+| 42 | +27.2 | +3.9 | +20.8 | +31.0 |
+| 43 | +21.4 | +5.5 | +26.9 | +21.9 |
+| 44 | +37.1 | +7.1 | +13.5 | +24.0 |
+| 45 | +21.6 | +3.5 | +17.8 | +20.5 |
+| 46 | +27.2 | +3.0 | +22.1 | +36.0 |
+
+| Seed | LSTM anger | LSTM fear | LSTM joy | LSTM sadness |
+|---:|---:|---:|---:|---:|
+| 42 | +14.1 | +52.5 | +50.9 | +60.3 |
+| 43 | +9.6 | +46.0 | +32.1 | +44.7 |
+| 44 | +16.0 | +59.4 | +52.4 | +36.4 |
+| 45 | +44.7 | +47.2 | +27.8 | +44.1 |
+| 46 | +24.4 | +44.1 | +60.0 | +41.9 |
+
+These deltas show that the LSTM's large overall improvement comes mainly from fear, joy, and sadness when those classes begin with low scores. Seed 45 is the exception for anger, where it gains 44.7 points. For MDL, fear improves only 3.0–7.1 points across seeds; its gains in anger, joy, and sadness are larger. This persistent fear weakness is the main class-level limit on MDL's full-size Macro-F1.
+
 ## Overall conclusion and limits
 
 The results support a data-size-dependent comparison: MDL is competitive with very small training sets, while LSTM benefits more as training data grows and is consistently ahead in the larger ladder runs. Macro-F1 and per-class F1 are essential to that conclusion; accuracy by itself conceals the weak small-data LSTM scores on fear, joy, and sadness.
