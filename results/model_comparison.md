@@ -1,42 +1,6 @@
-# MDL and LSTM ladder comparison
+# Qualitative analysis of results
 
-The project has two sets of experiments, so the charts are split into separate groups. Both use the same test set for model evaluation.
-
-## First training runs
-
-- [Macro-F1 curve](figures/first_training_macro-f1_learning_curve.png)
-- [Accuracy curve](figures/first_training_accuracy_learning_curve.png)
-- [Per-class F1 at full training size](figures/first_training_per_class_f1_full_training.png)
-
-These runs use the original training subsets and one seed (42), so their charts show one line of results without error bars. The values are in [first_training_model_comparison_summary.csv](metrics/first_training_model_comparison_summary.csv).
-
-## Ladder runs
-
-The ladder charts are separated by seed. Each seed has Macro-F1 and accuracy curves, plus a grouped bar chart comparing per-class F1 for anger, fear, joy, and sadness at the full training size:
-
-- **Seed 42:** [Macro-F1](figures/ladder_seed_42_macro_f1_learning_curve.png) · [Accuracy](figures/ladder_seed_42_accuracy_learning_curve.png) · [Per-class F1](figures/ladder_seed_42_per_class_f1_full_training.png)
-- **Seed 43:** [Macro-F1](figures/ladder_seed_43_macro_f1_learning_curve.png) · [Accuracy](figures/ladder_seed_43_accuracy_learning_curve.png) · [Per-class F1](figures/ladder_seed_43_per_class_f1_full_training.png)
-- **Seed 44:** [Macro-F1](figures/ladder_seed_44_macro_f1_learning_curve.png) · [Accuracy](figures/ladder_seed_44_accuracy_learning_curve.png) · [Per-class F1](figures/ladder_seed_44_per_class_f1_full_training.png)
-- **Seed 45:** [Macro-F1](figures/ladder_seed_45_macro_f1_learning_curve.png) · [Accuracy](figures/ladder_seed_45_accuracy_learning_curve.png) · [Per-class F1](figures/ladder_seed_45_per_class_f1_full_training.png)
-- **Seed 46:** [Macro-F1](figures/ladder_seed_46_macro_f1_learning_curve.png) · [Accuracy](figures/ladder_seed_46_accuracy_learning_curve.png) · [Per-class F1](figures/ladder_seed_46_per_class_f1_full_training.png)
-
-The overall ladder averages remain in [ladder_model_comparison_summary.csv](metrics/ladder_model_comparison_summary.csv).
-
-Across the five-seed ladder average, MDL has higher mean macro-F1 at 100 and 249 examples, and LSTM higher from 500 onward. At 3,125 examples, LSTM reaches 0.645 versus 0.495 for MDL. Individual seed charts make the run-to-run differences visible.
-
-## Recreate the artifacts
-
-From the `AIT-Project` directory, run:
-
-```powershell
-python scripts/plot_model_comparison.py
-```
-
-The script reads `results/metrics/mdl_results.csv`, `lstm_results.csv`, and the two `*_ladder_results.csv` files. It writes separate first-training and ladder charts and summary tables, leaving the source results untouched.
-
-## Detailed qualitative analysis
-
-### Evaluation context
+## Evaluation context
 
 Both methods were evaluated on the same 391-example test set: 131 anger, 65 fear, 93 joy, and 102 sadness examples. Accuracy is the fraction of all examples classified correctly. Macro-F1 is the unweighted average of the four class F1 scores, so a good score on the most common class cannot hide weak performance on another class. For that reason, Macro-F1 is the stronger headline metric here, with accuracy as a useful secondary measure.
 
@@ -44,7 +8,7 @@ The first-training experiment has one run per size (seed 42), with actual sizes 
 
 The score-chart y-axes are narrowed to show differences more clearly, while staying within the valid 0–1 range. This makes slopes look steeper than they would on an axis starting at zero; use the tables for exact comparisons.
 
-### First-training results
+## First-training results
 
 Values below are Macro-F1 / accuracy, shown as percentages.
 
@@ -66,7 +30,7 @@ The single-seed curves are not monotonic. LSTM Macro-F1 drops from 37.6% at 313 
 
 At 100 examples, LSTM accuracy is 37.1%, above MDL's 29.2%, but its Macro-F1 is lower (21.6% versus 28.7%). LSTM's anger F1 is 52.6% at that size, while its fear, joy, and sadness F1 scores are 10.4%, 18.0%, and 5.6%. This imbalance across classes explains why accuracy alone makes the result look stronger than Macro-F1 does. A classifier that always predicted anger would get 33.5% accuracy on this test set because anger is the largest class.
 
-### Ladder learning curves
+## Ladder learning curves
 
 Values are mean Macro-F1 ± standard deviation / mean accuracy, in percentages.
 
@@ -87,7 +51,7 @@ The five seeds show how consistent the model comparison is at each size. MDL bea
 
 LSTM's mean score falls from 65.8% at 2,500 to 64.5% at 3,125. Seed 43 accounts for much of this drop: its Macro-F1 goes from 64.3% to 54.7%; the other four seeds are flat or higher. The standard deviation also rises from 1.7 points at 2,500 to 5.6 at full size. This looks like run-to-run variation rather than evidence that the extra training data consistently hurts LSTM. MDL's standard deviation is zero at full size because the full dataset is the same across seeds and MDL produces the same score each time.
 
-### Per-class F1
+## Per-class F1
 
 The ladder's five-seed mean class F1 at the smallest and largest sizes shows where the gains come from:
 
@@ -102,7 +66,7 @@ Fear is MDL's weakest class across the ladder: its mean F1 is 31.3% at 500, then
 
 At full size, LSTM's strongest mean class is anger (69.8%), followed by joy (68.1%), sadness (64.3%), and fear (55.9%). The largest final gain over MDL is fear, at 22.6 percentage points. LSTM still varies by seed for individual classes: at full size, its fear F1 ranges from 46.0% to 62.9%, and joy ranges from 51.5% to 77.1%. The per-seed class plots make this variation visible.
 
-### Overall conclusion and limits
+## Overall conclusion and limits
 
 The results support a data-size-dependent comparison: MDL is competitive with very small training sets, while LSTM benefits more as training data grows and is consistently ahead in the larger ladder runs. Macro-F1 and per-class F1 are essential to that conclusion; accuracy by itself conceals the weak small-data LSTM scores on fear, joy, and sadness.
 
