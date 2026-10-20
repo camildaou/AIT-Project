@@ -1,0 +1,49 @@
+{
+  "model_name": "lstm",
+  "train_subset_name": "ladder_n1500",
+  "train_subset_percentage": null,
+  "train_subset_size": 1499,
+  "seed": 46,
+  "config_summary": {
+    "embedding_dim": 100,
+    "hidden_dim": 128,
+    "num_layers": 1,
+    "max_epochs": 10,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "patience": 3,
+    "seed": 46
+  },
+  "test_accuracy": 0.6010230179028133,
+  "test_macro_f1": 0.5689143023062884,
+  "test_per_class": {
+    "anger": {
+      "precision": 0.48770491803278687,
+      "recall": 0.9083969465648855,
+      "f1": 0.6346666666666667,
+      "support": 131
+    },
+    "fear": {
+      "precision": 0.6451612903225806,
+      "recall": 0.3076923076923077,
+      "f1": 0.4166666666666667,
+      "support": 65
+    },
+    "joy": {
+      "precision": 0.8169014084507042,
+      "recall": 0.6236559139784946,
+      "f1": 0.7073170731707317,
+      "support": 93
+    },
+    "sadness": {
+      "precision": 0.8444444444444444,
+      "recall": 0.37254901960784315,
+      "f1": 0.5170068027210885,
+      "support": 102
+    }
+  },
+  "train_time_seconds": 39.87878269999055,
+  "inference_time_seconds": 0.8496444999764208,
+  "validation_macro_f1": 0.5507463300576394,
+  "timestamp": "2026-10-19T15:59:09.274983+00:00"
+}
