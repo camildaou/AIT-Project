@@ -28,23 +28,26 @@ Differences from the baseline:
 * Ties go to the lowest class index.
 * :meth:`diagnostics` reports per-class statistics for rare-class analysis.
 * **Optional interpolated Kneser-Ney smoothing** (``smoothing="kneser_ney"``,
-  bigram only) instead of add-``k``::
+  any order ``n``) instead of add-``k``. For order ``m`` with context ``h``
+  (the last ``m - 1`` tokens) and ``h'`` = ``h`` without its first token::
 
-      P(w | v)  = (max(c(v,w) - D, 0) + D * N1+(v .) * P_low(w)) / c(v)      if c(v) > 0
-                = P_low(w)                                                  if c(v) = 0
-      P_low(w)  = max(N1+(. w) - D_low, 0) / N1+(. .) + D_low * T_low / N1+(. .) * 1/V
+      P_m(w | h) = (max(c_m(h w) - D_m, 0) + D_m * N1+(h .) * P_{m-1}(w | h')) / c_m(h .)   if c_m(h .) > 0
+                 = P_{m-1}(w | h')                                                         otherwise
+      P_0(w)     = 1 / V
 
-  ``c`` are the class's bigram/context counts, ``N1+(v .)`` the number of
-  distinct words seen after ``v``, ``N1+(. w)`` the number of distinct
-  contexts ``w`` was seen after (continuation count), ``N1+(. .)`` the
-  number of distinct bigram types and ``T_low`` the number of words with a
-  continuation count. The recursion ends in the uniform ``1/V`` over the
-  same prediction vocabulary, so every distribution is proper (sums to one)
-  and strictly positive, including for ``</s>`` and ``<unk>``.
-  ``kn_backoff="class"`` builds ``P_low`` from the class's own bigram types;
-  ``"shared"`` pools the bigram types of the whole training subset (still
-  training data only; class models then share their lower-order
-  distribution). Each level's discount is estimated from its own counts as
+  At the top order ``m = n``, ``c_n`` are the class's raw n-gram counts. At
+  every lower order, ``c_m(g)`` is the continuation count of the m-gram
+  ``g``: the number of distinct tokens seen before it in the (m+1)-gram
+  types. ``c_m(h .)`` is the sum over ``w`` and ``N1+(h .)`` the number of
+  distinct ``w`` after ``h``. For ``n = 2`` this is
+  ``P(w|v) = (max(c(v,w) - D, 0) + D N1+(v .) P_1(w)) / c(v)`` with the
+  continuation unigram ``P_1``. The recursion ends in the uniform ``1/V``
+  over the same prediction vocabulary, so every distribution is proper (sums
+  to one) and strictly positive, including for ``</s>`` and ``<unk>``.
+  ``kn_backoff="class"`` builds the lower orders from the class's own n-gram
+  types; ``"shared"`` pools the n-gram types of the whole training subset
+  (still training data only; class models then share their lower-order
+  distributions). Each level's discount is estimated from its own counts as
   ``D = n1 / (n1 + 2 n2)`` (``n1``/``n2``: events seen once/twice), clipped
   to ``[0.1, 1]`` (0.75 if undefined), unless ``kn_discount`` fixes it.
 """
@@ -61,7 +64,7 @@ from typing import Dict, List, Optional, Sequence
 import numpy as np
 import pandas as pd
 
-from ..mdl_classifier import MDLClassifier, _tokenize
+from ..mdl_classifier import MDLClassifier, _ngrams, _pad, _tokenize
 from .data import CLASS_NAMES
 
 
@@ -76,7 +79,7 @@ class MDL27Classifier(MDLClassifier):
         Add ``-log2 P(e)`` (training-subset class frequency) to each score.
     smoothing:
         ``"laplace"`` (add-``k``, default) or ``"kneser_ney"`` (interpolated,
-        bigram only; ``k`` is then unused).
+        any order; ``k`` is then unused).
     kn_backoff:
         ``"class"`` or ``"shared"`` lower-order distribution for Kneser-Ney.
     kn_discount:
@@ -89,8 +92,6 @@ class MDL27Classifier(MDLClassifier):
     ) -> None:
         if smoothing not in ("laplace", "kneser_ney"):
             raise NotImplementedError(f"Smoothing {smoothing!r} is not implemented; use 'laplace' or 'kneser_ney'.")
-        if smoothing == "kneser_ney" and n != 2:
-            raise NotImplementedError("Kneser-Ney smoothing is implemented for bigrams (n=2) only.")
         if kn_backoff not in ("class", "shared"):
             raise ValueError(f"kn_backoff must be 'class' or 'shared', got {kn_backoff!r}.")
         if kn_discount is not None and not 0 < kn_discount <= 1:
@@ -144,54 +145,59 @@ class MDL27Classifier(MDLClassifier):
             return 0.75
         return min(1.0, max(0.1, n1 / (n1 + 2 * n2)))
 
-    def _lower_order(self, bigram_types) -> Dict[str, object]:
-        """Interpolated continuation unigram over the prediction vocabulary."""
-        continuation = Counter(w for _, w in bigram_types)
-        total = sum(continuation.values())
-        v = self._prediction_vocab_size
-        if total == 0:
-            return {"probabilities": {}, "floor": 1.0 / v, "discount": None}
-        discount = self._estimate_discount(continuation.values())
-        floor = discount * len(continuation) / total / v
-        return {
-            "probabilities": {w: max(count - discount, 0.0) / total + floor for w, count in continuation.items()},
-            "floor": floor,
-            "discount": discount,
-        }
+    def _level(self, counts: Dict[tuple, int]) -> Dict[str, object]:
+        """One Kneser-Ney order: counts plus per-context totals, types and discount."""
+        totals: Counter = Counter()
+        types: Counter = Counter()
+        for gram, count in counts.items():
+            totals[gram[:-1]] += count
+            types[gram[:-1]] += 1
+        return {"counts": counts, "context_totals": dict(totals), "context_types": dict(types),
+                "discount": self._estimate_discount(counts.values()) if counts else None}
+
+    def _lower_levels(self, top_types) -> Dict[int, Dict[str, object]]:
+        """Orders n-1 .. 1, each with continuation counts from the order above."""
+        levels = {}
+        types = set(top_types)
+        for m in range(self.n - 1, 0, -1):
+            continuation = Counter(gram[1:] for gram in types)
+            levels[m] = self._level(dict(continuation))
+            types = set(continuation)
+        return levels
 
     def _fit_kneser_ney(self) -> Dict[str, object]:
         shared = None
         if self.kn_backoff == "shared":
-            shared = self._lower_order({g for m in self._per_class_models.values() for g in m["ngram_counts"]})
+            shared = self._lower_levels({g for m in self._per_class_models.values() for g in m["ngram_counts"]})
         per_class = {}
         for c, model in self._per_class_models.items():
-            # N1+(v .): number of distinct words seen after each context v.
-            followers = Counter((v,) for v, _ in model["ngram_counts"])
+            top = self._level(dict(model["ngram_counts"]))
             per_class[c] = {
-                "discount": self._estimate_discount(model["ngram_counts"].values()),
-                "context_types": dict(followers),
-                "lower": shared if shared is not None else self._lower_order(set(model["ngram_counts"])),
+                "discount": top["discount"],
+                "top": top,
+                "lower": shared if shared is not None else self._lower_levels(model["ngram_counts"]),
             }
         return {"per_class": per_class, "shared_lower": shared}
 
     def _kn_probability(self, context: tuple, word: str, class_id: int) -> float:
-        model = self._per_class_models[class_id]
+        """P_KN(word | context) for one class; ``context`` holds the last n-1 tokens."""
         kn = self._kn["per_class"][class_id]
-        lower = kn["lower"]
-        p_low = lower["probabilities"].get(word, lower["floor"])
-        context_count = model["context_counts"].get(context, 0)
-        if context_count == 0:
-            return p_low
-        discount = kn["discount"]
-        seen = max(model["ngram_counts"].get(context + (word,), 0) - discount, 0.0)
-        return (seen + discount * kn["context_types"].get(context, 0) * p_low) / context_count
+        p = 1.0 / self._prediction_vocab_size
+        for m in range(1, self.n + 1):
+            level = kn["top"] if m == self.n else kn["lower"][m]
+            h = tuple(context[len(context) - (m - 1):]) if m > 1 else ()
+            total = level["context_totals"].get(h, 0)
+            if total:
+                discount = level["discount"]
+                seen = max(level["counts"].get(h + (word,), 0) - discount, 0.0)
+                p = (seen + discount * level["context_types"][h] * p) / total
+        return p
 
     def _description_length(self, tokens: List[str], class_id: int) -> float:
         if self.smoothing != "kneser_ney":
             return super()._description_length(tokens, class_id)
         normalized = [token if token in self._word_vocab else "<unk>" for token in tokens]
-        padded = ["<s>"] + normalized + ["</s>"]
-        return -sum(math.log2(self._kn_probability((padded[i - 1],), padded[i], class_id)) for i in range(1, len(padded)))
+        return -sum(math.log2(self._kn_probability(g[:-1], g[-1], class_id)) for g in _ngrams(_pad(normalized, self.n), self.n))
 
     @property
     def vocabulary(self) -> List[str]:

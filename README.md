@@ -697,12 +697,12 @@ python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seed
 - **Optional prior:** `--prior` adds `-log2 P(e)` (training class
   frequency). That variant is named `sl27_mdl_prior_*`.
 - **Kneser-Ney smoothing:** `--smoothing kneser_ney --kn-backoff {class,shared}`
-  selects interpolated Kneser-Ney (bigram only) instead of add-k. Discounts are
+  selects interpolated Kneser-Ney (any order `--n`) instead of add-k. Discounts are
   estimated from training counts as `D = n1/(n1+2 n2)` unless `--kn-discount`
   fixes them. The back-off distribution is either per class or pooled over the
   training subset. Every distribution is proper (sums to 1 and is positive)
   over the shared vocabulary, `</s>` and `<unk>`. Runs are named
-  `sl27_mdl_n2_kn{class,shared}`.
+  `sl27_mdl_n<n>_kn{class,shared}`.
 - **Classes missing from training:** such a class still gets an empty model
   with finite description lengths, but it is reported in `missing_classes`
   and is never predicted.
