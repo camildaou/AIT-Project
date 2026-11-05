@@ -13,6 +13,23 @@ Usage
     python scripts/run_ladder_experiments.py --model mdl
     python scripts/run_ladder_experiments.py --model lstm
     python scripts/run_ladder_experiments.py --model mdl --sizes 100 500 --seeds 42 43
+    python scripts/run_ladder_experiments.py --model mdl_prior
+    python scripts/run_ladder_experiments.py --model mdl_prequential
+    python scripts/run_ladder_experiments.py --model mdl_prequential_prior
+    python scripts/run_ladder_experiments.py --model mdl_two_part
+
+Each model writes its aggregate metrics to its own
+`results/metrics/<model>_ladder_results.csv` (override with
+`--results-file`); the run refuses to start if that file already exists,
+so different models / re-runs never append into one another's results.
+Per-run files are named `<model>_ladder_n<size>_<seed>.*`.
+
+The prequential models additionally write their *training-set* coding
+results, kept apart from the held-out metrics above:
+`results/metrics/<model>_ladder_prequential.csv` (one summary row per run,
+same refuse-if-exists rule) and
+`results/prequential/<model>_ladder_n<size>_<seed>_trace.csv` (one row per
+coded training observation, in processing order).
 """
 
 from __future__ import annotations
@@ -30,7 +47,11 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 from emotion_ait.config import Config, load_config  # noqa: E402
 from emotion_ait.experiments import run_experiment  # noqa: E402
 from emotion_ait.interfaces import EmotionClassifier  # noqa: E402
-from emotion_ait.sampling import load_ladder_subset_dataframe  # noqa: E402
+from emotion_ait.sampling import (  # noqa: E402
+    load_ladder_prequential_order,
+    load_ladder_subset_dataframe,
+    load_ladder_subset_ids,
+)
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger("run_ladder_experiments")
@@ -48,13 +69,40 @@ def load_processed_df(config: Config) -> pd.DataFrame:
     return pd.concat(frames, ignore_index=True)
 
 
-def build_model(model_name: str, seed: int, epochs: int, patience: int) -> tuple[EmotionClassifier, dict]:
+def build_model(
+    model_name: str, seed: int, size: int, config: Config, epochs: int, patience: int
+) -> tuple[EmotionClassifier, dict]:
     """Instantiate a fresh model for one run, plus its config_summary."""
     if model_name == "mdl":
         from emotion_ait.mdl_classifier import MDLClassifier
 
         model = MDLClassifier(n=3, smoothing="laplace", k=1.0)
         return model, {"n": model.n, "smoothing": model.smoothing, "k": model.k}
+
+    if model_name == "mdl_prior":
+        from emotion_ait.mdl_variants import MDLPriorClassifier
+
+        model = MDLPriorClassifier(n=3, smoothing="laplace", k=1.0)
+        return model, {"n": model.n, "smoothing": model.smoothing, "k": model.k, "class_prior": "train_frequency"}
+
+    if model_name == "mdl_two_part":
+        from emotion_ait.mdl_variants import MDLTwoPartClassifier
+
+        model = MDLTwoPartClassifier(n=3, smoothing="laplace", k=1.0)
+        return model, {"n": model.n, "smoothing": model.smoothing, "k": model.k, "model_cost": "two_part"}
+
+    if model_name in ("mdl_prequential", "mdl_prequential_prior"):
+        from emotion_ait.mdl_variants import MDLPrequentialClassifier
+
+        order = load_ladder_prequential_order(seed, size, config)
+        model = MDLPrequentialClassifier(
+            n=3, smoothing="laplace", k=1.0, use_prior=model_name == "mdl_prequential_prior", order=order
+        )
+        return model, {
+            "n": model.n, "smoothing": model.smoothing, "k": model.k, "use_prior": model.use_prior,
+            "initial_portion": 0, "vocabulary": "fixed_full_training_subset",
+            "order": "nested_ladder_prefix", "order_seed": seed,
+        }
 
     if model_name == "lstm":
         from emotion_ait.lstm_classifier import LSTMClassifier
@@ -72,12 +120,59 @@ def build_model(model_name: str, seed: int, epochs: int, patience: int) -> tuple
         }
         return model, config_summary
 
-    raise ValueError(f"Unknown model '{model_name}'; expected 'mdl' or 'lstm'.")
+    raise ValueError(f"Unknown model '{model_name}'; expected one of {MODEL_NAMES}.")
+
+
+MODEL_NAMES = ("mdl", "mdl_prior", "mdl_two_part", "mdl_prequential", "mdl_prequential_prior", "lstm")
+
+
+def write_prequential_outputs(
+    model, model_name: str, subset_name: str, seed: int, size: int, config: Config, summary_path: Path
+) -> None:
+    """Write one run's per-observation trace and append its summary row
+    (training-set coding only; held-out metrics live in the results CSV)."""
+    id_to_label = config.target_task.id_to_label
+    trace_rows = []
+    for row in model.prequential_trace:
+        flat = {key: value for key, value in row.items() if key != "bits_by_class"}
+        flat["true_label_name"] = id_to_label[row["true_label"]]
+        for class_id, bits in sorted(row["bits_by_class"].items()):
+            flat[f"bits_{id_to_label[class_id]}"] = bits
+        trace_rows.append(flat)
+    trace_dir = config.paths.results_dir / "prequential"
+    trace_dir.mkdir(parents=True, exist_ok=True)
+    pd.DataFrame(trace_rows).to_csv(trace_dir / f"{model_name}_{subset_name}_{seed}_trace.csv", index=False)
+
+    summary = model.prequential_summary
+    record = {
+        "model_name": model_name, "train_subset_name": subset_name, "seed": seed,
+        "train_subset_size": summary["n_observations"],
+        **{key: value for key, value in summary.items() if not isinstance(value, dict)},
+    }
+    for class_id in sorted(summary["update_counts"]):
+        name = id_to_label[class_id]
+        record[f"updates_{name}"] = summary["update_counts"][class_id]
+        record[f"text_bits_{name}"] = summary["text_bits_by_class"][class_id]
+    # Nested-prefix order: the first |n<s>| observations are exactly the
+    # ladder subset of size s. Their cumulative bits here are coded with
+    # *this* run's vocabulary, so they differ from the n<s> run's own total.
+    cumulative = [row["cumulative_text_bits"] for row in model.prequential_trace]
+    for smaller in sorted(s for s in config.sampling.ladder_sizes if s <= size):
+        record[f"cumulative_text_bits_first_n{smaller}"] = cumulative[len(load_ladder_subset_ids(seed, smaller, config)) - 1]
+    row_df = pd.DataFrame([record])
+    if summary_path.exists():
+        row_df = pd.concat([pd.read_csv(summary_path), row_df], ignore_index=True)
+    summary_path.parent.mkdir(parents=True, exist_ok=True)
+    row_df.to_csv(summary_path, index=False)
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--model", required=True, choices=["mdl", "lstm"], help="Which model to run.")
+    parser.add_argument("--model", required=True, choices=MODEL_NAMES, help="Which model to run.")
+    parser.add_argument(
+        "--results-file", default=None,
+        help="Combined metrics CSV name under results/metrics/ (default: <model>_ladder_results.csv).",
+    )
     parser.add_argument("--config", type=Path, default=None, help="Path to a YAML config file.")
     parser.add_argument(
         "--sizes", type=int, nargs="+", default=None,
@@ -96,6 +191,15 @@ def main() -> None:
     sizes = args.sizes or config.sampling.ladder_sizes
     seeds = args.seeds or config.sampling.ladder_seeds
 
+    results_filename = args.results_file or f"{args.model}_ladder_results.csv"
+    results_path = config.paths.results_dir / "metrics" / results_filename
+    if results_path.exists():
+        parser.error(f"{results_path} already exists; move it away or pass a different --results-file.")
+    is_prequential = args.model.startswith("mdl_prequential")
+    prequential_path = config.paths.results_dir / "metrics" / f"{args.model}_ladder_prequential.csv"
+    if is_prequential and prequential_path.exists():
+        parser.error(f"{prequential_path} already exists; move it away first.")
+
     total_runs = len(sizes) * len(seeds)
     run_index = 0
     for seed in seeds:
@@ -109,7 +213,7 @@ def main() -> None:
             logger.info("[%d/%d] model=%s seed=%d size=%d", run_index, total_runs, args.model, seed, size)
 
             train_df = load_ladder_subset_dataframe(seed, size, processed_df, config)
-            model, config_summary = build_model(args.model, seed, args.epochs, args.patience)
+            model, config_summary = build_model(args.model, seed, size, config, args.epochs, args.patience)
 
             record = run_experiment(
                 model=model,
@@ -120,7 +224,15 @@ def main() -> None:
                 config_summary=config_summary,
                 train_df=train_df,
                 seed=seed,
+                results_filename=results_filename,
             )
+            if is_prequential:
+                write_prequential_outputs(model, args.model, subset_name, seed, size, config, prequential_path)
+                logger.info(
+                    "seed=%d size=%d: L_preq text=%.0f bits joint=%.0f bits",
+                    seed, size, model.prequential_summary["total_text_bits"],
+                    model.prequential_summary["total_joint_bits"],
+                )
             logger.info(
                 "seed=%d size=%d: n=%d test_accuracy=%.4f test_macro_f1=%.4f",
                 seed,
@@ -134,7 +246,7 @@ def main() -> None:
         "Done: %d runs for model=%s. Results: %s. Predictions: %s.",
         total_runs,
         args.model,
-        config.paths.results_dir / "metrics" / "results.csv",
+        results_path,
         config.paths.results_dir / "predictions",
     )
 

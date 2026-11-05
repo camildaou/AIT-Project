@@ -513,3 +513,35 @@ def load_ladder_subset_dataframe(seed: int, size: int, processed_df: pd.DataFram
     ids = set(load_ladder_subset_ids(seed, size, config))
     train_df = processed_df[processed_df["original_split"] == TRAIN_SPLIT_NAME]
     return train_df[train_df["example_id"].isin(ids)].reset_index(drop=True)
+
+
+def nested_prefix_order(nested_id_sets: List[List[str]], seed: int) -> List[str]:
+    """Deterministic processing order for prequential coding over a nested
+    ladder: the ids of the smallest subset first, then the ids added by
+    each next-larger subset, each block shuffled (from its sorted ids) by
+    one RNG seeded with ``seed``. Because the RNG draws for earlier blocks
+    do not depend on later ones, the order for a smaller size is always an
+    exact prefix of the order for a larger size within the same seed.
+
+    ``nested_id_sets`` must be ordered by increasing size, each a superset
+    of the previous one."""
+    rng = np.random.default_rng(seed)
+    order: List[str] = []
+    seen: Set[str] = set()
+    for ids in nested_id_sets:
+        ids_set = set(ids)
+        if not seen <= ids_set:
+            raise ValueError("nested_id_sets must be nested (each a superset of the previous one).")
+        block = sorted(ids_set - seen)
+        order.extend(block[i] for i in rng.permutation(len(block)))
+        seen = ids_set
+    return order
+
+
+def load_ladder_prequential_order(seed: int, size: int, config: Config) -> List[str]:
+    """:func:`nested_prefix_order` for one (seed, size) ladder subset, built
+    from that seed's ladder subsets of every configured size ``<= size``."""
+    sizes = sorted(s for s in config.sampling.ladder_sizes if s <= size)
+    if size not in sizes:
+        raise ValueError(f"Size {size} is not one of the configured ladder sizes {config.sampling.ladder_sizes}.")
+    return nested_prefix_order([load_ladder_subset_ids(seed, s, config) for s in sizes], seed)
