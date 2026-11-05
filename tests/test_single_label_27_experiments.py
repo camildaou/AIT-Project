@@ -107,3 +107,19 @@ def test_run_experiment_defaults_to_the_4_class_mapping(tiny_track):
     record = run_experiment(MajorityClassBaseline(), "majority", "toy", four, tiny_track.base,
                             train_df=four[four["original_split"] == "train"], save_predictions=False, record_results=False)
     assert list(record.test_per_class) == ["anger", "fear", "joy", "sadness"]
+
+
+def test_runner_with_mdl27_writes_diagnostics_and_separates_prior_variant(tiny_track):
+    from emotion_ait.single_label_27.mdl import MDL27Classifier
+
+    def build(use_prior):
+        return lambda seed: (MDL27Classifier(use_prior=use_prior), {"use_prior": use_prior})
+
+    with pytest.warns(UserWarning, match="no training examples"):  # the toy track has only 4 of 27 classes
+        plain = run_single_label_27_ladder(build(False), "mdl_n2_k1", tiny_track, sizes=[16], seeds=[1], diagnostics=True)
+        prior = run_single_label_27_ladder(build(True), "mdl_prior_n2_k1", tiny_track, sizes=[16], seeds=[1], diagnostics=True)
+    assert results_path(tiny_track, "mdl_n2_k1") != results_path(tiny_track, "mdl_prior_n2_k1")
+    assert plain[0].model_name == "sl27_mdl_n2_k1" and prior[0].model_name == "sl27_mdl_prior_n2_k1"
+    report = json.loads((tiny_track.base.paths.results_dir / "diagnostics" / "sl27_mdl_n2_k1_ladder_n16_1.json").read_text())
+    assert set(report) >= {"per_class", "validation", "test", "shared_vocabulary_size", "missing_classes"}
+    assert sum(report["test"]["predictions_per_class"].values()) == 6
