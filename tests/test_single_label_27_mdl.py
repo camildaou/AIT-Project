@@ -221,8 +221,6 @@ KN_TRAIN = pd.DataFrame([
 
 def test_kneser_ney_options_are_validated():
     with pytest.raises(NotImplementedError):
-        MDL27Classifier(n=3, smoothing="kneser_ney")
-    with pytest.raises(NotImplementedError):
         MDL27Classifier(smoothing="witten_bell")
     with pytest.raises(ValueError):
         MDL27Classifier(smoothing="kneser_ney", kn_backoff="global")
@@ -230,15 +228,17 @@ def test_kneser_ney_options_are_validated():
         MDL27Classifier(smoothing="kneser_ney", kn_discount=1.5)
 
 
+@pytest.mark.parametrize("n", [2, 3, 4])
 @pytest.mark.parametrize("backoff", ["class", "shared"])
 @pytest.mark.parametrize("discount", [None, 0.5, 1.0])
-def test_kneser_ney_distributions_are_proper_and_positive(backoff, discount):
+def test_kneser_ney_distributions_are_proper_and_positive(n, backoff, discount):
     with pytest.warns(UserWarning):  # only 2 of 27 classes present
-        model = MDL27Classifier(smoothing="kneser_ney", kn_backoff=backoff, kn_discount=discount).fit(KN_TRAIN)
+        model = MDL27Classifier(n=n, smoothing="kneser_ney", kn_backoff=backoff, kn_discount=discount).fit(KN_TRAIN)
     vocab = model.vocabulary + ["</s>", "<unk>"]
+    contexts = {("<s>",) * (n - 1), ("<s>",) * (n - 2) + ("a",), ("a", "b", "c")[: n - 1], ("never-seen",) * (n - 1)}
     for class_id in (0, 1, 5):  # 5 has no training data
-        for context in ("<s>", "a", "b", "c", "never-seen"):
-            probabilities = [model._kn_probability((context,), w, class_id) for w in vocab]
+        for context in contexts:
+            probabilities = [model._kn_probability(context, w, class_id) for w in vocab]
             assert min(probabilities) > 0
             assert sum(probabilities) == pytest.approx(1.0, abs=1e-12)
 
@@ -269,9 +269,10 @@ def test_kneser_ney_shared_backoff_pools_training_types_only():
         per_class = MDL27Classifier(smoothing="kneser_ney", kn_backoff="class").fit(KN_TRAIN)
     lower = shared._kn["shared_lower"]
     assert all(shared._kn["per_class"][c]["lower"] is lower for c in (0, 1))
-    assert "zzz" not in lower["probabilities"] and "zzz" not in shared.vocabulary
-    # "b" follows <s> only in class 1, so the pooled continuation count of b (a, c, <s>) exceeds class 0's (a).
-    assert lower["probabilities"]["b"] > 0
+    assert ("zzz",) not in lower[1]["counts"] and "zzz" not in shared.vocabulary
+    # "b" follows a, c and <s> across the pooled training types, but only a in class 0.
+    assert lower[1]["counts"][("b",)] == 3
+    assert per_class._kn["per_class"][0]["lower"][1]["counts"][("b",)] == 1
     assert per_class._kn["per_class"][0]["lower"] is not per_class._kn["per_class"][1]["lower"]
     assert per_class._kn["shared_lower"] is None
 
@@ -300,3 +301,28 @@ def test_laplace_default_is_unchanged_by_kneser_ney_support():
     baseline = MDLClassifier(n=2, k=1.0).fit(train)
     texts = ["i feel joy", "zzz", ""]
     assert [list(d.values()) for d in model.description_lengths(texts)] == [list(d.values()) for d in baseline.description_lengths(texts)]
+
+
+def test_kneser_ney_trigram_by_hand():
+    # One class-0 text "a b": trigrams (<s>,<s>,a), (<s>,a,b), (a,b,</s>); fixed D = 0.5, per-class back-off.
+    train = pd.DataFrame([{"text": "a b", "label": 0}, {"text": "b", "label": 1}])
+    with pytest.warns(UserWarning):
+        model = MDL27Classifier(n=3, smoothing="kneser_ney", kn_backoff="class", kn_discount=0.5).fit(train)
+    v = model._prediction_vocab_size  # {a, b} + </s> + <unk> = 4
+    # Order 1 (continuation of bigram types (<s>,a), (a,b), (b,</s>)): a, b, </s> each 1; total 3, 3 types.
+    p1_b = (0.5 + 0.5 * 3 / v) / 3
+    # Order 2 context (a,): one type (a,b) with continuation count 1.
+    p2_b = (0.5 + 0.5 * 1 * p1_b) / 1
+    # Order 3 context (<s>, a): raw count 1 for (<s>, a, b).
+    assert model._kn_probability(("<s>", "a"), "b", 0) == pytest.approx((0.5 + 0.5 * 1 * p2_b) / 1)
+    # Unseen trigram context backs off to the bigram level.
+    assert model._kn_probability(("zzz", "a"), "b", 0) == pytest.approx(p2_b)
+
+
+def test_kneser_ney_bigram_matches_closed_form():
+    # The general-order recursion must reproduce the bigram formula exactly.
+    with pytest.warns(UserWarning):
+        model = MDL27Classifier(n=2, smoothing="kneser_ney", kn_backoff="class", kn_discount=0.5).fit(KN_TRAIN)
+    v = model._prediction_vocab_size
+    floor = 0.5 * 4 / 5 / v
+    assert model._kn_probability(("a",), "c", 0) == pytest.approx((0.5 + 0.5 * 2 * ((1 - 0.5) / 5 + floor)) / 3)
