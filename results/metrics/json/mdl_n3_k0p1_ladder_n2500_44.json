@@ -1,0 +1,44 @@
+{
+  "model_name": "mdl_n3_k0p1",
+  "train_subset_name": "ladder_n2500",
+  "train_subset_percentage": null,
+  "train_subset_size": 2500,
+  "seed": 44,
+  "config_summary": {
+    "k": 0.1,
+    "n": 3,
+    "smoothing": "laplace"
+  },
+  "test_accuracy": 0.5191815856777494,
+  "test_macro_f1": 0.5046980877828242,
+  "test_per_class": {
+    "anger": {
+      "precision": 0.6388888888888888,
+      "recall": 0.5267175572519084,
+      "f1": 0.5774058577405857,
+      "support": 131
+    },
+    "fear": {
+      "precision": 0.352112676056338,
+      "recall": 0.38461538461538464,
+      "f1": 0.36764705882352944,
+      "support": 65
+    },
+    "joy": {
+      "precision": 0.5473684210526316,
+      "recall": 0.5591397849462365,
+      "f1": 0.5531914893617021,
+      "support": 93
+    },
+    "sadness": {
+      "precision": 0.48717948717948717,
+      "recall": 0.5588235294117647,
+      "f1": 0.5205479452054794,
+      "support": 102
+    }
+  },
+  "train_time_seconds": 0.14477970000000084,
+  "inference_time_seconds": 0.05413790000000063,
+  "validation_macro_f1": 0.529114735566985,
+  "timestamp": "2026-11-05T19:36:16.417474+00:00"
+}
