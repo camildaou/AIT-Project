@@ -334,6 +334,77 @@ python scripts/run_ladder_experiments.py --model mdl_prior --sizes 100 --seeds 4
     --results-file mdl_prior_smoke.csv                                    # a single run
 ```
 
+### 6.2 MDL ablation: n-gram order and smoothing
+
+Two controlled ablations of the conditional MDL classifier. Each one changes
+only `n` or `k` of `MDLClassifier(n, k)`. Everything else is identical to `mdl`:
+ladder subset ids, tokenization, the shared vocabulary (training words + `</s>` +
+`<unk>`, never `<s>`), `n-1` `<s>` pads plus one `</s>`, and the
+argmin-description-length rule.
+
+    P(w | context, M_e) = (count_e(context, w) + k) / (count_e(context) + k * V)
+
+| Study | Configurations (`model_name`) | Runs |
+|---|---|---|
+| A: n-gram order (k = 1) | `mdl_n2_k1`, `mdl` (n=3), `mdl_n4_k1` | 3 × 8 sizes × 5 seeds = 120 |
+| B: smoothing (n = 3) | `mdl_n3_k0p1`, `mdl_n3_k0p5`, `mdl` (k=1), `mdl_n3_k2` | 4 × 8 × 5 = 160 |
+
+The trigram `k=1` cell **is** the existing baseline. Its 40 results are reused,
+not retrained, after `emotion_ait.ablation.verify_reference_results` checks
+four things: the config summary, exactly one run per (size, seed), subset sizes
+matching the ladder manifests, and the presence of validation F1 and
+predictions files. `--rerun-reference` retrains it under the separate name
+`mdl_n3_k1` for a reproducibility check.
+
+**Model selection uses validation macro-F1 only**: the highest mean over all
+sizes and seeds, plus a per-size selection table. Test numbers are reported
+afterwards. Micro-F1 equals accuracy for single-label predictions. Test
+confusion matrices are rebuilt from each run's saved predictions. Validation
+predictions aren't saved, so there are no validation confusion matrices.
+
+**Commands**
+
+```bash
+python scripts/run_mdl_ablation.py                      # both studies (200 new runs)
+python scripts/run_mdl_ablation.py --study ngram        # Experiment A only
+python scripts/run_mdl_ablation.py --study smoothing    # Experiment B only
+python scripts/run_mdl_ablation.py --configs mdl_n4_k1 --sizes 100 --seeds 42 --results-tag debug   # one debug run
+python scripts/report_mdl_ablation.py                   # tables + learning curves
+```
+
+The runner refuses to start if a target `results/metrics/<model>_ladder_results[_<tag>].csv`
+already exists. The report refuses to overwrite its outputs without `--overwrite`.
+
+**Outputs:** [`results/ablation/mdl_ablation_report.md`](results/ablation/mdl_ablation_report.md)
+(all tables), `results/ablation/mdl_ablation_<study>_{by_size,summary}.csv`,
+`results/ablation/mdl_ablation_confusion_matrices.csv`, and
+`results/figures/mdl_ablation_{ngram,smoothing}.png`.
+
+**Results** (macro-F1, mean over 5 seeds; n=3125 is the full training set,
+identical for all seeds, so its sd is 0):
+
+| Configuration | Validation (overall) | Test (overall) | Test n=100 (± sd) | Test n=3125 |
+|---|---|---|---|---|
+| **n=2, k=1** (selected, study A) | **0.574** | **0.526** | **0.362** ± 0.021 | **0.606** |
+| n=3, k=1 (baseline) | 0.433 | 0.430 | 0.299 ± 0.024 | 0.495 |
+| n=4, k=1 | 0.371 | 0.398 | 0.284 ± 0.032 | 0.455 |
+| **n=3, k=0.1** (selected, study B) | **0.437** | **0.435** | 0.302 ± 0.022 | 0.511 |
+| n=3, k=0.5 | 0.436 | 0.435 | 0.301 ± 0.023 | 0.508 |
+| n=3, k=2 | 0.423 | 0.423 | 0.298 ± 0.024 | 0.491 |
+
+Bigrams beat trigrams at every one of the 8 sizes on validation, and on test by
+about 0.06–0.11 macro-F1. 4-grams are worse still: longer contexts are almost
+never seen in ~3k short comments, so the models fall back towards uniform.
+Smaller `k` helps slightly and consistently, because there is less probability
+mass on unseen n-grams. But all four `k` values sit within about one seed
+standard deviation of each other, so smoothing is a minor factor next to the
+n-gram order.
+
+**Known baseline quirk (reported, not changed):** the tokenizer `[a-z0-9']+`
+keeps the ASCII apostrophe but splits on the curly `’`. As a result, `I'm` and
+`I’m` become different tokens (`i'm` vs `i`, `m`). Curly apostrophes occur in
+395 of the 3125 training texts.
+
 ## 7. Repository structure
 
 ```
@@ -360,6 +431,7 @@ emotion-ait/ (this repo)
 │   ├── baselines.py                <- fully-working trivial reference models
 │   ├── mdl_classifier.py           <- MDL classifier (implemented, Person A)
 │   ├── mdl_variants.py             <- mdl_prior / mdl_two_part / mdl_prequential
+│   ├── ablation.py                 <- n-gram order / smoothing ablation configs
 │   ├── lstm_classifier.py          <- LSTM classifier STUB (Person B)
 │   ├── evaluation.py               <- shared metrics + results schema
 │   └── experiments.py              <- orchestration glue
