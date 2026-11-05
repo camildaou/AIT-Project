@@ -1,0 +1,231 @@
+# Registry of every experiment run in this project.
+#
+# One entry per results file (= one model configuration). Hand-written fields
+# (question, conclusion, ...) live here; all numbers in EXPERIMENT_LOG.md are
+# computed from the results files by `python scripts/update_experiment_log.py`,
+# which also fails if a results file under results/metrics/ is neither listed
+# here nor in `not_experiments`.
+#
+# To log a new experiment: run it, add an entry below (expected_runs = number of
+# (size, seed) runs it should have; 40 for a full ladder), run the update script.
+# Model selection uses validation macro-F1 only; test numbers are reported.
+
+not_experiments:
+  results/metrics/results.csv: "Duplicate of lstm_ladder_results.csv (same 40 rows); the LSTM runner's default output file."
+  results/metrics/first_training_model_comparison_summary.csv: "Derived comparison table (scripts/plot_model_comparison.py)."
+  results/metrics/ladder_model_comparison_summary.csv: "Derived comparison table (scripts/plot_model_comparison.py)."
+  results/metrics/mdl_prequential_ladder_prequential.csv: "Training-set prequential code lengths of E09 (not held-out metrics)."
+  results/metrics/mdl_prequential_prior_ladder_prequential.csv: "Training-set prequential code lengths of E10 (not held-out metrics)."
+
+experiments:
+  # ---------------------------------------------------------------- 4-class
+  - id: E01
+    expected_runs: 9
+    date: 2026-10-19
+    track: 4-class single-label
+    group: first training
+    results: results/metrics/mdl_results.csv
+    config: "MDL trigram, add-1 (n=3, k=1); 9 single-seed subsets (5-100% + 100/250/500)"
+    question: "First end-to-end MDL training run."
+    conclusion: "Superseded by the 5-seed ladder (E03)."
+
+  - id: E02
+    expected_runs: 9
+    date: 2026-10-19
+    track: 4-class single-label
+    group: first training
+    results: results/metrics/lstm_results.csv
+    config: "LSTM (emb 100, hidden 128, 1 layer, <=10 epochs, early stopping on val macro-F1); 9 single-seed subsets"
+    question: "First end-to-end LSTM training run."
+    conclusion: "Superseded by the 5-seed ladder (E04)."
+
+  - id: E03
+    expected_runs: 40
+    date: 2026-10-19
+    track: 4-class single-label
+    group: baseline ladder
+    results: results/metrics/mdl_ladder_results.csv
+    config: "MDL trigram, add-1 (n=3, k=1); ladder 100-3125 x 5 seeds"
+    question: "MDL baseline on the shared ladder."
+    conclusion: "Reference MDL; later beaten by the bigram (E09)."
+
+  - id: E04
+    expected_runs: 40
+    date: 2026-10-20
+    track: 4-class single-label
+    group: baseline ladder
+    results: results/metrics/lstm_ladder_results.csv
+    config: "LSTM as E02; ladder 100-3125 x 5 seeds"
+    question: "LSTM baseline on the shared ladder."
+    conclusion: "Strong at full size, weak below ~500 examples."
+
+  - id: E05
+    expected_runs: 40
+    date: 2026-11-02
+    track: 4-class single-label
+    group: MDL formulations
+    results: results/metrics/mdl_two_part_ladder_results.csv
+    config: "MDL trigram + two-part model cost L(M_e) (n-gram table code length)"
+    question: "Does adding the model description length L(M_e) per text help?"
+    conclusion: "No: L(M_e) (thousands of bits) swamps L(x|M_e) (~150 bits); every text is predicted as the smallest class (fear). Misapplication of two-part MDL, kept as a negative result."
+
+  - id: E06
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: MDL formulations
+    results: results/metrics/mdl_prior_ladder_results.csv
+    config: "MDL trigram + class prior -log2(N_e/N)"
+    question: "Does a training-frequency class prior help?"
+    conclusion: "Accuracy up at small/medium sizes, macro-F1 down in 38/40 runs: the prior suppresses fear."
+
+  - id: E07
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: MDL formulations
+    results: results/metrics/mdl_prequential_ladder_results.csv
+    config: "MDL trigram, prequential coding of the training set (empty start, fixed V, nested-prefix order)"
+    question: "Prequential code length of the training data; held-out classification with the final models."
+    conclusion: "Held-out metrics identical to E03 by construction (count models are order-invariant); the new quantity is L_preq."
+
+  - id: E08
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: MDL formulations
+    results: results/metrics/mdl_prequential_prior_ladder_results.csv
+    config: "As E07 + class prior at prediction time"
+    question: "Prequential variant with prior."
+    conclusion: "Held-out metrics identical to E06 by construction."
+
+  - id: E09
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: ablation A (n-gram order)
+    results: results/metrics/mdl_n2_k1_ladder_results.csv
+    config: "MDL bigram, add-1 (n=2, k=1)"
+    question: "Does a shorter context help?"
+    conclusion: "Yes: best MDL, selected on validation at every size; test macro-F1 0.606 at full size (trigram 0.495)."
+
+  - id: E10
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: ablation A (n-gram order)
+    results: results/metrics/mdl_n4_k1_ladder_results.csv
+    config: "MDL 4-gram, add-1 (n=4, k=1)"
+    question: "Does a longer context help?"
+    conclusion: "No: worse than the trigram at every size (contexts too sparse)."
+
+  - id: E11
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: ablation B (smoothing)
+    results: results/metrics/mdl_n3_k0p1_ladder_results.csv
+    config: "MDL trigram, add-k k=0.1"
+    question: "Effect of smaller additive smoothing."
+    conclusion: "Selected in study B, but within ~1 seed sd of k=1; smoothing is a minor factor here."
+
+  - id: E12
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: ablation B (smoothing)
+    results: results/metrics/mdl_n3_k0p5_ladder_results.csv
+    config: "MDL trigram, add-k k=0.5"
+    question: "Effect of smaller additive smoothing."
+    conclusion: "Essentially tied with k=0.1."
+
+  - id: E13
+    expected_runs: 40
+    date: 2026-11-05
+    track: 4-class single-label
+    group: ablation B (smoothing)
+    results: results/metrics/mdl_n3_k2_ladder_results.csv
+    config: "MDL trigram, add-k k=2"
+    question: "Effect of larger additive smoothing."
+    conclusion: "Slightly worse than k=1."
+
+  # --------------------------------------------------------------- 27-class
+  - id: E14
+    expected_runs: 1
+    date: 2026-11-05
+    track: 27-class single-label
+    group: first full-size run
+    results: results/metrics/sl27_mdl_n2_k1_ladder_results_seed42.csv
+    config: "MDL27 bigram add-1; full training set (23,485), seed 42 only, with diagnostics"
+    question: "Does the 27-class MDL work end to end; what do the diagnostics show?"
+    conclusion: "Works. Strong over-prediction of frequent classes (admiration 890 predicted vs 348 true); 5 rare classes at F1 0."
+
+  - id: E15
+    expected_runs: 1
+    date: 2026-11-05
+    track: 27-class single-label
+    group: first full-size run
+    results: results/metrics/sl27_mdl_prior_n2_k1_ladder_results_seed42.csv
+    config: "As E14 + class prior"
+    question: "Does a class prior help in the 27-class task?"
+    conclusion: "No: lower accuracy and macro-F1; the prior amplifies the frequent-class bias."
+
+  - id: E16
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: add-k sweep
+    results: results/metrics/sl27_mdl_n2_k1_ladder_results.csv
+    config: "MDL27 bigram, add-1 (k=1); ladder 500-23485 x 5 seeds"
+    question: "27-class ladder with the best 4-class configuration."
+    conclusion: "Selected among add-k values on validation at every size. kappa 0.379 at full size (4-class bigram 0.511)."
+
+  - id: E17
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: add-k sweep
+    results: results/metrics/sl27_mdl_n2_k0p1_ladder_results.csv
+    config: "MDL27 bigram, add-k k=0.1"
+    question: "Is add-1 over-smoothing with V = 18.7k?"
+    conclusion: "Worse than k=1; less frequent-class bias (admiration 707 predicted) but lower accuracy/macro-F1."
+
+  - id: E18
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: add-k sweep
+    results: results/metrics/sl27_mdl_n2_k0p01_ladder_results.csv
+    config: "MDL27 bigram, add-k k=0.01"
+    question: "Is add-1 over-smoothing with V = 18.7k?"
+    conclusion: "Worse again; unseen bigrams become very expensive."
+
+  - id: E19
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: add-k sweep
+    results: results/metrics/sl27_mdl_n2_k0p001_ladder_results.csv
+    config: "MDL27 bigram, add-k k=0.001"
+    question: "Is add-1 over-smoothing with V = 18.7k?"
+    conclusion: "Worst; prediction counts match true counts (admiration 346 vs 348) but accuracy drops to 0.30. A single global k cannot fix the bias without over-penalising unseen bigrams -> motivates Kneser-Ney."
+
+  - id: E20
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: Kneser-Ney
+    results: results/metrics/sl27_mdl_n2_knclass_ladder_results.csv
+    config: "MDL27 bigram, interpolated Kneser-Ney, per-class lower-order distribution, estimated discounts"
+    question: "Does back-off to a continuation unigram beat add-k?"
+    conclusion: "Selected: best validation macro-F1 at every size (0.324 vs 0.285 for add-1 at full size); test macro-F1 0.304 vs 0.279. Predictions now track true class frequencies (admiration 337 vs 348 true) and mid/rare classes improve (fear F1 0.17 -> 0.37, F1=0 classes 5 -> 2), but frequent distinctive classes drop (amusement 0.66 -> 0.48), so accuracy/kappa are lower than add-1 above ~4k examples (full size: acc 0.392 vs 0.428, kappa 0.354 vs 0.379)."
+
+  - id: E21
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: Kneser-Ney
+    results: results/metrics/sl27_mdl_n2_knshared_ladder_results.csv
+    config: "MDL27 bigram, interpolated Kneser-Ney, lower-order distribution pooled over the training subset, estimated discounts"
+    question: "Does a shared back-off distribution help rare classes?"
+    conclusion: "Worse than per-class back-off at every size and below add-1 on validation (0.226 overall); pooling the lower order across classes makes the class models less distinctive. Hypothesis that sharing helps rare classes not supported."
