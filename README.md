@@ -432,6 +432,7 @@ emotion-ait/ (this repo)
 │   ├── mdl_classifier.py           <- MDL classifier (implemented, Person A)
 │   ├── mdl_variants.py             <- mdl_prior / mdl_two_part / mdl_prequential
 │   ├── ablation.py                 <- n-gram order / smoothing ablation configs
+│   ├── multilabel/                 <- separate multi-label data track (config, preprocessing, sampling, data API)
 │   ├── lstm_classifier.py          <- LSTM classifier STUB (Person B)
 │   ├── evaluation.py               <- shared metrics + results schema
 │   └── experiments.py              <- orchestration glue
@@ -508,6 +509,98 @@ gives a learning-curve-style comparison of MDL vs. LSTM test macro-F1 (and
 accuracy, per-class metrics, and train/inference time) as a function of
 training-set size -- directly addressing the research question of how the
 two approaches compare, especially in the low-data regime.
+
+## 11. Multi-label track (separate)
+
+A self-contained multi-label data pipeline for two independent classifiers
+(multi-label MDL and multi-label LSTM). It reads the same cached raw
+GoEmotions files but changes **nothing** in the single-label track: no
+existing config, function, dataset, manifest or result is touched.
+
+**Dataset (Option A).** Targets, in this fixed column order:
+`[joy, sadness, anger, fear]`. A comment is kept if its original labels
+contain at least one target. Its labels are projected onto those four 0/1
+columns, every other label is ignored, and comments with no target are
+discarded. Official partitions are preserved, and ids follow the
+single-label scheme, so every single-label example appears in the
+multi-label data with the same id and text.
+
+| Partition | Raw | Retained | Discarded | joy | sadness | anger | fear | Multi-label |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| train | 43,410 | 4,883 | 38,527 | 1,452 | 1,326 | 1,567 | 596 | 58 |
+| validation | 5,426 | 595 | 4,831 | 172 | 143 | 195 | 90 | 5 |
+| test | 5,427 | 590 | 4,837 | 161 | 156 | 198 | 78 | 3 |
+
+`scripts/prepare_multilabel_data.py` checks these counts (stored in
+`configs/multilabel.yaml` under `expected_counts`). On any mismatch it
+writes nothing and prints the discrepancy.
+
+**Training ladder.** Sizes `[100, 250, 500, 1000, 1500, 2000, 2500, 4883]`
+× seeds `[42..46]`, stratified by label combination:
+
+1. Each observed combination (e.g. `sadness+fear`) is one stratum, and its
+   ids are put in a seeded order.
+2. One global order is built by sequential Webster / Sainte-Laguë
+   allocation: each next slot goes to the stratum with the largest
+   `N_s / (allocated_s + 0.5)`, with ties going to the canonical stratum
+   order.
+3. Subset `n` is the first `n` ids of that order.
+
+So every subset has exactly `n` examples, smaller subsets are prefixes of
+larger ones, `n=4883` is the whole training partition, and every
+combination stays within ±1 of its proportional share. Rare combinations
+(4–17 training examples) only appear once their share reaches about one
+half. For example, there are no two-emotion examples at `n=100`. Details
+are in [`multilabel/sampling.py`](src/emotion_ait/multilabel/sampling.py).
+
+Each manifest `data/subsets/multilabel_ladder/seed_<s>/n<size>.json` holds:
+- the dataset id, policy, target order and stratification scheme;
+- the seed, requested size and actual size;
+- the ordered `example_ids` and their parallel `targets`;
+- per-emotion `positive_counts` and `combination_counts`;
+- `example_ids_sha256` and `train_partition_sha256`, so both developers can
+  confirm they are using identical data.
+
+**Commands** (`data/` is gitignored, so each developer runs these once.
+Both are deterministic and refuse to overwrite existing output unless you
+pass `--force`.)
+
+```bash
+python scripts/prepare_multilabel_data.py     # -> data/processed/multilabel/{train,validation,test}.csv + dataset_stats.json
+python scripts/generate_multilabel_ladder.py  # -> data/subsets/multilabel_ladder/ (40 manifests)
+python -m pytest tests/test_multilabel_pipeline.py
+```
+
+**Shared API** for both developers. Import only from
+`emotion_ait.multilabel.data`. It returns plain pandas/numpy objects with
+no model-specific processing:
+
+```python
+from emotion_ait.multilabel.data import (
+    TARGET_LABELS,                            # ["joy", "sadness", "anger", "fear"]
+    load_multilabel_dataframe,                # (split) -> full processed partition
+    load_multilabel_ladder_subset_dataframe,  # (seed, size) -> training subset, manifest order
+    load_multilabel_ladder_ids,               # (seed, size) -> ordered ids
+    get_multilabel_targets,                   # (df) -> (N, 4) int64 0/1, TARGET_LABELS order
+    get_multilabel_example_ids,               # (df) -> list[str]
+)
+
+train = load_multilabel_ladder_subset_dataframe(seed=42, size=500)
+val, test = load_multilabel_dataframe("validation"), load_multilabel_dataframe("test")
+X_train, Y_train = train["text"].tolist(), get_multilabel_targets(train)
+```
+
+Notes for both developers:
+- **Row order:** processed partitions keep the raw order, and ladder
+  subsets follow the manifest order. Shuffle inside your own training code
+  if you need to.
+- **Stale data:** the subset loader raises an error if the processed data
+  no longer matches the manifest.
+- **Data roles:** train on ladder subsets only, tune thresholds on
+  validation, and use test only for final reporting.
+- **Single-label comparison:** the single-label test set (391 examples) is
+  a subset of this test set, which allows a direct comparison with the
+  single-label results.
 
 ## Reproducibility & validation
 
