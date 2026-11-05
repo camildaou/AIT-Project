@@ -35,6 +35,7 @@ def run_experiment(
     train_df: Optional[pd.DataFrame] = None,
     seed: Optional[int] = None,
     train_subset_percentage: Optional[float] = None,
+    results_filename: str = "results.csv",
 ) -> ResultRecord:
     """Run one full train/evaluate cycle for a model on a named training
     subset, and append the result to the shared results CSV.
@@ -87,6 +88,9 @@ def run_experiment(
         Optional explicit percentage to record (ignored when ``train_df``
         is not given, since it is then read from the subset's own
         metadata file).
+    results_filename:
+        Name of the combined metrics CSV under ``results/metrics/`` that
+        the record is appended to (default ``"results.csv"``).
     """
     if train_df is None:
         train_df = load_subset_dataframe(subset_name, processed_df, config)
@@ -159,5 +163,5 @@ def run_experiment(
         validation_macro_f1=validation_macro_f1,
     )
     if record_results:
-        append_result(record, config.paths.results_dir / "metrics")
+        append_result(record, config.paths.results_dir / "metrics", filename=results_filename)
     return record

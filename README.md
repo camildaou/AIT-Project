@@ -203,6 +203,11 @@ are completely private to each module.
   (summed negative log2-probability) to the input text -- see the module
   docstring in [`mdl_classifier.py`](src/emotion_ait/mdl_classifier.py) for
   the full smoothing/tokenization contract.
+* **MDL variants** ([`mdl_variants.py`](src/emotion_ait/mdl_variants.py)):
+  experimental subclasses of `MDLClassifier` that reuse its tokenization,
+  vocabulary, smoothing and scoring unchanged (`mdl_classifier.py` itself
+  is untouched). See [section 6.1](#61-mdl-variants) for formulas and
+  protocols.
 * **`LSTMClassifier` (stub, Person B)**: every method raises
   `NotImplementedError` with a docstring explaining what still needs to be
   built.
@@ -247,6 +252,88 @@ processed_df, config)` wires all of the above together generically and
 works today against the baselines; it will work unchanged once the MDL and
 LSTM classifiers are implemented.
 
+### 6.1 MDL variants
+
+All scores are in bits. Ties go to the smallest class id. Every variant
+trains on the same ladder subset ids as `mdl` and `lstm` for a given
+(seed, size), via `load_ladder_subset_dataframe`.
+
+| Ladder `--model` | Decision rule | Class |
+|---|---|---|
+| `mdl` | `argmin_e L(x|M_e)` | `MDLClassifier` |
+| `mdl_prior` | `argmin_e [L(x|M_e) - log2 P(e)]`, `P(e) = N_e / N` | `MDLPriorClassifier` |
+| `mdl_two_part` | `argmin_e [L(M_e) + L(x|M_e)]` | `MDLTwoPartClassifier` |
+| `mdl_prequential` | as `mdl`, models built sequentially | `MDLPrequentialClassifier(use_prior=False)` |
+| `mdl_prequential_prior` | as `mdl_prior`, models built sequentially | `MDLPrequentialClassifier(use_prior=True)` |
+
+where `L(x|M_e) = -sum_i log2 P(w_i | w_{i-2}, w_{i-1}, M_e)` (add-1 trigram).
+
+**`mdl_prior`.** `N_e / N` is counted from the training subset's labels
+only. Validation and test labels are never used. `score_breakdown(texts)`
+returns `conditional_bits`, `prior_bits` and `total_bits` per class.
+
+**`mdl_two_part`.** `L(M_e)` is the cost of transmitting class `e`'s
+n-gram count table. That cost is paid for the whole dataset, so charging
+it on every text is not a proper use of MDL. In practice it dwarfs
+`L(x|M_e)` and every text is predicted as the class with the smallest
+table (fear). It is kept only as a reference result.
+
+**`mdl_prequential`: protocol.** For one (seed, size) subset of `N`
+labelled training texts:
+
+1. *Initial portion:* empty. All `N` observations are coded. An empty
+   add-1 model is already a valid code (`log2 V` bits per token), so
+   `L_preq` is a complete code for the subset at every size and seed.
+2. *Alphabet:* the vocabulary `V` and the class set are those of the
+   full training subset, fixed before coding starts, exactly as in `mdl`.
+3. *Order:* nested ladder prefix (`sampling.load_ladder_prequential_order`).
+   First come the `n100` ids, then the ids that `n250` adds, and so on.
+   Each block is shuffled from its sorted ids by one RNG seeded with the
+   ladder seed. Within a seed, the order for a smaller size is therefore
+   an exact prefix of the order for a larger size. The order's SHA-1 is
+   recorded per run.
+4. For `t = 1..N`: score `x_t` under every class model *before* updating.
+   Record the text code `L(x_t | M_{y_t}^{(t-1)})` and the label code
+   `-log2 P_{t-1}(y_t)`, with `P_{t-1}(e) = (N_e^{(t-1)} + 1) / (t-1+K)`.
+   Then add `x_t` to the model of its true class `y_t` only.
+5. `L_preq_text = sum_t L(x_t | M_{y_t}^{(t-1)})`,
+   `L_preq_label = sum_t -log2 P_{t-1}(y_t)`, and
+   `L_preq_joint = L_preq_text + L_preq_label`.
+6. *Held-out:* validation and test are scored only with the final models
+   (plus the final `N_e/N` prior for `mdl_prequential_prior`). They never
+   update any model.
+
+Count-based models end up identical whether fitted in one batch or one
+example at a time, and the vocabulary is fixed. The final models are
+therefore exactly the `mdl` models, so held-out metrics equal those of
+`mdl` / `mdl_prior` (checked by a test and on all 40 ladder runs). The
+new quantity is `L_preq`, which is reported **separately** from held-out
+metrics:
+
+* `results/metrics/<model>_ladder_results.csv`: held-out validation/test
+  metrics (same schema as every other model).
+* `results/metrics/<model>_ladder_prequential.csv`: one row per run with
+  `total_text_bits`, `total_label_bits`, `total_joint_bits`, per-class
+  `text_bits_<emotion>` and `updates_<emotion>`, `n_observations`,
+  `n_updates`, `online_accuracy` (pre-update argmin on the training
+  stream), `order_sha1`, and `cumulative_text_bits_first_n<s>` for every
+  smaller ladder size. The last are coded with *this* run's `V`, so they
+  are not the `n<s>` run's own total.
+* `results/prequential/<model>_ladder_n<size>_<seed>_trace.csv`: one row
+  per observation (`position`, `example_id`, pre-update `bits_<emotion>`,
+  `text_bits`, `label_bits`, cumulative bits, online prediction).
+
+**Commands.** Each run refuses to start if its combined CSV already
+exists, so variants never append into each other's results.
+
+```bash
+python scripts/run_ladder_experiments.py --model mdl_prior               # full ladder: 8 sizes x 5 seeds
+python scripts/run_ladder_experiments.py --model mdl_prequential
+python scripts/run_ladder_experiments.py --model mdl_prequential_prior
+python scripts/run_ladder_experiments.py --model mdl_prior --sizes 100 --seeds 42 \
+    --results-file mdl_prior_smoke.csv                                    # a single run
+```
+
 ## 7. Repository structure
 
 ```
@@ -272,6 +359,7 @@ emotion-ait/ (this repo)
 │   ├── interfaces.py               <- shared EmotionClassifier ABC
 │   ├── baselines.py                <- fully-working trivial reference models
 │   ├── mdl_classifier.py           <- MDL classifier (implemented, Person A)
+│   ├── mdl_variants.py             <- mdl_prior / mdl_two_part / mdl_prequential
 │   ├── lstm_classifier.py          <- LSTM classifier STUB (Person B)
 │   ├── evaluation.py               <- shared metrics + results schema
 │   └── experiments.py              <- orchestration glue
