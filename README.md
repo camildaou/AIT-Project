@@ -433,6 +433,7 @@ emotion-ait/ (this repo)
 │   ├── mdl_variants.py             <- mdl_prior / mdl_two_part / mdl_prequential
 │   ├── ablation.py                 <- n-gram order / smoothing ablation configs
 │   ├── multilabel/                 <- separate multi-label data track (config, preprocessing, sampling, data API)
+│   ├── single_label_27/            <- separate 27-class single-label data track (config, preprocessing, sampling, data API)
 │   ├── lstm_classifier.py          <- LSTM classifier STUB (Person B)
 │   ├── evaluation.py               <- shared metrics + results schema
 │   └── experiments.py              <- orchestration glue
@@ -601,6 +602,75 @@ Notes for both developers:
 - **Single-label comparison:** the single-label test set (391 examples) is
   a subset of this test set, which allows a direct comparison with the
   single-label results.
+
+## 12. 27-class single-label track (separate)
+
+A third, self-contained track. Each example has exactly one of the 27
+GoEmotions emotions (`neutral` excluded). It reuses the cached raw data and
+changes nothing in the 4-class or multi-label tracks.
+
+**Policy.** A comment is kept if and only if its complete original label
+set is exactly one label and that label isn't `neutral`. Multi-emotion,
+neutral-only and neutral+emotion comments are discarded, never projected
+onto a single class. Classes are numbered in the original GoEmotions order
+with `neutral` removed: `admiration` = 0 … `surprise` = 26.
+
+| Partition | Raw | Retained | Neutral only | Neutral + emotion | Multi-emotion | Min class | Max class | Imbalance |
+|---|---:|---:|---:|---:|---:|---|---|---:|
+| train | 43,410 | 23,485 | 12,823 | 1,396 | 5,706 | grief 39 | admiration 2,710 | 69.5× |
+| validation | 5,426 | 2,956 | 1,592 | 174 | 704 | grief 6 | admiration 326 | 54.3× |
+| test | 5,427 | 2,984 | 1,606 | 181 | 656 | grief 2 | admiration 348 | 174× |
+
+All per-class counts are in `configs/single_label_27.yaml` (`expected_counts`)
+and are checked on every run. The anger/fear/joy/sadness rows are exactly
+the 4-class track's examples, with the same ids and texts.
+
+**Ladder.** Sizes `[500, 1000, 2000, 4000, 8000, 12000, 16000, 23485]` ×
+seeds `[42..46]`. Sampling is stratified by class using the same sequential
+Webster scheme as the multi-label track: exact sizes, nested within each
+seed, and every class within ±1 of its proportional share. With strictly
+proportional sampling, all 27 classes are present only from n = 303 upwards,
+since grief makes up 0.17% of the training set. The 4-class ladder sizes
+(100, 250) would therefore miss rare classes: n=100 has only 23 classes. The
+ladder starts at 500, where every class is present. The rare classes then
+grow as follows (grief / pride / nervousness / relief):
+
+| Size | Rare-class counts |
+|---|---|
+| 500 | 1 / 1 / 2 / 2 |
+| 2000 | 3 / 4 / 7 / 8 |
+| 8000 | 13 / 17 / 29 / 30 |
+
+The generator refuses to write a ladder in which any class is missing.
+
+**Commands** (`data/` is gitignored; both steps are deterministic and refuse
+to overwrite existing output unless you pass `--force`):
+
+```bash
+python scripts/prepare_single_label_27_data.py     # -> data/processed/single_label_27/{train,validation,test}.csv
+python scripts/generate_single_label_27_ladder.py  # -> data/subsets/single_label_27_ladder/ (40 manifests)
+python -m pytest tests/test_single_label_27_pipeline.py
+```
+
+**Shared API** (`emotion_ait.single_label_27.data`):
+
+```python
+from emotion_ait.single_label_27.data import (
+    CLASS_NAMES, LABEL_TO_INDEX, INDEX_TO_LABEL,     # fixed 27-class order
+    load_single_label_27_dataframe,                  # (split) -> full partition
+    load_single_label_27_ladder_subset_dataframe,    # (seed, size) -> subset, manifest order
+    load_single_label_27_ladder_ids,                 # (seed, size) -> ordered ids
+    get_single_label_27_labels,                      # (df) -> (N,) int64 class indices
+    get_single_label_27_example_ids,                 # (df) -> list[str]
+)
+train = load_single_label_27_ladder_subset_dataframe(seed=42, size=2000)
+X, y = train["text"].tolist(), get_single_label_27_labels(train)
+```
+
+**Evaluation caveat.** The test set has 2 grief, 7 pride, 7 relief and 12
+nervousness examples. Per-class F1 for those classes is extremely noisy, and
+macro-F1 is sensitive to them, so report micro-F1 (accuracy) and macro-F1
+together.
 
 ## Reproducibility & validation
 
