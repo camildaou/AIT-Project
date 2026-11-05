@@ -1,0 +1,35 @@
+# Configuration for the separate multi-label track (does not affect
+# configs/default.yaml or anything in the single-label track).
+# Loaded via `emotion_ait.multilabel.config.load_multilabel_config`.
+#
+# The raw GoEmotions data and the 28 original label names are taken from
+# configs/default.yaml (single source of truth); only multi-label settings
+# live here.
+
+dataset_id: "goemotions-simplified/option-a/joy-sadness-anger-fear/v1"
+
+# Target emotions, in the fixed column order of every target matrix.
+target_labels: [joy, sadness, anger, fear]
+
+# Option A: keep every example with >= 1 target emotion, project its
+# original labels onto the targets (other labels ignored), discard
+# examples with no target emotion.
+policy: option_a
+
+splits: [train, validation, test]
+
+paths:
+  processed_dir: "data/processed/multilabel"
+  subsets_dir: "data/subsets/multilabel_ladder"
+
+sampling:
+  # 4883 = the full Option A training partition.
+  ladder_sizes: [100, 250, 500, 1000, 1500, 2000, 2500, 4883]
+  ladder_seeds: [42, 43, 44, 45, 46]
+
+# Counts from the dataset analysis; preprocessing refuses to write output
+# that does not match these, and reports the discrepancy instead.
+expected_counts:
+  train:      {raw: 43410, retained: 4883, multi_label: 58, positives: {joy: 1452, sadness: 1326, anger: 1567, fear: 596}}
+  validation: {raw: 5426,  retained: 595,  multi_label: 5,  positives: {joy: 172,  sadness: 143,  anger: 195,  fear: 90}}
+  test:       {raw: 5427,  retained: 590,  multi_label: 3,  positives: {joy: 161,  sadness: 156,  anger: 198,  fear: 78}}
