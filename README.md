@@ -732,6 +732,20 @@ nervousness examples. Per-class F1 for those classes is extremely noisy, and
 macro-F1 is sensitive to them, so report micro-F1 (accuracy) and macro-F1
 together.
 
+## Experiment log
+
+Every experiment run so far is listed in [`EXPERIMENT_LOG.md`](EXPERIMENT_LOG.md): its date, track,
+configuration, the question it answered, its validation and test results, and its conclusion.
+The descriptive fields come from [`experiments/registry.yaml`](experiments/registry.yaml), and every
+number is recomputed from `results/metrics/*.csv`. To log a new experiment, run it, add an entry to
+the registry and regenerate the log:
+
+```bash
+python scripts/update_experiment_log.py
+```
+
+`tests/test_experiment_log.py` fails if any results file is missing from the registry.
+
 ## Reproducibility & validation
 
 Automated tests ([`tests/`](tests)) verify, against small synthetic
