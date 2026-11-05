@@ -11,7 +11,7 @@ are implemented, since all three share the same interface.
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import Dict, Optional
 
 import pandas as pd
 
@@ -36,6 +36,7 @@ def run_experiment(
     seed: Optional[int] = None,
     train_subset_percentage: Optional[float] = None,
     results_filename: str = "results.csv",
+    id_to_label: Optional[Dict[int, str]] = None,
 ) -> ResultRecord:
     """Run one full train/evaluate cycle for a model on a named training
     subset, and append the result to the shared results CSV.
@@ -91,6 +92,10 @@ def run_experiment(
     results_filename:
         Name of the combined metrics CSV under ``results/metrics/`` that
         the record is appended to (default ``"results.csv"``).
+    id_to_label:
+        Optional class-id -> name mapping used for metrics and prediction
+        files, for tracks with other classes than the 4-class task (e.g.
+        the 27-class track). Defaults to ``config.target_task.id_to_label``.
     """
     if train_df is None:
         train_df = load_subset_dataframe(subset_name, processed_df, config)
@@ -105,7 +110,8 @@ def run_experiment(
     validation_df = processed_df[processed_df["original_split"] == "validation"].reset_index(drop=True)
     test_df = processed_df[processed_df["original_split"] == "test"].reset_index(drop=True)
 
-    id_to_label = config.target_task.id_to_label
+    if id_to_label is None:
+        id_to_label = config.target_task.id_to_label
 
     with Timer() as train_timer:
         model.fit(train_df, validation_data=validation_df)

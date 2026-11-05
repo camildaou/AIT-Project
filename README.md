@@ -667,6 +667,33 @@ train = load_single_label_27_ladder_subset_dataframe(seed=42, size=2000)
 X, y = train["text"].tolist(), get_single_label_27_labels(train)
 ```
 
+**Shared experiment runner.** Both models go through one runner
+([`single_label_27/experiments.py`](src/emotion_ait/single_label_27/experiments.py)),
+so they train on the same subsets and are scored by the same code as every
+other track: `run_experiment` with the 27-class mapping. Each run records:
+- validation and test macro-F1, and test accuracy;
+- per-class precision, recall and F1 for all 27 classes;
+- train and inference time;
+- a test predictions file;
+- a `config_summary` with the dataset id and the hash of the subset's ids.
+
+Files are prefixed `sl27_` and never collide with other tracks. A run
+refuses to start if its results CSV already exists.
+
+```bash
+python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1     # -> results/metrics/sl27_mdl_n2_k1_ladder_results.csv
+python scripts/run_single_label_27_experiments.py --model lstm                # needs LSTMClassifier(num_classes=...), see below
+python scripts/run_single_label_27_experiments.py --factory my_pkg.models:build --name lstm27   # any EmotionClassifier
+python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug   # quick debug run
+```
+
+`--factory` takes `build(seed: int) -> (model, config_summary_dict)`, which
+returns a fresh, unfitted `EmotionClassifier`. This lets you plug in a model
+without editing the shared script. `MDLClassifier` already handles 27
+classes. `LSTMClassifier` is still 4-class only: it rejects labels above 3
+and has 4 outputs. `--model lstm` stays disabled until the LSTM accepts a
+`num_classes` argument.
+
 **Evaluation caveat.** The test set has 2 grief, 7 pride, 7 relief and 12
 nervousness examples. Per-class F1 for those classes is extremely noisy, and
 macro-F1 is sensitive to them, so report micro-F1 (accuracy) and macro-F1
