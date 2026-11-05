@@ -229,3 +229,53 @@ experiments:
     config: "MDL27 bigram, interpolated Kneser-Ney, lower-order distribution pooled over the training subset, estimated discounts"
     question: "Does a shared back-off distribution help rare classes?"
     conclusion: "Worse than per-class back-off at every size and below add-1 on validation (0.226 overall); pooling the lower order across classes makes the class models less distinctive. Hypothesis that sharing helps rare classes not supported."
+
+  - id: E22
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: Kneser-Ney
+    results: results/metrics/sl27_mdl_prior_n2_knclass_ladder_results.csv
+    config: "As E20 (Kneser-Ney, per-class back-off) + class prior -log2(N_e/N)"
+    question: "With the frequent-class bias removed by Kneser-Ney, does a class prior recover accuracy without losing macro-F1?"
+    conclusion: "Not selected: validation macro-F1 below KN without prior at every size except a tie at 4k (0.260 vs 0.266 overall; full-size test macro-F1 0.293 vs 0.304). It recovers only a little accuracy (full size 0.397 vs 0.392; add-1 0.428) and kappa is essentially unchanged (0.355 vs 0.354), while rare classes are suppressed again (F1=0 classes 2 -> 4, admiration 450 predicted vs 348 true). The accuracy gap to add-1 is not a prior effect."
+
+  - id: E23
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: n-gram order
+    results: results/metrics/sl27_mdl_n3_k1_ladder_results.csv
+    config: "MDL27 trigram, add-1 (n=3, k=1)"
+    question: "Does a longer context help in the 27-class task (add-1)?"
+    conclusion: "No: worse than the add-1 bigram at every size (overall val 0.204 vs 0.229; full-size test macro-F1 0.270 vs 0.279, accuracy 0.374 vs 0.428). Sparse trigram contexts fall back to near-uniform add-1 estimates, as in the 4-class study."
+
+  - id: E24
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: n-gram order
+    results: results/metrics/sl27_mdl_n4_k1_ladder_results.csv
+    config: "MDL27 4-gram, add-1 (n=4, k=1)"
+    question: "Does a longer context help in the 27-class task (add-1)?"
+    conclusion: "No: worst add-1 configuration (overall val 0.178; full-size test macro-F1 0.231, accuracy 0.326)."
+
+  - id: E25
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: n-gram order
+    results: results/metrics/sl27_mdl_n3_knclass_ladder_results.csv
+    config: "MDL27 trigram, interpolated Kneser-Ney, per-class back-off, estimated discounts"
+    question: "With Kneser-Ney handling sparse contexts, does a trigram beat the KN bigram (E20)?"
+    conclusion: "Not selected: with Kneser-Ney the trigram is essentially tied with the KN bigram (overall val 0.263 vs 0.266; best at n=500 only) and slightly lower on test at full size (macro-F1 0.294 vs 0.304, accuracy 0.383 vs 0.392). KN makes the longer context harmless but adds no useful information."
+
+  - id: E26
+    expected_runs: 40
+    date: 2026-11-05
+    track: 27-class single-label
+    group: n-gram order
+    results: results/metrics/sl27_mdl_n4_knclass_ladder_results.csv
+    config: "MDL27 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts"
+    question: "With Kneser-Ney handling sparse contexts, does a 4-gram beat the KN bigram (E20)?"
+    conclusion: "Not selected: same picture as E25 (overall val 0.263; marginally best at 2000 and 23485 by <=0.002; full-size test macro-F1 0.293). Longer contexts give no gain in either smoothing scheme; the KN bigram (E20) remains the best 27-class MDL."
