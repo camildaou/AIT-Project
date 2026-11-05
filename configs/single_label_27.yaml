@@ -1,0 +1,58 @@
+# Configuration for the separate 27-class single-label track (does not affect
+# configs/default.yaml, configs/multilabel.yaml or any existing track).
+# Loaded via `emotion_ait.single_label_27.config.load_single_label_27_config`.
+#
+# Raw data location and the 28 original label names come from
+# configs/default.yaml; only this track's settings live here.
+
+dataset_id: "goemotions-simplified/single-label-27/v1"
+
+# Policy: keep an example iff its complete original label set is exactly one
+# label and that label is not `neutral`. Multi-label, neutral-only and
+# neutral+emotion examples are discarded (never projected to one class).
+# Classes: the 27 emotions in original GoEmotions order (index 0..26).
+
+splits: [train, validation, test]
+
+paths:
+  processed_dir: "data/processed/single_label_27"
+  subsets_dir: "data/subsets/single_label_27_ladder"
+
+sampling:
+  # Proportional (Webster) stratification includes all 27 classes only from
+  # n = 303 on (grief has 39 of 23,485 training examples), so the ladder
+  # starts at 500. 23485 = the full training partition.
+  ladder_sizes: [500, 1000, 2000, 4000, 8000, 12000, 16000, 23485]
+  ladder_seeds: [42, 43, 44, 45, 46]
+  require_all_classes: true
+
+# Counts from the source analysis; preprocessing refuses to write output that
+# does not match these and reports the discrepancy instead.
+expected_counts:
+  train:
+    raw: 43410
+    retained: 23485
+    discarded: {neutral_only: 12823, neutral_plus_emotion: 1396, multi_emotion: 5706}
+    classes: {admiration: 2710, amusement: 1652, anger: 1025, annoyance: 1451, approval: 1873, caring: 649,
+              confusion: 858, curiosity: 1389, desire: 389, disappointment: 709, disapproval: 1402, disgust: 498,
+              embarrassment: 203, excitement: 510, fear: 430, gratitude: 1857, grief: 39, joy: 853, love: 1427,
+              nervousness: 85, optimism: 861, pride: 51, realization: 586, relief: 88, remorse: 353, sadness: 817,
+              surprise: 720}
+  validation:
+    raw: 5426
+    retained: 2956
+    discarded: {neutral_only: 1592, neutral_plus_emotion: 174, multi_emotion: 704}
+    classes: {admiration: 326, amusement: 208, anger: 109, annoyance: 164, approval: 258, caring: 96,
+              confusion: 102, curiosity: 164, desire: 52, disappointment: 91, disapproval: 212, disgust: 61,
+              embarrassment: 20, excitement: 52, fear: 58, gratitude: 261, grief: 6, joy: 106, love: 173,
+              nervousness: 8, optimism: 119, pride: 9, realization: 74, relief: 8, remorse: 40, sadness: 84,
+              surprise: 95}
+  test:
+    raw: 5427
+    retained: 2984
+    discarded: {neutral_only: 1606, neutral_plus_emotion: 181, multi_emotion: 656}
+    classes: {admiration: 348, amusement: 186, anger: 131, annoyance: 194, approval: 236, caring: 86,
+              confusion: 97, curiosity: 176, desire: 56, disappointment: 88, disapproval: 195, disgust: 76,
+              embarrassment: 23, excitement: 57, fear: 65, gratitude: 260, grief: 2, joy: 93, love: 160,
+              nervousness: 12, optimism: 107, pride: 7, realization: 89, relief: 7, remorse: 44, sadness: 102,
+              surprise: 87}
