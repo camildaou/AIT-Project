@@ -687,6 +687,39 @@ python scripts/run_single_label_27_experiments.py --factory my_pkg.models:build 
 python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug   # quick debug run
 ```
 
+**27-class MDL** ([`single_label_27/mdl.py`](src/emotion_ait/single_label_27/mdl.py),
+`MDL27Classifier`) extends the existing `MDLClassifier` without changing it.
+- **27 models, one vocabulary:** one bigram language model per class, in
+  `CLASS_NAMES` order, all sharing one vocabulary built from the training
+  subset. Defaults are `n=2`, `k=1`.
+- **Decision rule:** `argmin_e L(x|M_e)`, with ties going to the lowest
+  class index.
+- **Optional prior:** `--prior` adds `-log2 P(e)` (training class
+  frequency). That variant is named `sl27_mdl_prior_*`.
+- **Kneser-Ney smoothing:** `--smoothing kneser_ney --kn-backoff {class,shared}`
+  selects interpolated Kneser-Ney (bigram only) instead of add-k. Discounts are
+  estimated from training counts as `D = n1/(n1+2 n2)` unless `--kn-discount`
+  fixes them. The back-off distribution is either per class or pooled over the
+  training subset. Every distribution is proper (sums to 1 and is positive)
+  over the shared vocabulary, `</s>` and `<unk>`. Runs are named
+  `sl27_mdl_n2_kn{class,shared}`.
+- **Classes missing from training:** such a class still gets an empty model
+  with finite description lengths, but it is reported in `missing_classes`
+  and is never predicted.
+- **Diagnostics:** `--diagnostics` writes
+  `results/diagnostics/sl27_<name>_ladder_n<size>_<seed>.json`, with per-class
+  training examples, unique bigrams, vocabulary coverage, mean training
+  bits, validation/test OOV counts and predictions per class.
+- **Other methods:** `predict_scores(texts)` returns an `(N, 27)` score
+  matrix, and `score_breakdown(texts)` returns the conditional, prior and
+  total bits.
+
+```bash
+python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1                    # no prior (40 runs)
+python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1 --prior            # prior   (40 runs)
+python scripts/run_single_label_27_experiments.py --model mdl --sizes 23485 --seeds 42 --results-tag seed42 --diagnostics
+```
+
 `--factory` takes `build(seed: int) -> (model, config_summary_dict)`, which
 returns a fresh, unfitted `EmotionClassifier`. This lets you plug in a model
 without editing the shared script. `MDLClassifier` already handles 27

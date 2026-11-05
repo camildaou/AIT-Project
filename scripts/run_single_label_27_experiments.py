@@ -3,7 +3,8 @@
 (8 sizes x 5 seeds), with the shared evaluation of every other track.
 
 Built-in models:
-    mdl   -- MDLClassifier(n, k)                (--n, --k)
+    mdl   -- MDL27Classifier(n, k)              (--n, --k, --prior; 27 class models,
+             shared vocabulary; --prior adds -log2 P(e) and is named mdl_prior_*)
     lstm  -- LSTMClassifier(num_classes=27, ...) (--epochs, --patience); requires
              the LSTM to accept a `num_classes` argument (it is 4-class only today).
 Or plug in any EmotionClassifier without editing this script:
@@ -16,6 +17,9 @@ sl27_<name>_ladder_n<size>_<seed>.* files; refuses to overwrite existing results
 Usage
 -----
     python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1
+    python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1 --prior
+    python scripts/run_single_label_27_experiments.py --model mdl --smoothing kneser_ney --kn-backoff shared   # -> sl27_mdl_n2_knshared
+    python scripts/run_single_label_27_experiments.py --model mdl --sizes 23485 --seeds 42 --diagnostics
     python scripts/run_single_label_27_experiments.py --model lstm
     python scripts/run_single_label_27_experiments.py --factory my_pkg.models:build --name lstm_v2
     python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug
@@ -53,6 +57,12 @@ def main() -> None:
     parser.add_argument("--name", help="Results name (required with --factory; default derived from the model).")
     parser.add_argument("--n", type=int, default=2, help="MDL n-gram order (default 2, the best 4-class setting).")
     parser.add_argument("--k", type=float, default=1.0, help="MDL add-k smoothing (default 1).")
+    parser.add_argument("--prior", action="store_true", help="MDL: add the training class prior -log2 P(e).")
+    parser.add_argument("--smoothing", choices=["laplace", "kneser_ney"], default="laplace", help="MDL smoothing.")
+    parser.add_argument("--kn-backoff", choices=["class", "shared"], default="shared",
+                        help="MDL Kneser-Ney lower-order distribution: per class or pooled over the training subset.")
+    parser.add_argument("--kn-discount", type=float, default=None, help="MDL Kneser-Ney fixed discount (default: estimated).")
+    parser.add_argument("--diagnostics", action="store_true", help="Write a per-run diagnostics JSON (if the model supports it).")
     parser.add_argument("--epochs", type=int, default=10, help="LSTM max epochs.")
     parser.add_argument("--patience", type=int, default=3, help="LSTM early-stopping patience.")
     parser.add_argument("--sizes", type=int, nargs="+", default=None, help="Subset of ladder sizes (debugging).")
@@ -69,13 +79,27 @@ def main() -> None:
         build = getattr(importlib.import_module(module_name), attr)
         name = args.name
     elif args.model == "mdl":
-        from emotion_ait.mdl_classifier import MDLClassifier
+        from emotion_ait.single_label_27.mdl import MDL27Classifier
+
+        kneser_ney = args.smoothing == "kneser_ney"
 
         def build(seed):
-            model = MDLClassifier(n=args.n, smoothing="laplace", k=args.k)
-            return model, {"n": model.n, "smoothing": model.smoothing, "k": model.k}
+            model = MDL27Classifier(n=args.n, smoothing=args.smoothing, k=args.k, use_prior=args.prior,
+                                    kn_backoff=args.kn_backoff, kn_discount=args.kn_discount)
+            summary = {"model": "MDL27Classifier", "n": model.n, "smoothing": model.smoothing, "use_prior": model.use_prior}
+            if kneser_ney:
+                summary.update(kn_backoff=model.kn_backoff, kn_discount=model.kn_discount or "estimated")
+            else:
+                summary["k"] = model.k
+            return model, summary
 
-        name = args.name or f"mdl_n{args.n}_k{_format_k(args.k)}"
+        variant = "mdl_prior" if args.prior else "mdl"
+        if kneser_ney:
+            discount = f"_d{_format_k(args.kn_discount)}" if args.kn_discount else ""
+            default_name = f"{variant}_n{args.n}_kn{args.kn_backoff}{discount}"
+        else:
+            default_name = f"{variant}_n{args.n}_k{_format_k(args.k)}"
+        name = args.name or default_name
     else:
         from emotion_ait.lstm_classifier import LSTMClassifier
 
@@ -91,7 +115,7 @@ def main() -> None:
 
     if results_path(config, name, args.results_tag).exists():
         parser.error(f"{results_path(config, name, args.results_tag)} already exists; move it away or use --results-tag.")
-    records = run_single_label_27_ladder(build, name, config, args.sizes, args.seeds, args.results_tag)
+    records = run_single_label_27_ladder(build, name, config, args.sizes, args.seeds, args.results_tag, args.diagnostics)
     logger.info("Done: %d runs of %s. Results: %s", len(records), run_name(name), results_path(config, name, args.results_tag))
 
 

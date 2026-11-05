@@ -12,10 +12,16 @@ prefixed ``sl27_`` and results go to
 ``results/metrics/sl27_<name>_ladder_results[_<tag>].csv`` plus the usual
 per-run ``sl27_<name>_ladder_n<size>_<seed>.*`` files. A run refuses to start
 if its combined results CSV already exists.
+
+With ``diagnostics=True``, a model exposing
+``diagnostics(train_df, {"validation": texts, "test": texts}) -> dict`` (e.g.
+:class:`~emotion_ait.single_label_27.mdl.MDL27Classifier`) also gets one JSON
+report per run in ``results/diagnostics/sl27_<name>_ladder_n<size>_<seed>.json``.
 """
 
 from __future__ import annotations
 
+import json
 import logging
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Sequence, Tuple
@@ -62,6 +68,7 @@ def run_single_label_27_ladder(
     sizes: Optional[Sequence[int]] = None,
     seeds: Optional[Sequence[int]] = None,
     results_tag: Optional[str] = None,
+    diagnostics: bool = False,
 ) -> List[ResultRecord]:
     """Train and evaluate one model configuration on every (seed, size)."""
     path = results_path(config, name, results_tag)
@@ -74,6 +81,7 @@ def run_single_label_27_ladder(
         raise ValueError(f"Sizes {sorted(unknown)} are not ladder sizes {config.ladder_sizes}.")
 
     processed = load_all_splits(config)
+    held_out = {s: processed.loc[processed["original_split"] == s, "text"].tolist() for s in ("validation", "test")}
     records = []
     for seed in seeds:
         for size in sizes:
@@ -100,5 +108,11 @@ def run_single_label_27_ladder(
             )
             logger.info("%s seed=%d size=%d: val_macro_f1=%.4f test_macro_f1=%.4f test_accuracy=%.4f",
                         run_name(name), seed, size, record.validation_macro_f1, record.test_macro_f1, record.test_accuracy)
+            if diagnostics and hasattr(model, "diagnostics"):
+                out = config.base.paths.results_dir / "diagnostics" / f"{run_name(name)}_ladder_n{size}_{seed}.json"
+                out.parent.mkdir(parents=True, exist_ok=True)
+                with open(out, "w", encoding="utf-8") as fh:
+                    json.dump(model.diagnostics(train_df, held_out), fh, indent=2)
+                logger.info("Wrote diagnostics %s", out)
             records.append(record)
     return records
