@@ -5,8 +5,8 @@
 Built-in models:
     mdl   -- MDL27Classifier(n, k)              (--n, --k, --prior; 27 class models,
              shared vocabulary; --prior adds -log2 P(e) and is named mdl_prior_*)
-    lstm  -- LSTMClassifier(num_classes=27, ...) (--epochs, --patience); requires
-             the LSTM to accept a `num_classes` argument (it is 4-class only today).
+    lstm  -- LSTMClassifier(num_classes=27, ...) (--epochs, --patience).
+             Uses the same preset manifests as MDL.
 Or plug in any EmotionClassifier without editing this script:
     --factory package.module:build --name my_model
 where `build(seed: int) -> (model, config_summary_dict)` returns a fresh model.

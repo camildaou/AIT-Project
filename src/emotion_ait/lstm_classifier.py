@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import logging
 import random
+from numbers import Integral
 from collections import Counter
 from pathlib import Path
 from typing import List, Optional, Sequence
@@ -51,16 +53,19 @@ class LSTMClassifier(EmotionClassifier):
     """Word-token LSTM with a training-only vocabulary and validation stopping.
 
     Labels follow the shared project mapping: anger=0, fear=1, joy=2,
-    sadness=3. The output layer always has four logits, including when a
-    very small training subset happens to omit a class.
+    sadness=3 by default. Set num_classes=27 for the preset single-label track.
+    The output layer retains every configured class, even if one is absent.
     """
 
     def __init__(
         self, embedding_dim: int = 100, hidden_dim: int = 128,
         num_layers: int = 1, max_epochs: int = 10, learning_rate: float = 1e-3,
         batch_size: int = 32, device: str = "cpu", seed: int = 42,
-        min_frequency: int = 1, patience: int = 3, max_vocabulary_size: Optional[int] = 30000,
+        min_frequency: int = 1, patience: int = 3, max_vocabulary_size: Optional[int] = 30000, num_classes: int = 4,
     ) -> None:
+        if isinstance(num_classes, bool) or not isinstance(num_classes, Integral) or num_classes < 2:
+            raise ValueError('num_classes must be an integer of at least 2.')
+        self.num_classes = int(num_classes)
         self.embedding_dim = embedding_dim
         self.hidden_dim = hidden_dim
         self.num_layers = num_layers
@@ -129,10 +134,13 @@ class LSTMClassifier(EmotionClassifier):
         if self.num_layers < 1 or self.embedding_dim < 1 or self.hidden_dim < 1:
             raise ValueError("LSTM dimensions and num_layers must be positive.")
         labels = train_data.label.astype(int)
-        if not labels.between(0, 3).all():
-            raise ValueError("Labels must use the project class ids 0 through 3.")
+        if not labels.between(0, self.num_classes - 1).all():
+            raise ValueError(f"Labels must use class ids 0 through {self.num_classes - 1}.")
         if validation_data is not None and not required.issubset(validation_data.columns):
             raise ValueError("validation_data must contain 'text' and 'label' columns.")
+
+        if validation_data is not None and not validation_data.label.astype(int).between(0, self.num_classes - 1).all():
+            raise ValueError('Validation labels are outside the configured class range.')
 
         random.seed(self.seed)
         torch.manual_seed(self.seed)
@@ -140,7 +148,7 @@ class LSTMClassifier(EmotionClassifier):
             torch.cuda.manual_seed_all(self.seed)
         self._vocab = self._build_vocab(train_data.text.astype(str).tolist())
         self._model = _LSTMNetwork(
-            len(self._vocab), self.embedding_dim, self.hidden_dim, self.num_layers, 4
+            len(self._vocab), self.embedding_dim, self.hidden_dim, self.num_layers, self.num_classes
         ).to(self.device)
         optimizer = torch.optim.Adam(self._model.parameters(), lr=self.learning_rate)
         criterion = nn.CrossEntropyLoss()
@@ -165,11 +173,12 @@ class LSTMClassifier(EmotionClassifier):
                 from sklearn.metrics import f1_score
                 val_pred = self._predict_frame(validation_data)
                 score = f1_score(validation_data.label.astype(int), val_pred,
-                                 labels=[0, 1, 2, 3], average="macro", zero_division=0)
+                                 labels=list(range(self.num_classes)), average="macro", zero_division=0)
             else:
                 # Without validation, retain the final epoch; no test data is
                 # consulted for model selection.
                 continue
+            logging.getLogger(__name__).info('epoch=%d/%d validation_macro_f1=%.4f', _epoch + 1, self.max_epochs, score)
             if score > best_score:
                 best_score = score
                 best_state = {key: value.detach().cpu().clone()
@@ -205,7 +214,7 @@ class LSTMClassifier(EmotionClassifier):
             "params": {key: getattr(self, key) for key in (
                 "embedding_dim", "hidden_dim", "num_layers", "max_epochs",
                 "learning_rate", "batch_size", "device", "seed", "min_frequency",
-                "patience", "max_vocabulary_size")},
+                "patience", "max_vocabulary_size", "num_classes")},
         }, path)
 
     @classmethod
@@ -220,7 +229,7 @@ class LSTMClassifier(EmotionClassifier):
         instance._vocab = payload["vocab"]
         instance._model = _LSTMNetwork(
             len(instance._vocab), instance.embedding_dim, instance.hidden_dim,
-            instance.num_layers, 4,
+            instance.num_layers, instance.num_classes,
         )
         instance._model.load_state_dict(payload["state_dict"])
         instance._model.to(instance.device)
