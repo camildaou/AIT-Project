@@ -41,6 +41,7 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 | E26 | 2026-11-05 | n-gram order | MDL27 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts | 40 | 500-23485 | 0.263 | 0.293 | 0.382 | 0.165 | Not selected: same picture as E25 (overall val 0.263; marginally best at 2000 and 23485 by <=0.002; full-size test macro-F1 0.293). Longer contexts give no gain in either smoothing scheme; the KN bigram (E20) remains the best 27-class MDL. |
 | E27 | 2026-11-06 | Naive Bayes | Bigram Naive Bayes, add-1, ML decision rule argmax log P(x|e); seed 42 at n=500 and n=23485 | 2 | 500-23485 | 0.214 | 0.279 | 0.428 | 0.146 | Yes, exactly: 0 differing predictions out of 2,984 test texts at both sizes vs E16, identical val/test metrics and per-class scores, and log2 P(x|e) bit-identical to -L(x|M_e) on all 5,940 val+test texts. |
 | E28 | 2026-11-06 | Naive Bayes | Bigram Naive Bayes, add-1, MAP decision rule argmax log P(x|e) + log P(e); seed 42 at n=500 and n=23485 | 2 | 500-23485 | 0.169 | 0.230 | 0.396 | 0.094 | No: identical to MDL + prior (0 differing predictions vs E15 at full size; bit-identical scores at n=500). MAP is worse than ML (full-size test macro-F1 0.230 vs 0.279; n=500: 0.094 vs 0.146) because the prior strengthens the frequent-class bias of add-1. |
+| E29 | 2026-11-06 | neural bigram MDL | 27 neural bigram LMs (embedding 128 -> softmax over V=18,727; Adam lr 1e-3, batch 128, <=50 epochs, early stopping on per-class validation NLL, patience 2, no weight decay); argmin summed bits; full training set, seed 42, CUDA | 1 | 23485 | 0.245 | 0.220 | 0.304 | 0.220 | No (untuned defaults): test macro-F1 0.220 / accuracy 0.304 vs 0.279 / 0.428 (add-1, E16) and 0.304 / 0.392 (Kneser-Ney, E20). All 27 models stop early (best epochs 5-35); large classes overfit within ~5-10 epochs (4.8M parameters per model vs 0.5k-33k training tokens). Predictions are well spread across classes (admiration 343 vs 348 true) but 4 rare classes stay at F1 0. Weight decay / embedding size not yet tuned on validation. |
 
 ## Details
 
@@ -211,6 +212,12 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 - Configuration: Bigram Naive Bayes, add-1, MAP decision rule argmax log P(x|e) + log P(e); seed 42 at n=500 and n=23485
 - Question: Does conventional MAP Naive Bayes differ from MDL with a class-prior code?
 - Conclusion: No: identical to MDL + prior (0 differing predictions vs E15 at full size; bit-identical scores at n=500). MAP is worse than ML (full-size test macro-F1 0.230 vs 0.279; n=500: 0.094 vs 0.146) because the prior strengthens the frequent-class bias of add-1.
+
+**E29** (2026-11-06, 27-class single-label, neural bigram MDL) - `results/metrics/sl27_neural_bigram_mdl_ladder_results_seed42.csv` - done
+
+- Configuration: 27 neural bigram LMs (embedding 128 -> softmax over V=18,727; Adam lr 1e-3, batch 128, <=50 epochs, early stopping on per-class validation NLL, patience 2, no weight decay); argmin summed bits; full training set, seed 42, CUDA
+- Question: Does a neural bigram LM per class beat count-based bigram MDL?
+- Conclusion: No (untuned defaults): test macro-F1 0.220 / accuracy 0.304 vs 0.279 / 0.428 (add-1, E16) and 0.304 / 0.392 (Kneser-Ney, E20). All 27 models stop early (best epochs 5-35); large classes overfit within ~5-10 epochs (4.8M parameters per model vs 0.5k-33k training tokens). Predictions are well spread across classes (admiration 343 vs 348 true) but 4 rare classes stay at F1 0. Weight decay / embedding size not yet tuned on validation.
 
 ## Results files that are not experiments
 

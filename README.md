@@ -744,6 +744,43 @@ python scripts/run_single_label_27_experiments.py --model naive_bayes --variant 
 python scripts/run_single_label_27_experiments.py --model naive_bayes --variant map   # -> sl27_nb_map_n2_k1
 ```
 
+**27-class neural bigram MDL** ([`single_label_27/neural_bigram.py`](src/emotion_ait/single_label_27/neural_bigram.py),
+`NeuralBigramMDL27`) uses one PyTorch bigram language model per emotion.
+- **Architecture:** `softmax(W · Embedding(w_{i-1}) + b)` over the same `V`
+  prediction tokens as the count-based MDL (training words, `</s>` and
+  `<unk>`), with the same tokenizer and padding and a vocabulary built from
+  the training subset only.
+- **Training:**
+  - Each class model is trained from scratch (Adam, cross-entropy) on that
+    class's training texts only.
+  - Early stopping uses that class's validation texts: per-token validation
+    loss, a patience limit, and the best epoch's weights are kept. Test data
+    is never seen during fitting.
+  - Defaults: `embedding_dim=128`, `lr=1e-3`, `batch_size=128`,
+    `epochs=50`, `patience=2`, `weight_decay=0`.
+- **Prediction:** `argmin_e L(x|M_e)`, where
+  `L(x|M_e) = -(1/ln 2) Σ_i ln P_θ(w_i|w_{i-1},e)` is the summed token
+  log-loss in bits. This is the *conditional* description length: the
+  network parameters are not encoded, so it is not two-part MDL. `--prior`
+  is a separate variant that adds `-log2 P(e)`.
+- **Speed:** the softmax normaliser is computed once per distinct previous
+  token, then reused for every text.
+- **Training metadata:** each run writes it automatically to
+  `results/diagnostics/sl27_neural_bigram_mdl_ladder_n<size>_<seed>.json`. It
+  records epochs trained, the best epoch and validation bits per token per
+  class, training tokens and examples per class, per-class and total
+  training time, parameter counts, vocabulary size, device, and test/val OOV
+  counts and predictions.
+- **Reproducibility:** seeds for Python, NumPy, PyTorch and CUDA come from
+  the ladder seed, and class `c` uses `seed*1000 + c`. `--device cpu` is
+  bit-reproducible; CUDA (`--device auto`, the default when a GPU is present)
+  can differ in the last digits.
+
+```bash
+python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl --sizes 500 --seeds 42 --results-tag smoke   # smoke test
+python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl                                               # full ladder -> sl27_neural_bigram_mdl
+```
+
 `--factory` takes `build(seed: int) -> (model, config_summary_dict)`, which
 returns a fresh, unfitted `EmotionClassifier`. This lets you plug in a model
 without editing the shared script. `MDLClassifier` already handles 27

@@ -6,6 +6,9 @@ Built-in models:
     mdl   -- MDL27Classifier(n, k)              (--n, --k, --prior; 27 class models,
              shared vocabulary; --prior adds -log2 P(e) and is named mdl_prior_*)
     naive_bayes -- BigramNaiveBayes27(n, k)  (--variant ml|map, --n, --k); named nb_<variant>_n<n>_k<k>
+    neural_bigram_mdl -- NeuralBigramMDL27   (--embedding-dim, --lr, --batch-size, --epochs, --patience,
+             --weight-decay, --device, --prior); 27 neural bigram LMs, argmin bits;
+             always writes training metadata to results/diagnostics/
     lstm  -- LSTMClassifier(num_classes=27, ...) (--epochs, --patience); requires
              the LSTM to accept a `num_classes` argument (it is 4-class only today).
 Or plug in any EmotionClassifier without editing this script:
@@ -23,6 +26,8 @@ Usage
     python scripts/run_single_label_27_experiments.py --model mdl --sizes 23485 --seeds 42 --diagnostics
     python scripts/run_single_label_27_experiments.py --model naive_bayes --variant ml    # -> sl27_nb_ml_n2_k1
     python scripts/run_single_label_27_experiments.py --model naive_bayes --variant map   # -> sl27_nb_map_n2_k1
+    python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl --sizes 500 --seeds 42 --results-tag smoke
+    python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl   # -> sl27_neural_bigram_mdl
     python scripts/run_single_label_27_experiments.py --model lstm
     python scripts/run_single_label_27_experiments.py --factory my_pkg.models:build --name lstm_v2
     python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug
@@ -55,7 +60,7 @@ def _format_k(k: float) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     source = parser.add_mutually_exclusive_group(required=True)
-    source.add_argument("--model", choices=["mdl", "naive_bayes", "lstm"], help="Built-in model.")
+    source.add_argument("--model", choices=["mdl", "naive_bayes", "neural_bigram_mdl", "lstm"], help="Built-in model.")
     source.add_argument("--factory", help="Custom builder as 'package.module:function'.")
     parser.add_argument("--name", help="Results name (required with --factory; default derived from the model).")
     parser.add_argument("--n", type=int, default=2, help="MDL n-gram order (default 2, the best 4-class setting).")
@@ -68,8 +73,13 @@ def main() -> None:
     parser.add_argument("--diagnostics", action="store_true", help="Write a per-run diagnostics JSON (if the model supports it).")
     parser.add_argument("--variant", choices=["ml", "map"], default="ml",
                         help="Naive Bayes decision rule: likelihood only (ml) or likelihood + class prior (map).")
-    parser.add_argument("--epochs", type=int, default=10, help="LSTM max epochs.")
-    parser.add_argument("--patience", type=int, default=3, help="LSTM early-stopping patience.")
+    parser.add_argument("--epochs", type=int, default=None, help="Max epochs (LSTM default 10, neural bigram default 50; early stopping on validation decides).")
+    parser.add_argument("--patience", type=int, default=None, help="Early-stopping patience (LSTM default 3, neural bigram default 2).")
+    parser.add_argument("--embedding-dim", type=int, default=128, help="Neural bigram embedding size.")
+    parser.add_argument("--lr", type=float, default=1e-3, help="Neural bigram Adam learning rate.")
+    parser.add_argument("--batch-size", type=int, default=128, help="Neural bigram batch size.")
+    parser.add_argument("--weight-decay", type=float, default=0.0, help="Neural bigram Adam weight decay.")
+    parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto", help="Neural bigram device.")
     parser.add_argument("--sizes", type=int, nargs="+", default=None, help="Subset of ladder sizes (debugging).")
     parser.add_argument("--seeds", type=int, nargs="+", default=None, help="Subset of ladder seeds (debugging).")
     parser.add_argument("--results-tag", default=None, help="Suffix for the combined results CSV, e.g. 'debug'.")
@@ -114,6 +124,22 @@ def main() -> None:
                            "smoothing": "laplace", "variant": model.variant}
 
         name = args.name or f"nb_{args.variant}_n{args.n}_k{_format_k(args.k)}"
+    elif args.model == "neural_bigram_mdl":
+        from emotion_ait.single_label_27.neural_bigram import NeuralBigramMDL27
+
+        epochs, patience = args.epochs or 50, 2 if args.patience is None else args.patience
+
+        def build(seed):
+            model = NeuralBigramMDL27(embedding_dim=args.embedding_dim, learning_rate=args.lr, batch_size=args.batch_size,
+                                      epochs=epochs, weight_decay=args.weight_decay, patience=patience, seed=seed,
+                                      device=args.device, use_prior=args.prior)
+            return model, {"model": "NeuralBigramMDL27", "embedding_dim": model.embedding_dim,
+                           "learning_rate": model.learning_rate, "batch_size": model.batch_size, "max_epochs": model.epochs,
+                           "weight_decay": model.weight_decay, "patience": model.patience, "seed": seed,
+                           "device": args.device, "use_prior": model.use_prior}
+
+        name = args.name or ("neural_bigram_mdl_prior" if args.prior else "neural_bigram_mdl")
+        args.diagnostics = True  # training metadata (epochs, val loss, tokens, times, parameters) per run
     else:
         from emotion_ait.lstm_classifier import LSTMClassifier
 
@@ -122,8 +148,9 @@ def main() -> None:
                          "Add one, or pass a 27-class model via --factory.")
 
         def build(seed):
-            model = LSTMClassifier(num_classes=len(CLASS_NAMES), max_epochs=args.epochs, patience=args.patience, seed=seed)
-            return model, {"num_classes": len(CLASS_NAMES), "max_epochs": args.epochs, "patience": args.patience, "seed": seed}
+            epochs, patience = args.epochs or 10, 3 if args.patience is None else args.patience
+            model = LSTMClassifier(num_classes=len(CLASS_NAMES), max_epochs=epochs, patience=patience, seed=seed)
+            return model, {"num_classes": len(CLASS_NAMES), "max_epochs": epochs, "patience": patience, "seed": seed}
 
         name = args.name or "lstm"
 
