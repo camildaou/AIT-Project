@@ -279,3 +279,13 @@ experiments:
     config: "MDL27 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts"
     question: "With Kneser-Ney handling sparse contexts, does a 4-gram beat the KN bigram (E20)?"
     conclusion: "Not selected: same picture as E25 (overall val 0.263; marginally best at 2000 and 23485 by <=0.002; full-size test macro-F1 0.293). Longer contexts give no gain in either smoothing scheme; the KN bigram (E20) remains the best 27-class MDL."
+
+  - id: E27
+    expected_runs: 40
+    date: 2026-11-06
+    track: 27-class single-label
+    group: LSTM baseline ladder
+    results: results/metrics/sl27_lstm_ladder_results.csv
+    config: "LSTM, 27 outputs, embedding 100, hidden 128, 1 layer, up to 10 epochs; validation macro-F1 early stopping, patience 3; ladder 500-23485 x 5 seeds"
+    question: "How does the LSTM perform across the preset 27-class training ladder?"
+    conclusion: "Completed all 40 preset runs using the shared manifests and fixed validation/test splits; best epoch selected using validation macro-F1."

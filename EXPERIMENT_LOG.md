@@ -39,6 +39,7 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 | E24 | 2026-11-05 | n-gram order | MDL27 4-gram, add-1 (n=4, k=1) | 40 | 500-23485 | 0.178 | 0.231 | 0.326 | 0.112 | No: worst add-1 configuration (overall val 0.178; full-size test macro-F1 0.231, accuracy 0.326). |
 | E25 | 2026-11-05 | n-gram order | MDL27 trigram, interpolated Kneser-Ney, per-class back-off, estimated discounts | 40 | 500-23485 | 0.263 | 0.294 | 0.383 | 0.165 | Not selected: with Kneser-Ney the trigram is essentially tied with the KN bigram (overall val 0.263 vs 0.266; best at n=500 only) and slightly lower on test at full size (macro-F1 0.294 vs 0.304, accuracy 0.383 vs 0.392). KN makes the longer context harmless but adds no useful information. |
 | E26 | 2026-11-05 | n-gram order | MDL27 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts | 40 | 500-23485 | 0.263 | 0.293 | 0.382 | 0.165 | Not selected: same picture as E25 (overall val 0.263; marginally best at 2000 and 23485 by <=0.002; full-size test macro-F1 0.293). Longer contexts give no gain in either smoothing scheme; the KN bigram (E20) remains the best 27-class MDL. |
+| E27 | 2026-11-06 | LSTM baseline ladder | LSTM, 27 outputs, embedding 100, hidden 128, 1 layer, up to 10 epochs; validation macro-F1 early stopping, patience 3; ladder 500-23485 x 5 seeds | 40 | 500-23485 | 0.209 | 0.354 | 0.456 | 0.065 | Completed all 40 preset runs using the shared manifests and fixed validation/test splits; best epoch selected using validation macro-F1. |
 
 ## Details
 
@@ -197,6 +198,12 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 - Configuration: MDL27 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts
 - Question: With Kneser-Ney handling sparse contexts, does a 4-gram beat the KN bigram (E20)?
 - Conclusion: Not selected: same picture as E25 (overall val 0.263; marginally best at 2000 and 23485 by <=0.002; full-size test macro-F1 0.293). Longer contexts give no gain in either smoothing scheme; the KN bigram (E20) remains the best 27-class MDL.
+
+**E27** (2026-11-06, 27-class single-label, LSTM baseline ladder) - `results/metrics/sl27_lstm_ladder_results.csv` - done
+
+- Configuration: LSTM, 27 outputs, embedding 100, hidden 128, 1 layer, up to 10 epochs; validation macro-F1 early stopping, patience 3; ladder 500-23485 x 5 seeds
+- Question: How does the LSTM perform across the preset 27-class training ladder?
+- Conclusion: Completed all 40 preset runs using the shared manifests and fixed validation/test splits; best epoch selected using validation macro-F1.
 
 ## Results files that are not experiments
 
