@@ -279,3 +279,23 @@ experiments:
     config: "MDL27 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts"
     question: "With Kneser-Ney handling sparse contexts, does a 4-gram beat the KN bigram (E20)?"
     conclusion: "Not selected: same picture as E25 (overall val 0.263; marginally best at 2000 and 23485 by <=0.002; full-size test macro-F1 0.293). Longer contexts give no gain in either smoothing scheme; the KN bigram (E20) remains the best 27-class MDL."
+
+  - id: E27
+    expected_runs: 2
+    date: 2026-11-06
+    track: 27-class single-label
+    group: Naive Bayes
+    results: results/metrics/sl27_nb_ml_n2_k1_ladder_results_seed42.csv
+    config: "Bigram Naive Bayes, add-1, ML decision rule argmax log P(x|e); seed 42 at n=500 and n=23485"
+    question: "Is ML Naive Bayes identical to conditional MDL (argmax log P(x|e) = argmin L(x|M_e)) in practice?"
+    conclusion: "Yes, exactly: 0 differing predictions out of 2,984 test texts at both sizes vs E16, identical val/test metrics and per-class scores, and log2 P(x|e) bit-identical to -L(x|M_e) on all 5,940 val+test texts."
+
+  - id: E28
+    expected_runs: 2
+    date: 2026-11-06
+    track: 27-class single-label
+    group: Naive Bayes
+    results: results/metrics/sl27_nb_map_n2_k1_ladder_results_seed42.csv
+    config: "Bigram Naive Bayes, add-1, MAP decision rule argmax log P(x|e) + log P(e); seed 42 at n=500 and n=23485"
+    question: "Does conventional MAP Naive Bayes differ from MDL with a class-prior code?"
+    conclusion: "No: identical to MDL + prior (0 differing predictions vs E15 at full size; bit-identical scores at n=500). MAP is worse than ML (full-size test macro-F1 0.230 vs 0.279; n=500: 0.094 vs 0.146) because the prior strengthens the frequent-class bias of add-1."

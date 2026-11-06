@@ -5,6 +5,7 @@
 Built-in models:
     mdl   -- MDL27Classifier(n, k)              (--n, --k, --prior; 27 class models,
              shared vocabulary; --prior adds -log2 P(e) and is named mdl_prior_*)
+    naive_bayes -- BigramNaiveBayes27(n, k)  (--variant ml|map, --n, --k); named nb_<variant>_n<n>_k<k>
     lstm  -- LSTMClassifier(num_classes=27, ...) (--epochs, --patience); requires
              the LSTM to accept a `num_classes` argument (it is 4-class only today).
 Or plug in any EmotionClassifier without editing this script:
@@ -20,6 +21,8 @@ Usage
     python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1 --prior
     python scripts/run_single_label_27_experiments.py --model mdl --smoothing kneser_ney --kn-backoff shared   # -> sl27_mdl_n2_knshared
     python scripts/run_single_label_27_experiments.py --model mdl --sizes 23485 --seeds 42 --diagnostics
+    python scripts/run_single_label_27_experiments.py --model naive_bayes --variant ml    # -> sl27_nb_ml_n2_k1
+    python scripts/run_single_label_27_experiments.py --model naive_bayes --variant map   # -> sl27_nb_map_n2_k1
     python scripts/run_single_label_27_experiments.py --model lstm
     python scripts/run_single_label_27_experiments.py --factory my_pkg.models:build --name lstm_v2
     python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug
@@ -52,7 +55,7 @@ def _format_k(k: float) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     source = parser.add_mutually_exclusive_group(required=True)
-    source.add_argument("--model", choices=["mdl", "lstm"], help="Built-in model.")
+    source.add_argument("--model", choices=["mdl", "naive_bayes", "lstm"], help="Built-in model.")
     source.add_argument("--factory", help="Custom builder as 'package.module:function'.")
     parser.add_argument("--name", help="Results name (required with --factory; default derived from the model).")
     parser.add_argument("--n", type=int, default=2, help="MDL n-gram order (default 2, the best 4-class setting).")
@@ -63,6 +66,8 @@ def main() -> None:
                         help="MDL Kneser-Ney lower-order distribution: per class or pooled over the training subset.")
     parser.add_argument("--kn-discount", type=float, default=None, help="MDL Kneser-Ney fixed discount (default: estimated).")
     parser.add_argument("--diagnostics", action="store_true", help="Write a per-run diagnostics JSON (if the model supports it).")
+    parser.add_argument("--variant", choices=["ml", "map"], default="ml",
+                        help="Naive Bayes decision rule: likelihood only (ml) or likelihood + class prior (map).")
     parser.add_argument("--epochs", type=int, default=10, help="LSTM max epochs.")
     parser.add_argument("--patience", type=int, default=3, help="LSTM early-stopping patience.")
     parser.add_argument("--sizes", type=int, nargs="+", default=None, help="Subset of ladder sizes (debugging).")
@@ -100,6 +105,15 @@ def main() -> None:
         else:
             default_name = f"{variant}_n{args.n}_k{_format_k(args.k)}"
         name = args.name or default_name
+    elif args.model == "naive_bayes":
+        from emotion_ait.single_label_27.naive_bayes import BigramNaiveBayes27
+
+        def build(seed):
+            model = BigramNaiveBayes27(n=args.n, k=args.k, variant=args.variant)
+            return model, {"model": "BigramNaiveBayes27", "n": model.n, "k": model.k,
+                           "smoothing": "laplace", "variant": model.variant}
+
+        name = args.name or f"nb_{args.variant}_n{args.n}_k{_format_k(args.k)}"
     else:
         from emotion_ait.lstm_classifier import LSTMClassifier
 
