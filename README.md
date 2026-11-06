@@ -720,6 +720,30 @@ python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1 --prio
 python scripts/run_single_label_27_experiments.py --model mdl --sizes 23485 --seeds 42 --results-tag seed42 --diagnostics
 ```
 
+**27-class bigram Naive Bayes** ([`single_label_27/naive_bayes.py`](src/emotion_ait/single_label_27/naive_bayes.py),
+`BigramNaiveBayes27`) is a separate generative classifier, written for comparison with MDL.
+- **Model:** one add-k bigram language model per class, estimated as
+  `P(w_i | w_{i-1}, e) = (count_e(w_{i-1}, w_i) + k) / (count_e(w_{i-1}) + kV)`.
+  It reuses only the tokenizer, padding, n-gram and add-k helpers of
+  `mdl_classifier.py`, so vocabulary, `<s>`/`</s>`/`<unk>` handling and
+  smoothing are identical to MDL.
+- **Two decision rules:**
+  - `--variant ml`: `argmax_e log P(x|e)`.
+  - `--variant map`: `argmax_e [log P(x|e) + log P(e)]`, with `P(e) = N_e/N`
+    from training labels only.
+- **Equivalence with MDL:** log-probabilities are base 2, so
+  `log2 P(x|e) = -L(x|M_e)` exactly. ML Naive Bayes *is* conditional MDL, and
+  MAP Naive Bayes is MDL with the class-prior code `-log2 P(e)`. This is
+  verified in tests (bit-identical scores) and on real data (E27, E28): there
+  are 0 differing predictions against the MDL runs.
+- **Missing classes:** a class with no training data gets an empty model and
+  is never predicted, as in `MDL27Classifier`.
+
+```bash
+python scripts/run_single_label_27_experiments.py --model naive_bayes --variant ml    # -> sl27_nb_ml_n2_k1
+python scripts/run_single_label_27_experiments.py --model naive_bayes --variant map   # -> sl27_nb_map_n2_k1
+```
+
 `--factory` takes `build(seed: int) -> (model, config_summary_dict)`, which
 returns a fresh, unfitted `EmotionClassifier`. This lets you plug in a model
 without editing the shared script. `MDLClassifier` already handles 27
