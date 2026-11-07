@@ -12,7 +12,7 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 | E02 | 2026-10-19 | first training | LSTM (emb 100, hidden 128, 1 layer, <=10 epochs, early stopping on val macro-F1); 9 single-seed subsets | 9 | 100-3125 | 0.432 | 0.661 | 0.662 | 0.216 | Superseded by the 5-seed ladder (E04). |
 | E03 | 2026-10-19 | baseline ladder | MDL trigram, add-1 (n=3, k=1); ladder 100-3125 x 5 seeds | 40 | 100-3125 | 0.433 | 0.495 | 0.517 | 0.299 | Reference MDL; later beaten by the bigram (E09). |
 | E04 | 2026-10-20 | baseline ladder | LSTM as E02; ladder 100-3125 x 5 seeds | 40 | 100-3125 | 0.492 | 0.645 | 0.656 | 0.241 | Strong at full size, weak below ~500 examples. |
-| E05 | 2026-11-02 | MDL formulations | MDL trigram + two-part model cost L(M_e) (n-gram table code length) | 40 | 100-3125 | 0.070 | 0.071 | 0.166 | 0.071 | No: L(M_e) (thousands of bits) swamps L(x|M_e) (~150 bits); every text is predicted as the smallest class (fear). Misapplication of two-part MDL, kept as a negative result. |
+| E05 | 2026-11-02 | MDL formulations | MDL trigram + two-part model cost L(M_e) (n-gram table code length) | 40 | 100-3125 | 0.070 | 0.071 | 0.166 | 0.071 | No: L(M_e) (thousands of bits) swamps L(x\|M_e) (~150 bits); every text is predicted as the smallest class (fear). Misapplication of two-part MDL, kept as a negative result. |
 | E06 | 2026-11-05 | MDL formulations | MDL trigram + class prior -log2(N_e/N) | 40 | 100-3125 | 0.418 | 0.447 | 0.506 | 0.289 | Accuracy up at small/medium sizes, macro-F1 down in 38/40 runs: the prior suppresses fear. |
 | E07 | 2026-11-05 | MDL formulations | MDL trigram, prequential coding of the training set (empty start, fixed V, nested-prefix order) | 40 | 100-3125 | 0.433 | 0.495 | 0.517 | 0.299 | Held-out metrics identical to E03 by construction (count models are order-invariant); the new quantity is L_preq. |
 | E08 | 2026-11-05 | MDL formulations | As E07 + class prior at prediction time | 40 | 100-3125 | 0.418 | 0.447 | 0.506 | 0.289 | Held-out metrics identical to E06 by construction. |
@@ -40,6 +40,9 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 | E25 | 2026-11-05 | n-gram order | MDL27 trigram, interpolated Kneser-Ney, per-class back-off, estimated discounts | 40 | 500-23485 | 0.263 | 0.294 | 0.383 | 0.165 | Not selected: with Kneser-Ney the trigram is essentially tied with the KN bigram (overall val 0.263 vs 0.266; best at n=500 only) and slightly lower on test at full size (macro-F1 0.294 vs 0.304, accuracy 0.383 vs 0.392). KN makes the longer context harmless but adds no useful information. |
 | E26 | 2026-11-05 | n-gram order | MDL27 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts | 40 | 500-23485 | 0.263 | 0.293 | 0.382 | 0.165 | Not selected: same picture as E25 (overall val 0.263; marginally best at 2000 and 23485 by <=0.002; full-size test macro-F1 0.293). Longer contexts give no gain in either smoothing scheme; the KN bigram (E20) remains the best 27-class MDL. |
 | E27 | 2026-11-06 | LSTM baseline ladder | LSTM, 27 outputs, embedding 100, hidden 128, 1 layer, up to 10 epochs; validation macro-F1 early stopping, patience 3; ladder 500-23485 x 5 seeds | 40 | 500-23485 | 0.209 | 0.354 | 0.456 | 0.065 | Completed all 40 preset runs using the shared manifests and fixed validation/test splits; best epoch selected using validation macro-F1. |
+| E28 | 2026-11-06 | Naive Bayes | Bigram Naive Bayes, add-1, ML decision rule argmax log P(x\|e); seed 42 at n=500 and n=23485 | 2 | 500-23485 | 0.214 | 0.279 | 0.428 | 0.146 | Yes, exactly: 0 differing predictions out of 2,984 test texts at both sizes vs E16, identical val/test metrics and per-class scores, and log2 P(x\|e) bit-identical to -L(x\|M_e) on all 5,940 val+test texts. |
+| E29 | 2026-11-06 | Naive Bayes | Bigram Naive Bayes, add-1, MAP decision rule argmax log P(x\|e) + log P(e); seed 42 at n=500 and n=23485 | 2 | 500-23485 | 0.169 | 0.230 | 0.396 | 0.094 | No: identical to MDL + prior (0 differing predictions vs E15 at full size; bit-identical scores at n=500). MAP is worse than ML (full-size test macro-F1 0.230 vs 0.279; n=500: 0.094 vs 0.146) because the prior strengthens the frequent-class bias of add-1. |
+| E30 | 2026-11-06 | neural bigram MDL | 27 neural bigram LMs (embedding 128 -> softmax over V=18,727; Adam lr 1e-3, batch 128, <=50 epochs, early stopping on per-class validation NLL, patience 2, no weight decay); argmin summed bits; full training set, seed 42, CUDA | 1 | 23485 | 0.245 | 0.220 | 0.304 | 0.220 | No (untuned defaults): test macro-F1 0.220 / accuracy 0.304 vs 0.279 / 0.428 (add-1, E16) and 0.304 / 0.392 (Kneser-Ney, E20). All 27 models stop early (best epochs 5-35); large classes overfit within ~5-10 epochs (4.8M parameters per model vs 0.5k-33k training tokens). Predictions are well spread across classes (admiration 343 vs 348 true) but 4 rare classes stay at F1 0. Weight decay / embedding size not yet tuned on validation. |
 
 ## Details
 
@@ -204,6 +207,24 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 - Configuration: LSTM, 27 outputs, embedding 100, hidden 128, 1 layer, up to 10 epochs; validation macro-F1 early stopping, patience 3; ladder 500-23485 x 5 seeds
 - Question: How does the LSTM perform across the preset 27-class training ladder?
 - Conclusion: Completed all 40 preset runs using the shared manifests and fixed validation/test splits; best epoch selected using validation macro-F1.
+
+**E28** (2026-11-06, 27-class single-label, Naive Bayes) - `results/metrics/sl27_nb_ml_n2_k1_ladder_results_seed42.csv` - done
+
+- Configuration: Bigram Naive Bayes, add-1, ML decision rule argmax log P(x|e); seed 42 at n=500 and n=23485
+- Question: Is ML Naive Bayes identical to conditional MDL (argmax log P(x|e) = argmin L(x|M_e)) in practice?
+- Conclusion: Yes, exactly: 0 differing predictions out of 2,984 test texts at both sizes vs E16, identical val/test metrics and per-class scores, and log2 P(x|e) bit-identical to -L(x|M_e) on all 5,940 val+test texts.
+
+**E29** (2026-11-06, 27-class single-label, Naive Bayes) - `results/metrics/sl27_nb_map_n2_k1_ladder_results_seed42.csv` - done
+
+- Configuration: Bigram Naive Bayes, add-1, MAP decision rule argmax log P(x|e) + log P(e); seed 42 at n=500 and n=23485
+- Question: Does conventional MAP Naive Bayes differ from MDL with a class-prior code?
+- Conclusion: No: identical to MDL + prior (0 differing predictions vs E15 at full size; bit-identical scores at n=500). MAP is worse than ML (full-size test macro-F1 0.230 vs 0.279; n=500: 0.094 vs 0.146) because the prior strengthens the frequent-class bias of add-1.
+
+**E30** (2026-11-06, 27-class single-label, neural bigram MDL) - `results/metrics/sl27_neural_bigram_mdl_ladder_results_seed42.csv` - done
+
+- Configuration: 27 neural bigram LMs (embedding 128 -> softmax over V=18,727; Adam lr 1e-3, batch 128, <=50 epochs, early stopping on per-class validation NLL, patience 2, no weight decay); argmin summed bits; full training set, seed 42, CUDA
+- Question: Does a neural bigram LM per class beat count-based bigram MDL?
+- Conclusion: No (untuned defaults): test macro-F1 0.220 / accuracy 0.304 vs 0.279 / 0.428 (add-1, E16) and 0.304 / 0.392 (Kneser-Ney, E20). All 27 models stop early (best epochs 5-35); large classes overfit within ~5-10 epochs (4.8M parameters per model vs 0.5k-33k training tokens). Predictions are well spread across classes (admiration 343 vs 348 true) but 4 rare classes stay at F1 0. Weight decay / embedding size not yet tuned on validation.
 
 ## Results files that are not experiments
 

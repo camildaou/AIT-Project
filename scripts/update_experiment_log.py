@@ -100,7 +100,8 @@ def main() -> None:
                 metrics = f"{r.runs} | {r.size_range} | {val} | {r.test_macro_f1_max:.3f} | {r.test_acc_max:.3f} | {r.test_macro_f1_min:.3f}"
             else:
                 metrics = f"{r.status} | - | - | - | - | -"
-            lines.append(f"| {r.id}{star} | {r.date} | {r.group} | {r.config} | {metrics} | {r.conclusion} |")
+            cell = lambda text: str(text).replace("|", r"\|")  # noqa: E731  (keep table columns intact)
+            lines.append(f"| {r.id}{star} | {r.date} | {cell(r.group)} | {cell(r.config)} | {metrics} | {cell(r.conclusion)} |")
         lines.append("")
     lines += ["## Details", ""]
     for r in table.itertuples():
