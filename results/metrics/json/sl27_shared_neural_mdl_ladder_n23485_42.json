@@ -187,8 +187,8 @@
       "support": 87
     }
   },
-  "train_time_seconds": 52.9898132,
-  "inference_time_seconds": 1.1079948999999942,
+  "train_time_seconds": 42.74534679999999,
+  "inference_time_seconds": 1.02465380000001,
   "validation_macro_f1": 0.3282857385311847,
-  "timestamp": "2026-11-07T20:25:58.615434+00:00"
+  "timestamp": "2026-11-07T20:39:21.424824+00:00"
 }

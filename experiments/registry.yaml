@@ -329,3 +329,13 @@ experiments:
     config: "ONE class-conditioned neural bigram LM shared by all classes: softmax(W tanh(A[Emb_word(prev); Emb_class(e)] + a) + b + b_e), embedding 128, class 32, hidden 128; Adam lr 1e-3, batch 128, early stopping on validation NLL (patience 2); argmin summed bits; full training set, seed 42, CUDA"
     question: "Does sharing word statistics across classes in one class-conditioned network fix the per-class neural model (E30)?"
     conclusion: "Yes, and it is the best MDL result so far on this seed: test macro-F1 0.328 / accuracy 0.410 vs 0.220 / 0.304 (per-class neural, E30) and 0.304 / 0.392 (Kneser-Ney, E20 5-seed mean); validation macro-F1 0.328. Better language model on all 27 classes than E30 (validation 8.48 bits/token overall) with 5.3M parameters vs 130M. Overfits after epoch 1 (best epoch 1). Rare classes are now over-predicted (grief 29 vs 2 true, pride 36 vs 7); only grief stays at F1 0. Single seed: needs the 5-seed ladder before claiming it beats E20."
+
+  - id: E32
+    expected_runs: 40
+    date: 2026-11-07
+    track: 27-class single-label
+    group: neural bigram MDL
+    results: results/metrics/sl27_shared_neural_mdl_ladder_results.csv
+    config: "As E31 (shared class-conditioned neural bigram LM, default hyperparameters); ladder 500-23485 x 5 seeds, CUDA"
+    question: "Does the shared neural MDL beat Kneser-Ney MDL (E20) and how does it compare with the LSTM (E27) across the ladder?"
+    conclusion: "Not selected overall (validation macro-F1 0.254 vs 0.266 for Kneser-Ney E20; LSTM E27 0.209). It is the best model in the middle of the ladder: best validation macro-F1 at 4k, 8k and 12k, and test macro-F1 above KN from 4k on (8k: 0.292 vs 0.278; full size 0.325 +- 0.011 vs 0.304). Below 4k it is worse than KN (500: 0.122 vs 0.166), and at full size the LSTM is best (0.354; validation-selected at 23485). Accuracy stays below add-1 at most sizes (full size 0.403 vs 0.428). Three regimes: count MDL with Kneser-Ney for small data, shared neural MDL in the middle, LSTM at full size."

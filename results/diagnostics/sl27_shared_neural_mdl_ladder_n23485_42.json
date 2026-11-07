@@ -20,7 +20,7 @@
   "best_epoch": 1,
   "best_validation_bits_per_token": 8.480551815819059,
   "stopped_early": true,
-  "training_time_seconds": 52.982935000000005,
+  "training_time_seconds": 42.737691100000006,
   "missing_classes": [],
   "per_class": {
     "admiration": {

@@ -1,0 +1,273 @@
+{
+  "model": "SharedNeuralBigramMDL27",
+  "embedding_dim": 128,
+  "class_dim": 32,
+  "hidden_dim": 128,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "max_epochs": 50,
+  "weight_decay": 0.0,
+  "patience": 2,
+  "seed": 46,
+  "device": "cuda",
+  "use_prior": false,
+  "vocabulary_size": 18725,
+  "prediction_vocabulary_size": 18727,
+  "parameters_total": 5340068,
+  "parameters_class_specific": 506493,
+  "train_tokens": 325450,
+  "epochs_trained": 4,
+  "best_epoch": 1,
+  "best_validation_bits_per_token": 8.506402595458471,
+  "stopped_early": true,
+  "training_time_seconds": 38.404880400000025,
+  "missing_classes": [],
+  "per_class": {
+    "admiration": {
+      "train_examples": 2710,
+      "train_tokens": 33312,
+      "validation_tokens": 4075,
+      "validation_bits_per_token": 8.59784984588623
+    },
+    "amusement": {
+      "train_examples": 1652,
+      "train_tokens": 22056,
+      "validation_tokens": 2680,
+      "validation_bits_per_token": 8.51154899597168
+    },
+    "anger": {
+      "train_examples": 1025,
+      "train_tokens": 12747,
+      "validation_tokens": 1282,
+      "validation_bits_per_token": 8.792584419250488
+    },
+    "annoyance": {
+      "train_examples": 1451,
+      "train_tokens": 21862,
+      "validation_tokens": 2476,
+      "validation_bits_per_token": 8.748795509338379
+    },
+    "approval": {
+      "train_examples": 1873,
+      "train_tokens": 27428,
+      "validation_tokens": 3572,
+      "validation_bits_per_token": 8.718785285949707
+    },
+    "caring": {
+      "train_examples": 649,
+      "train_tokens": 9572,
+      "validation_tokens": 1348,
+      "validation_bits_per_token": 8.42554759979248
+    },
+    "confusion": {
+      "train_examples": 858,
+      "train_tokens": 13338,
+      "validation_tokens": 1656,
+      "validation_bits_per_token": 8.357731819152832
+    },
+    "curiosity": {
+      "train_examples": 1389,
+      "train_tokens": 19426,
+      "validation_tokens": 2188,
+      "validation_bits_per_token": 8.546348571777344
+    },
+    "desire": {
+      "train_examples": 389,
+      "train_tokens": 5832,
+      "validation_tokens": 652,
+      "validation_bits_per_token": 7.680713653564453
+    },
+    "disappointment": {
+      "train_examples": 709,
+      "train_tokens": 10883,
+      "validation_tokens": 1470,
+      "validation_bits_per_token": 8.832409858703613
+    },
+    "disapproval": {
+      "train_examples": 1402,
+      "train_tokens": 20857,
+      "validation_tokens": 3091,
+      "validation_bits_per_token": 8.659233093261719
+    },
+    "disgust": {
+      "train_examples": 498,
+      "train_tokens": 6699,
+      "validation_tokens": 941,
+      "validation_bits_per_token": 9.142806053161621
+    },
+    "embarrassment": {
+      "train_examples": 203,
+      "train_tokens": 3090,
+      "validation_tokens": 285,
+      "validation_bits_per_token": 8.62913703918457
+    },
+    "excitement": {
+      "train_examples": 510,
+      "train_tokens": 6187,
+      "validation_tokens": 544,
+      "validation_bits_per_token": 8.954387664794922
+    },
+    "fear": {
+      "train_examples": 430,
+      "train_tokens": 6154,
+      "validation_tokens": 730,
+      "validation_bits_per_token": 8.530674934387207
+    },
+    "gratitude": {
+      "train_examples": 1857,
+      "train_tokens": 22391,
+      "validation_tokens": 3093,
+      "validation_bits_per_token": 7.606935501098633
+    },
+    "grief": {
+      "train_examples": 39,
+      "train_tokens": 501,
+      "validation_tokens": 90,
+      "validation_bits_per_token": 9.304341316223145
+    },
+    "joy": {
+      "train_examples": 853,
+      "train_tokens": 11437,
+      "validation_tokens": 1547,
+      "validation_bits_per_token": 8.570389747619629
+    },
+    "love": {
+      "train_examples": 1427,
+      "train_tokens": 18418,
+      "validation_tokens": 2289,
+      "validation_bits_per_token": 8.133715629577637
+    },
+    "nervousness": {
+      "train_examples": 85,
+      "train_tokens": 1283,
+      "validation_tokens": 122,
+      "validation_bits_per_token": 8.635101318359375
+    },
+    "optimism": {
+      "train_examples": 861,
+      "train_tokens": 13906,
+      "validation_tokens": 1852,
+      "validation_bits_per_token": 8.391504287719727
+    },
+    "pride": {
+      "train_examples": 51,
+      "train_tokens": 659,
+      "validation_tokens": 114,
+      "validation_bits_per_token": 7.750476360321045
+    },
+    "realization": {
+      "train_examples": 586,
+      "train_tokens": 9463,
+      "validation_tokens": 1224,
+      "validation_bits_per_token": 8.767353057861328
+    },
+    "relief": {
+      "train_examples": 88,
+      "train_tokens": 1255,
+      "validation_tokens": 109,
+      "validation_bits_per_token": 9.284720420837402
+    },
+    "remorse": {
+      "train_examples": 353,
+      "train_tokens": 5176,
+      "validation_tokens": 601,
+      "validation_bits_per_token": 8.339393615722656
+    },
+    "sadness": {
+      "train_examples": 817,
+      "train_tokens": 11610,
+      "validation_tokens": 1255,
+      "validation_bits_per_token": 8.521178245544434
+    },
+    "surprise": {
+      "train_examples": 720,
+      "train_tokens": 9908,
+      "validation_tokens": 1456,
+      "validation_bits_per_token": 8.69343090057373
+    }
+  },
+  "train_loss_bits_per_token": [
+    8.876492217032235,
+    7.716964218405315,
+    7.252841366231616,
+    6.947761022190256
+  ],
+  "validation_bits_per_token": [
+    8.506402595458471,
+    8.5228529909946,
+    8.691652683976724,
+    8.868365519598349
+  ],
+  "validation": {
+    "texts": 2956,
+    "tokens": 40742,
+    "oov_tokens": 1317,
+    "total_bits_predicted_class": 340737.9586158331,
+    "mean_bits_per_token_predicted_class": 8.363309572820016,
+    "predictions_per_class": {
+      "admiration": 221,
+      "amusement": 163,
+      "anger": 130,
+      "annoyance": 116,
+      "approval": 82,
+      "caring": 143,
+      "confusion": 107,
+      "curiosity": 143,
+      "desire": 88,
+      "disappointment": 91,
+      "disapproval": 140,
+      "disgust": 78,
+      "embarrassment": 75,
+      "excitement": 103,
+      "fear": 86,
+      "gratitude": 220,
+      "grief": 39,
+      "joy": 133,
+      "love": 176,
+      "nervousness": 49,
+      "optimism": 117,
+      "pride": 32,
+      "realization": 83,
+      "relief": 46,
+      "remorse": 61,
+      "sadness": 103,
+      "surprise": 131
+    }
+  },
+  "test": {
+    "texts": 2984,
+    "tokens": 40967,
+    "oov_tokens": 1250,
+    "total_bits_predicted_class": 339902.235017517,
+    "mean_bits_per_token_predicted_class": 8.296976469292773,
+    "predictions_per_class": {
+      "admiration": 226,
+      "amusement": 143,
+      "anger": 135,
+      "annoyance": 120,
+      "approval": 122,
+      "caring": 126,
+      "confusion": 104,
+      "curiosity": 156,
+      "desire": 78,
+      "disappointment": 93,
+      "disapproval": 161,
+      "disgust": 90,
+      "embarrassment": 65,
+      "excitement": 115,
+      "fear": 71,
+      "gratitude": 222,
+      "grief": 37,
+      "joy": 134,
+      "love": 158,
+      "nervousness": 54,
+      "optimism": 118,
+      "pride": 34,
+      "realization": 80,
+      "relief": 38,
+      "remorse": 90,
+      "sadness": 88,
+      "surprise": 126
+    }
+  }
+}
