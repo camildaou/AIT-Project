@@ -781,6 +781,24 @@ python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl --si
 python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl                                               # full ladder -> sl27_neural_bigram_mdl
 ```
 
+**27-class shared neural MDL** ([`single_label_27/shared_neural.py`](src/emotion_ait/single_label_27/shared_neural.py),
+`SharedNeuralBigramMDL27`) uses **one** class-conditioned neural bigram LM for all classes:
+`P(w_i | w_{i-1}, e) = softmax(W tanh(A[Emb_word(w_{i-1}); Emb_class(e)] + a) + b + b_e)`.
+- **What's shared:** word embeddings, the hidden layer and the output layer.
+  Each class owns only a class embedding and an output bias `b_e`.
+- **Training:** joint training on every training text under its own class,
+  with early stopping on validation NLL.
+- **Prediction:** `argmin_e L(x|e)`. All 27 code lengths come from the same
+  network, so they're directly comparable. This is conditional MDL; the
+  parameters are not encoded.
+- **Size:** about 5.3M parameters at full size, against 130M for 27
+  separate networks.
+
+```bash
+python scripts/run_single_label_27_experiments.py --model shared_neural_mdl --sizes 500 --seeds 42 --results-tag smoke
+python scripts/run_single_label_27_experiments.py --model shared_neural_mdl          # full ladder -> sl27_shared_neural_mdl
+```
+
 `--factory` takes `build(seed: int) -> (model, config_summary_dict)`, which
 returns a fresh, unfitted `EmotionClassifier`. This lets you plug in a model
 without editing the shared script. `MDLClassifier` already handles 27

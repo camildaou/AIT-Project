@@ -319,3 +319,13 @@ experiments:
     config: "27 neural bigram LMs (embedding 128 -> softmax over V=18,727; Adam lr 1e-3, batch 128, <=50 epochs, early stopping on per-class validation NLL, patience 2, no weight decay); argmin summed bits; full training set, seed 42, CUDA"
     question: "Does a neural bigram LM per class beat count-based bigram MDL?"
     conclusion: "No (untuned defaults): test macro-F1 0.220 / accuracy 0.304 vs 0.279 / 0.428 (add-1, E16) and 0.304 / 0.392 (Kneser-Ney, E20). All 27 models stop early (best epochs 5-35); large classes overfit within ~5-10 epochs (4.8M parameters per model vs 0.5k-33k training tokens). Predictions are well spread across classes (admiration 343 vs 348 true) but 4 rare classes stay at F1 0. Weight decay / embedding size not yet tuned on validation."
+
+  - id: E31
+    expected_runs: 1
+    date: 2026-11-07
+    track: 27-class single-label
+    group: neural bigram MDL
+    results: results/metrics/sl27_shared_neural_mdl_ladder_results_seed42.csv
+    config: "ONE class-conditioned neural bigram LM shared by all classes: softmax(W tanh(A[Emb_word(prev); Emb_class(e)] + a) + b + b_e), embedding 128, class 32, hidden 128; Adam lr 1e-3, batch 128, early stopping on validation NLL (patience 2); argmin summed bits; full training set, seed 42, CUDA"
+    question: "Does sharing word statistics across classes in one class-conditioned network fix the per-class neural model (E30)?"
+    conclusion: "Yes, and it is the best MDL result so far on this seed: test macro-F1 0.328 / accuracy 0.410 vs 0.220 / 0.304 (per-class neural, E30) and 0.304 / 0.392 (Kneser-Ney, E20 5-seed mean); validation macro-F1 0.328. Better language model on all 27 classes than E30 (validation 8.48 bits/token overall) with 5.3M parameters vs 130M. Overfits after epoch 1 (best epoch 1). Rare classes are now over-predicted (grief 29 vs 2 true, pride 36 vs 7); only grief stays at F1 0. Single seed: needs the 5-seed ladder before claiming it beats E20."

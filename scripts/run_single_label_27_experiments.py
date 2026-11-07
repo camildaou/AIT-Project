@@ -9,6 +9,8 @@ Built-in models:
     neural_bigram_mdl -- NeuralBigramMDL27   (--embedding-dim, --lr, --batch-size, --epochs, --patience,
              --weight-decay, --device, --prior); 27 neural bigram LMs, argmin bits;
              always writes training metadata to results/diagnostics/
+    shared_neural_mdl -- SharedNeuralBigramMDL27 (same flags + --class-dim, --hidden-dim); ONE
+             class-conditioned neural bigram LM shared by all classes, argmin bits
     lstm  -- LSTMClassifier(num_classes=27, ...) (--epochs, --patience).
              Uses the same preset manifests as MDL.
 Or plug in any EmotionClassifier without editing this script:
@@ -28,6 +30,8 @@ Usage
     python scripts/run_single_label_27_experiments.py --model naive_bayes --variant map   # -> sl27_nb_map_n2_k1
     python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl --sizes 500 --seeds 42 --results-tag smoke
     python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl   # -> sl27_neural_bigram_mdl
+    python scripts/run_single_label_27_experiments.py --model shared_neural_mdl --sizes 500 --seeds 42 --results-tag smoke
+    python scripts/run_single_label_27_experiments.py --model shared_neural_mdl   # -> sl27_shared_neural_mdl
     python scripts/run_single_label_27_experiments.py --model lstm
     python scripts/run_single_label_27_experiments.py --factory my_pkg.models:build --name lstm_v2
     python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug
@@ -60,7 +64,7 @@ def _format_k(k: float) -> str:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     source = parser.add_mutually_exclusive_group(required=True)
-    source.add_argument("--model", choices=["mdl", "naive_bayes", "neural_bigram_mdl", "lstm"], help="Built-in model.")
+    source.add_argument("--model", choices=["mdl", "naive_bayes", "neural_bigram_mdl", "shared_neural_mdl", "lstm"], help="Built-in model.")
     source.add_argument("--factory", help="Custom builder as 'package.module:function'.")
     parser.add_argument("--name", help="Results name (required with --factory; default derived from the model).")
     parser.add_argument("--n", type=int, default=2, help="MDL n-gram order (default 2, the best 4-class setting).")
@@ -80,6 +84,8 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=128, help="Neural bigram batch size.")
     parser.add_argument("--weight-decay", type=float, default=0.0, help="Neural bigram Adam weight decay.")
     parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto", help="Neural bigram device.")
+    parser.add_argument("--class-dim", type=int, default=32, help="Shared neural MDL class-embedding size.")
+    parser.add_argument("--hidden-dim", type=int, default=128, help="Shared neural MDL hidden-layer size.")
     parser.add_argument("--sizes", type=int, nargs="+", default=None, help="Subset of ladder sizes (debugging).")
     parser.add_argument("--seeds", type=int, nargs="+", default=None, help="Subset of ladder seeds (debugging).")
     parser.add_argument("--results-tag", default=None, help="Suffix for the combined results CSV, e.g. 'debug'.")
@@ -140,6 +146,24 @@ def main() -> None:
 
         name = args.name or ("neural_bigram_mdl_prior" if args.prior else "neural_bigram_mdl")
         args.diagnostics = True  # training metadata (epochs, val loss, tokens, times, parameters) per run
+    elif args.model == "shared_neural_mdl":
+        from emotion_ait.single_label_27.shared_neural import SharedNeuralBigramMDL27
+
+        epochs, patience = args.epochs or 50, 2 if args.patience is None else args.patience
+
+        def build(seed):
+            model = SharedNeuralBigramMDL27(embedding_dim=args.embedding_dim, class_dim=args.class_dim,
+                                            hidden_dim=args.hidden_dim, learning_rate=args.lr, batch_size=args.batch_size,
+                                            epochs=epochs, weight_decay=args.weight_decay, patience=patience, seed=seed,
+                                            device=args.device, use_prior=args.prior)
+            return model, {"model": "SharedNeuralBigramMDL27", "embedding_dim": model.embedding_dim,
+                           "class_dim": model.class_dim, "hidden_dim": model.hidden_dim,
+                           "learning_rate": model.learning_rate, "batch_size": model.batch_size, "max_epochs": model.epochs,
+                           "weight_decay": model.weight_decay, "patience": model.patience, "seed": seed,
+                           "device": args.device, "use_prior": model.use_prior}
+
+        name = args.name or ("shared_neural_mdl_prior" if args.prior else "shared_neural_mdl")
+        args.diagnostics = True  # training metadata per run
     else:
         from emotion_ait.lstm_classifier import LSTMClassifier
 
