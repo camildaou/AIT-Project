@@ -16,11 +16,15 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 | E06 | 2026-11-05 | MDL formulations | MDL trigram + class prior -log2(N_e/N) | 40 | 100-3125 | 0.418 | 0.447 | 0.506 | 0.289 | Accuracy up at small/medium sizes, macro-F1 down in 38/40 runs: the prior suppresses fear. |
 | E07 | 2026-11-05 | MDL formulations | MDL trigram, prequential coding of the training set (empty start, fixed V, nested-prefix order) | 40 | 100-3125 | 0.433 | 0.495 | 0.517 | 0.299 | Held-out metrics identical to E03 by construction (count models are order-invariant); the new quantity is L_preq. |
 | E08 | 2026-11-05 | MDL formulations | As E07 + class prior at prediction time | 40 | 100-3125 | 0.418 | 0.447 | 0.506 | 0.289 | Held-out metrics identical to E06 by construction. |
-| E09 ★ | 2026-11-05 | ablation A (n-gram order) | MDL bigram, add-1 (n=2, k=1) | 40 | 100-3125 | 0.574 | 0.606 | 0.645 | 0.362 | Yes: best MDL, selected on validation at every size; test macro-F1 0.606 at full size (trigram 0.495). |
+| E09 | 2026-11-05 | ablation A (n-gram order) | MDL bigram, add-1 (n=2, k=1) | 40 | 100-3125 | 0.574 | 0.606 | 0.645 | 0.362 | Yes: best MDL, selected on validation at every size; test macro-F1 0.606 at full size (trigram 0.495). |
 | E10 | 2026-11-05 | ablation A (n-gram order) | MDL 4-gram, add-1 (n=4, k=1) | 40 | 100-3125 | 0.371 | 0.455 | 0.471 | 0.284 | No: worse than the trigram at every size (contexts too sparse). |
 | E11 | 2026-11-05 | ablation B (smoothing) | MDL trigram, add-k k=0.1 | 40 | 100-3125 | 0.437 | 0.511 | 0.524 | 0.302 | Selected in study B, but within ~1 seed sd of k=1; smoothing is a minor factor here. |
 | E12 | 2026-11-05 | ablation B (smoothing) | MDL trigram, add-k k=0.5 | 40 | 100-3125 | 0.436 | 0.508 | 0.527 | 0.301 | Essentially tied with k=0.1. |
 | E13 | 2026-11-05 | ablation B (smoothing) | MDL trigram, add-k k=2 | 40 | 100-3125 | 0.423 | 0.491 | 0.512 | 0.298 | Slightly worse than k=1. |
+| E33 | 2026-11-08 | Kneser-Ney | MDL bigram, interpolated Kneser-Ney, per-class lower-order distribution, estimated discounts (same implementation as E20) | 40 | 100-3125 | 0.643 | 0.724 | 0.729 | 0.438 | Yes, by a large margin: validation macro-F1 0.643 vs 0.574 for the add-1 bigram (E09), better at every size; test macro-F1 at full size 0.724 vs 0.606 (accuracy 0.729 vs 0.645). It also beats the LSTM (E04) at every size, including full size (0.724 vs 0.645) and small data (100: 0.438 vs 0.241). Selected as the 4-class MDL. |
+| E34 | 2026-11-08 | Kneser-Ney | MDL bigram, interpolated Kneser-Ney, lower-order distribution pooled over the training subset, estimated discounts (as E21) | 40 | 100-3125 | 0.532 | 0.588 | 0.596 | 0.352 | No: validation macro-F1 0.532 vs 0.643 per-class (E33), below add-1 too; full-size test macro-F1 0.588. Same finding as E21 on 27 classes: a shared back-off makes the class codes less distinctive. |
+| E35 | 2026-11-08 | Kneser-Ney | MDL trigram, interpolated Kneser-Ney, per-class back-off, estimated discounts | 40 | 100-3125 | 0.645 | 0.733 | 0.737 | 0.442 | Tie, not selected: validation macro-F1 0.645 vs 0.643; paired difference +0.002 +- 0.012, better in 23 of 40 runs, well within seed noise; full-size test 0.733 vs 0.724. As on 27 classes (E25), Kneser-Ney makes the longer context harmless but adds no reliable information; the bigram is kept as the simpler code. |
+| E36 ★ | 2026-11-08 | Kneser-Ney | MDL 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts | 40 | 100-3125 | 0.646 | 0.727 | 0.731 | 0.441 | Tie, not selected: validation macro-F1 0.646 vs 0.643; paired difference +0.003 +- 0.010, better in 23 of 40 runs; full-size test 0.727 vs 0.724. Same picture as E35 and E26. |
 
 ## 27-class single-label
 
@@ -239,6 +243,30 @@ Metrics: **val** = mean validation macro-F1 over all runs of the experiment (the
 - Configuration: As E31 (shared class-conditioned neural bigram LM, default hyperparameters); ladder 500-23485 x 5 seeds, CUDA
 - Question: Does the shared neural MDL beat Kneser-Ney MDL (E20) and how does it compare with the LSTM (E27) across the ladder?
 - Conclusion: Not selected overall (validation macro-F1 0.254 vs 0.266 for Kneser-Ney E20; LSTM E27 0.209). It is the best model in the middle of the ladder: best validation macro-F1 at 4k, 8k and 12k, and test macro-F1 above KN from 4k on (8k: 0.292 vs 0.278; full size 0.325 +- 0.011 vs 0.304). Below 4k it is worse than KN (500: 0.122 vs 0.166), and at full size the LSTM is best (0.354; validation-selected at 23485). Accuracy stays below add-1 at most sizes (full size 0.403 vs 0.428). Three regimes: count MDL with Kneser-Ney for small data, shared neural MDL in the middle, LSTM at full size.
+
+**E33** (2026-11-08, 4-class single-label, Kneser-Ney) - `results/metrics/mdl_n2_knclass_ladder_results.csv` - done
+
+- Configuration: MDL bigram, interpolated Kneser-Ney, per-class lower-order distribution, estimated discounts (same implementation as E20)
+- Question: Does Kneser-Ney, introduced for the 27-class track, also help the 4-class MDL?
+- Conclusion: Yes, by a large margin: validation macro-F1 0.643 vs 0.574 for the add-1 bigram (E09), better at every size; test macro-F1 at full size 0.724 vs 0.606 (accuracy 0.729 vs 0.645). It also beats the LSTM (E04) at every size, including full size (0.724 vs 0.645) and small data (100: 0.438 vs 0.241). Selected as the 4-class MDL.
+
+**E34** (2026-11-08, 4-class single-label, Kneser-Ney) - `results/metrics/mdl_n2_knshared_ladder_results.csv` - done
+
+- Configuration: MDL bigram, interpolated Kneser-Ney, lower-order distribution pooled over the training subset, estimated discounts (as E21)
+- Question: Does pooling the lower order across classes help with 4 classes?
+- Conclusion: No: validation macro-F1 0.532 vs 0.643 per-class (E33), below add-1 too; full-size test macro-F1 0.588. Same finding as E21 on 27 classes: a shared back-off makes the class codes less distinctive.
+
+**E35** (2026-11-08, 4-class single-label, Kneser-Ney) - `results/metrics/mdl_n3_knclass_ladder_results.csv` - done
+
+- Configuration: MDL trigram, interpolated Kneser-Ney, per-class back-off, estimated discounts
+- Question: With Kneser-Ney handling sparse contexts, does a trigram beat the KN bigram (E33)?
+- Conclusion: Tie, not selected: validation macro-F1 0.645 vs 0.643; paired difference +0.002 +- 0.012, better in 23 of 40 runs, well within seed noise; full-size test 0.733 vs 0.724. As on 27 classes (E25), Kneser-Ney makes the longer context harmless but adds no reliable information; the bigram is kept as the simpler code.
+
+**E36** (2026-11-08, 4-class single-label, Kneser-Ney) - `results/metrics/mdl_n4_knclass_ladder_results.csv` - done
+
+- Configuration: MDL 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts
+- Question: With Kneser-Ney handling sparse contexts, does a 4-gram beat the KN bigram (E33)?
+- Conclusion: Tie, not selected: validation macro-F1 0.646 vs 0.643; paired difference +0.003 +- 0.010, better in 23 of 40 runs; full-size test 0.727 vs 0.724. Same picture as E35 and E26.
 
 ## Results files that are not experiments
 
