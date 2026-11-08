@@ -13,7 +13,7 @@
   "prediction_vocabulary_size": 18727,
   "parameters_per_model": 4812967,
   "parameters_total": 129950109,
-  "training_time_seconds": 148.24074439999998,
+  "training_time_seconds": 105.17472870000003,
   "missing_classes": [],
   "per_class": {
     "admiration": {
@@ -43,7 +43,7 @@
         10.153992500294748
       ],
       "stopped_early": true,
-      "training_time_seconds": 44.3720957,
+      "training_time_seconds": 8.251133699999997,
       "train_examples": 2710,
       "validation_examples": 326
     },
@@ -78,7 +78,7 @@
         10.087651007052587
       ],
       "stopped_early": true,
-      "training_time_seconds": 22.775387400000007,
+      "training_time_seconds": 6.76260689999998,
       "train_examples": 1652,
       "validation_examples": 208
     },
@@ -115,7 +115,7 @@
         10.700253438459534
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.778470900000002,
+      "training_time_seconds": 4.247156799999971,
       "train_examples": 1025,
       "validation_examples": 109
     },
@@ -150,7 +150,7 @@
         10.494542591467562
       ],
       "stopped_early": true,
-      "training_time_seconds": 5.9741535,
+      "training_time_seconds": 6.284115999999983,
       "train_examples": 1451,
       "validation_examples": 164
     },
@@ -183,7 +183,7 @@
         10.243031924580055
       ],
       "stopped_early": true,
-      "training_time_seconds": 6.245479099999997,
+      "training_time_seconds": 7.10016730000001,
       "train_examples": 1873,
       "validation_examples": 258
     },
@@ -224,7 +224,7 @@
         10.645862629363949
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.2723277999999993,
+      "training_time_seconds": 3.7855601999999635,
       "train_examples": 649,
       "validation_examples": 96
     },
@@ -261,7 +261,7 @@
         10.28605089767489
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.6472148999999945,
+      "training_time_seconds": 4.7049943999999755,
       "train_examples": 858,
       "validation_examples": 102
     },
@@ -296,7 +296,7 @@
         10.113243865879113
       ],
       "stopped_early": true,
-      "training_time_seconds": 4.360538600000012,
+      "training_time_seconds": 5.3996751000000245,
       "train_examples": 1389,
       "validation_examples": 164
     },
@@ -339,7 +339,7 @@
         10.362574696113956
       ],
       "stopped_early": true,
-      "training_time_seconds": 1.8321896000000066,
+      "training_time_seconds": 2.3114051000000018,
       "train_examples": 389,
       "validation_examples": 52
     },
@@ -376,7 +376,7 @@
         11.190788993788425
       ],
       "stopped_early": true,
-      "training_time_seconds": 2.7139726999999993,
+      "training_time_seconds": 3.3710689000000116,
       "train_examples": 709,
       "validation_examples": 91
     },
@@ -411,7 +411,7 @@
         10.568605920773352
       ],
       "stopped_early": true,
-      "training_time_seconds": 4.608443100000002,
+      "training_time_seconds": 5.782676399999957,
       "train_examples": 1402,
       "validation_examples": 212
     },
@@ -450,7 +450,7 @@
         11.602743380689192
       ],
       "stopped_early": true,
-      "training_time_seconds": 1.9407282999999893,
+      "training_time_seconds": 2.312326399999961,
       "train_examples": 498,
       "validation_examples": 61
     },
@@ -507,7 +507,7 @@
         11.440397664979198
       ],
       "stopped_early": true,
-      "training_time_seconds": 1.602039099999999,
+      "training_time_seconds": 1.9235944999999788,
       "train_examples": 203,
       "validation_examples": 20
     },
@@ -550,7 +550,7 @@
         11.328112133061298
       ],
       "stopped_early": true,
-      "training_time_seconds": 2.225848499999998,
+      "training_time_seconds": 2.483926800000006,
       "train_examples": 510,
       "validation_examples": 52
     },
@@ -593,7 +593,7 @@
         10.861271098485334
       ],
       "stopped_early": true,
-      "training_time_seconds": 2.371857899999995,
+      "training_time_seconds": 2.417365700000005,
       "train_examples": 430,
       "validation_examples": 58
     },
@@ -630,7 +630,7 @@
         8.891328254292132
       ],
       "stopped_early": true,
-      "training_time_seconds": 6.105395200000004,
+      "training_time_seconds": 6.900716999999986,
       "train_examples": 1857,
       "validation_examples": 261
     },
@@ -707,7 +707,7 @@
         13.23828068378046
       ],
       "stopped_early": true,
-      "training_time_seconds": 0.4560747999999819,
+      "training_time_seconds": 0.5910069999999905,
       "train_examples": 39,
       "validation_examples": 6
     },
@@ -744,7 +744,7 @@
         10.42095371527706
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.1132723000000055,
+      "training_time_seconds": 3.7222858000000087,
       "train_examples": 853,
       "validation_examples": 106
     },
@@ -779,7 +779,7 @@
         9.889477988122447
       ],
       "stopped_early": true,
-      "training_time_seconds": 5.098103699999996,
+      "training_time_seconds": 5.337024500000041,
       "train_examples": 1427,
       "validation_examples": 173
     },
@@ -870,7 +870,7 @@
         12.225087452937597
       ],
       "stopped_early": true,
-      "training_time_seconds": 1.5783118999999886,
+      "training_time_seconds": 1.5207303999999908,
       "train_examples": 85,
       "validation_examples": 8
     },
@@ -905,7 +905,7 @@
         10.387421334872469
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.8712136000000044,
+      "training_time_seconds": 3.923139000000049,
       "train_examples": 861,
       "validation_examples": 119
     },
@@ -984,7 +984,7 @@
         12.028013870594018
       ],
       "stopped_early": true,
-      "training_time_seconds": 0.7388514000000157,
+      "training_time_seconds": 0.7505003999999644,
       "train_examples": 51,
       "validation_examples": 9
     },
@@ -1023,7 +1023,7 @@
         11.10493586288842
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.000577800000002,
+      "training_time_seconds": 3.194532200000026,
       "train_examples": 586,
       "validation_examples": 74
     },
@@ -1086,7 +1086,7 @@
         13.222189988929248
       ],
       "stopped_early": true,
-      "training_time_seconds": 0.8509151000000088,
+      "training_time_seconds": 0.8948816999999849,
       "train_examples": 88,
       "validation_examples": 8
     },
@@ -1131,7 +1131,7 @@
         10.770971095779458
       ],
       "stopped_early": true,
-      "training_time_seconds": 1.9509759999999972,
+      "training_time_seconds": 2.260916599999973,
       "train_examples": 353,
       "validation_examples": 40
     },
@@ -1170,7 +1170,7 @@
         10.505283364116599
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.362023100000016,
+      "training_time_seconds": 4.0493673000000285,
       "train_examples": 817,
       "validation_examples": 84
     },
@@ -1209,7 +1209,7 @@
         10.868420564260461
       ],
       "stopped_early": true,
-      "training_time_seconds": 3.3478087000000016,
+      "training_time_seconds": 3.3824041000000307,
       "train_examples": 720,
       "validation_examples": 95
     }

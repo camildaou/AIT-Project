@@ -380,3 +380,13 @@ experiments:
     config: "MDL 4-gram, interpolated Kneser-Ney, per-class back-off, estimated discounts"
     question: "With Kneser-Ney handling sparse contexts, does a 4-gram beat the KN bigram (E33)?"
     conclusion: "Tie, not selected: validation macro-F1 0.646 vs 0.643; paired difference +0.003 +- 0.010, better in 23 of 40 runs; full-size test 0.727 vs 0.724. Same picture as E35 and E26."
+
+  - id: E37
+    expected_runs: 40
+    date: 2026-11-08
+    track: 27-class single-label
+    group: neural bigram MDL
+    results: results/metrics/sl27_neural_bigram_mdl_ladder_results.csv
+    config: "As E30 (27 separate neural bigram LMs, default hyperparameters); ladder 500-23485 x 5 seeds, CUDA"
+    question: "Is the weakness of 27 separate neural codes (E30) specific to one seed and the full training size?"
+    conclusion: "No: lowest of all codes at every size (validation macro-F1 0.191 overall vs 0.266 Kneser-Ney E20, 0.254 shared neural E32, 0.229 add-1 E16, 0.209 LSTM E27). Test macro-F1 rises from 0.127 at 500 to 0.220 +- 0.003 at full size (accuracy 0.308), confirming E30 across seeds. Separately trained, separately stopped networks overfit and give code lengths that are not comparable; the shared network (E32) fixes both."
