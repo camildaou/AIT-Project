@@ -1,7 +1,7 @@
 """Create separate comparison charts for initial runs and the ladder runs.
 
 Run from the project root with:
-    python scripts/plot_model_comparison.py
+    python scripts/analysis/plot_model_comparison.py
 
 The script reads existing result CSVs and writes new artifacts under
 results/figures and results/metrics. It does not modify the source result files.
@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 METRICS_DIR = ROOT / "results" / "metrics"
 FIGURES_DIR = ROOT / "results" / "figures"
 MODELS = {

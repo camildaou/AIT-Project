@@ -1,13 +1,13 @@
 # Data directory
 
-This directory is populated by `scripts/prepare_data.py` and is mostly
+This directory is populated by `scripts/data/prepare_data.py` and is mostly
 git-ignored (see the repository `.gitignore`) because its contents are
 either downloaded from the internet or deterministically regenerable.
 
 * `raw/` -- cached parquet copies of the raw GoEmotions splits (`train`,
   `validation`, `test`), as downloaded from the Hugging Face Hub
   (`google-research-datasets/go_emotions`, config `simplified`). Not
-  committed; regenerate with `python scripts/prepare_data.py`.
+  committed; regenerate with `python scripts/data/prepare_data.py`.
 * `processed/` -- the filtered 4-class single-label subset, one CSV per
   split (`train.csv`, `validation.csv`, `test.csv`) with columns
   `example_id, text, label, label_name, original_split`, plus
@@ -23,6 +23,6 @@ either downloaded from the internet or deterministically regenerable.
 Regenerate everything with:
 
 ```
-python scripts/prepare_data.py
-python scripts/verify_data.py
+python scripts/data/prepare_data.py
+python scripts/data/verify_data.py
 ```

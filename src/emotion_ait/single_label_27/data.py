@@ -61,7 +61,7 @@ def load_single_label_27_dataframe(split: str, config: Optional[SingleLabel27Con
         raise ValueError(f"Unknown split {split!r}; expected one of {config.splits}.")
     path = config.processed_dir / f"{split}.csv"
     if not path.exists():
-        raise FileNotFoundError(f"{path} not found; run `python scripts/prepare_single_label_27_data.py` first.")
+        raise FileNotFoundError(f"{path} not found; run `python scripts/data/prepare_single_label_27_data.py` first.")
     dtypes: Dict[str, object] = {c: str for c in PROCESSED_COLUMNS}
     dtypes["label"] = "int64"
     return pd.read_csv(path, dtype=dtypes, keep_default_na=False)
@@ -72,7 +72,7 @@ def load_single_label_27_ladder_manifest(seed: int, size: int, config: Optional[
     config = _config(config)
     path = manifest_path(config, seed, size)
     if not path.exists():
-        raise FileNotFoundError(f"{path} not found; run `python scripts/generate_single_label_27_ladder.py` first.")
+        raise FileNotFoundError(f"{path} not found; run `python scripts/data/generate_single_label_27_ladder.py` first.")
     with open(path, "r", encoding="utf-8") as fh:
         return json.load(fh)
 

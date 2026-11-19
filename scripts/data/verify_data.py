@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Verify the integrity of the prepared dataset and generated subsets.
 
-Run after ``scripts/prepare_data.py``. Exits with a non-zero status if
+Run after ``scripts/data/prepare_data.py``. Exits with a non-zero status if
 any check fails. This script re-implements (in a user-facing, printable
 form) the same invariants that ``tests/`` enforce automatically.
 """
@@ -12,7 +12,7 @@ import json
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 import pandas as pd  # noqa: E402
@@ -37,7 +37,7 @@ def main() -> None:
     for split in config.dataset.splits:
         path = config.paths.processed_dir / f"{split}.csv"
         if not path.exists():
-            print(f"Processed file missing: {path}. Run scripts/prepare_data.py first.")
+            print(f"Processed file missing: {path}. Run scripts/data/prepare_data.py first.")
             sys.exit(2)
         processed_frames[split] = pd.read_csv(path)
     processed_df = pd.concat(processed_frames.values(), ignore_index=True)

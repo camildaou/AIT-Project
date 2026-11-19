@@ -8,8 +8,8 @@ ids + labels + class counts), seed_<seed>/manifest.json and manifest.json
 
 Usage
 -----
-    python scripts/generate_single_label_27_ladder.py            # refuses to overwrite existing manifests
-    python scripts/generate_single_label_27_ladder.py --force    # regenerate (deterministic)
+    python scripts/data/generate_single_label_27_ladder.py            # refuses to overwrite existing manifests
+    python scripts/data/generate_single_label_27_ladder.py --force    # regenerate (deterministic)
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ import logging
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from emotion_ait.single_label_27.config import load_single_label_27_config  # noqa: E402

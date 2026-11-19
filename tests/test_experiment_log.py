@@ -1,4 +1,4 @@
-"""The experiment registry must cover every results file (see scripts/update_experiment_log.py)."""
+"""The experiment registry must cover every results file (see scripts/analysis/update_experiment_log.py)."""
 
 from __future__ import annotations
 

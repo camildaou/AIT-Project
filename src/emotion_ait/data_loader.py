@@ -101,7 +101,7 @@ def load_raw_dataset(config: Config) -> Dict[str, pd.DataFrame]:
     FileNotFoundError
         If the cache has not been populated yet; call
         :func:`download_raw_dataset` first (e.g. via
-        ``scripts/prepare_data.py``).
+        ``scripts/data/prepare_data.py``).
     """
     frames: Dict[str, pd.DataFrame] = {}
     for split in config.dataset.splits:
@@ -109,7 +109,20 @@ def load_raw_dataset(config: Config) -> Dict[str, pd.DataFrame]:
         if not path.exists():
             raise FileNotFoundError(
                 f"Raw cache not found for split '{split}' at {path}. "
-                "Run `python scripts/prepare_data.py` first."
+                "Run `python scripts/data/prepare_data.py` first."
             )
         frames[split] = pd.read_parquet(path)
     return frames
+
+
+def load_processed_dataframe(config: Config) -> pd.DataFrame:
+    """Load the processed 4-class splits written by ``scripts/data/prepare_data.py``
+    (all splits concatenated, column ``original_split`` kept); never re-filters or
+    re-splits the data."""
+    frames = []
+    for split in config.dataset.splits:
+        path = config.paths.processed_dir / f"{split}.csv"
+        if not path.exists():
+            raise FileNotFoundError(f"{path} not found; run `python scripts/data/prepare_data.py` first.")
+        frames.append(pd.read_csv(path))
+    return pd.concat(frames, ignore_index=True)

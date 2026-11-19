@@ -1,7 +1,5 @@
 """The MDL (Minimum Description Length) emotion classifier.
 
-Owned by: Camil DAOU.
-
 Approach
 --------
 For each of the 4 target emotions we fit one smoothed n-gram (default:
@@ -56,11 +54,10 @@ Model-complexity / two-part MDL
 This classifier implements only the *conditional* description length
 term ``L(x | M_e)`` of the two-part MDL objective ``L(M) +
 sum_x L(x | M)`` -- it does **not** add a model-description-length
-term ``L(M_e)`` for the n-gram tables themselves. See
-``docs/mdl_model_complexity.md`` for the investigation into how (and
-whether) such a term should be defined and used; that investigation is
-intentionally kept out of this module so it cannot change baseline
-predictions.
+term ``L(M_e)`` for the n-gram tables themselves. Model cost is studied
+separately: per-text two-part and prequential variants in
+:mod:`emotion_ait.mdl_variants`, and the dataset-level two-part code in
+:mod:`emotion_ait.two_part_mdl`.
 """
 
 from __future__ import annotations

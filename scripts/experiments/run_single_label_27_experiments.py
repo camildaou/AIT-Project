@@ -22,19 +22,19 @@ sl27_<name>_ladder_n<size>_<seed>.* files; refuses to overwrite existing results
 
 Usage
 -----
-    python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1
-    python scripts/run_single_label_27_experiments.py --model mdl --n 2 --k 1 --prior
-    python scripts/run_single_label_27_experiments.py --model mdl --smoothing kneser_ney --kn-backoff shared   # -> sl27_mdl_n2_knshared
-    python scripts/run_single_label_27_experiments.py --model mdl --sizes 23485 --seeds 42 --diagnostics
-    python scripts/run_single_label_27_experiments.py --model naive_bayes --variant ml    # -> sl27_nb_ml_n2_k1
-    python scripts/run_single_label_27_experiments.py --model naive_bayes --variant map   # -> sl27_nb_map_n2_k1
-    python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl --sizes 500 --seeds 42 --results-tag smoke
-    python scripts/run_single_label_27_experiments.py --model neural_bigram_mdl   # -> sl27_neural_bigram_mdl
-    python scripts/run_single_label_27_experiments.py --model shared_neural_mdl --sizes 500 --seeds 42 --results-tag smoke
-    python scripts/run_single_label_27_experiments.py --model shared_neural_mdl   # -> sl27_shared_neural_mdl
-    python scripts/run_single_label_27_experiments.py --model lstm
-    python scripts/run_single_label_27_experiments.py --factory my_pkg.models:build --name lstm_v2
-    python scripts/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug
+    python scripts/experiments/run_single_label_27_experiments.py --model mdl --n 2 --k 1
+    python scripts/experiments/run_single_label_27_experiments.py --model mdl --n 2 --k 1 --prior
+    python scripts/experiments/run_single_label_27_experiments.py --model mdl --smoothing kneser_ney --kn-backoff shared   # -> sl27_mdl_n2_knshared
+    python scripts/experiments/run_single_label_27_experiments.py --model mdl --sizes 23485 --seeds 42 --diagnostics
+    python scripts/experiments/run_single_label_27_experiments.py --model naive_bayes --variant ml    # -> sl27_nb_ml_n2_k1
+    python scripts/experiments/run_single_label_27_experiments.py --model naive_bayes --variant map   # -> sl27_nb_map_n2_k1
+    python scripts/experiments/run_single_label_27_experiments.py --model neural_bigram_mdl --sizes 500 --seeds 42 --results-tag smoke
+    python scripts/experiments/run_single_label_27_experiments.py --model neural_bigram_mdl   # -> sl27_neural_bigram_mdl
+    python scripts/experiments/run_single_label_27_experiments.py --model shared_neural_mdl --sizes 500 --seeds 42 --results-tag smoke
+    python scripts/experiments/run_single_label_27_experiments.py --model shared_neural_mdl   # -> sl27_shared_neural_mdl
+    python scripts/experiments/run_single_label_27_experiments.py --model lstm
+    python scripts/experiments/run_single_label_27_experiments.py --factory my_pkg.models:build --name lstm_v2
+    python scripts/experiments/run_single_label_27_experiments.py --model mdl --sizes 500 --seeds 42 --results-tag debug
 """
 
 from __future__ import annotations
@@ -46,7 +46,7 @@ import logging
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from emotion_ait.single_label_27.config import load_single_label_27_config  # noqa: E402

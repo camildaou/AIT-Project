@@ -46,3 +46,10 @@ Thumbs.db
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Report and presentation material (kept out of the repository)
+report/
+presentation/
+
+# Run logs
+*.log

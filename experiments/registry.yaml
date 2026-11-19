@@ -2,7 +2,7 @@
 #
 # One entry per results file (= one model configuration). Hand-written fields
 # (question, conclusion, ...) live here; all numbers in EXPERIMENT_LOG.md are
-# computed from the results files by `python scripts/update_experiment_log.py`,
+# computed from the results files by `python scripts/analysis/update_experiment_log.py`,
 # which also fails if a results file under results/metrics/ is neither listed
 # here nor in `not_experiments`.
 #
@@ -12,8 +12,8 @@
 
 not_experiments:
   results/metrics/results.csv: "Duplicate of lstm_ladder_results.csv (same 40 rows); the LSTM runner's default output file."
-  results/metrics/first_training_model_comparison_summary.csv: "Derived comparison table (scripts/plot_model_comparison.py)."
-  results/metrics/ladder_model_comparison_summary.csv: "Derived comparison table (scripts/plot_model_comparison.py)."
+  results/metrics/first_training_model_comparison_summary.csv: "Derived comparison table (scripts/analysis/plot_model_comparison.py)."
+  results/metrics/ladder_model_comparison_summary.csv: "Derived comparison table (scripts/analysis/plot_model_comparison.py)."
   results/metrics/mdl_prequential_ladder_prequential.csv: "Training-set prequential code lengths of E09 (not held-out metrics)."
   results/metrics/mdl_prequential_prior_ladder_prequential.csv: "Training-set prequential code lengths of E10 (not held-out metrics)."
 

@@ -1,10 +1,9 @@
 """Simple, fully-working reference baselines.
 
-These are *not* the research models under comparison (MDL vs. LSTM --
-see :mod:`emotion_ait.mdl_classifier` / :mod:`emotion_ait.lstm_classifier`,
-which are intentionally left as stubs). They exist purely so the shared
-data pipeline, model interface, and evaluation protocol can be exercised
-end-to-end today, with honestly-trained (if trivial) models.
+These are not the models under comparison (MDL vs. LSTM, see
+:mod:`emotion_ait.mdl_classifier` and :mod:`emotion_ait.lstm_classifier`).
+They give chance-level references and exercise the data pipeline, model
+interface and evaluation protocol end to end.
 """
 
 from __future__ import annotations

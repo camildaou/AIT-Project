@@ -14,8 +14,8 @@ refuses to start if any target combined CSV already exists.
 
 Usage
 -----
-    python scripts/run_mdl_kn_4class.py
-    python scripts/run_mdl_kn_4class.py --configs mdl_n2_knclass --sizes 100 --seeds 42 --results-tag debug
+    python scripts/experiments/run_mdl_kn_4class.py
+    python scripts/experiments/run_mdl_kn_4class.py --configs mdl_n2_knclass --sizes 100 --seeds 42 --results-tag debug
 """
 
 from __future__ import annotations
@@ -25,15 +25,15 @@ import logging
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from emotion_ait.data_loader import load_processed_dataframe  # noqa: E402
 from emotion_ait.ablation import results_path  # noqa: E402
 from emotion_ait.config import load_config  # noqa: E402
 from emotion_ait.experiments import run_experiment  # noqa: E402
 from emotion_ait.mdl_kneser_ney import KN_CONFIGS, MDLKneserNey4Classifier, kn_config_summary  # noqa: E402
 from emotion_ait.sampling import load_ladder_subset_dataframe  # noqa: E402
-from run_ladder_experiments import load_processed_df  # noqa: E402
 
 logger = logging.getLogger("run_mdl_kn_4class")
 
@@ -60,7 +60,7 @@ def main() -> None:
     if existing:
         parser.error(f"Refusing to overwrite/append existing results: {existing}. Move them away or use --results-tag.")
 
-    processed_df = load_processed_df(config)
+    processed_df = load_processed_dataframe(config)
     sizes = args.sizes or config.sampling.ladder_sizes
     seeds = args.seeds or config.sampling.ladder_seeds
     total, index = len(runs) * len(sizes) * len(seeds), 0

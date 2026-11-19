@@ -129,8 +129,8 @@ def process_all_splits(raw_frames: Dict[str, pd.DataFrame], config: Config) -> p
 def class_counts_per_split(processed_df: pd.DataFrame) -> pd.DataFrame:
     """Return a (split x label_name) pivot table of retained example counts.
 
-    Used both by ``scripts/prepare_data.py`` (to document real counts, as
-    required) and by ``scripts/verify_data.py`` (as an integrity check).
+    Used both by ``scripts/data/prepare_data.py`` (to document real counts, as
+    required) and by ``scripts/data/verify_data.py`` (as an integrity check).
     """
     counts = (
         processed_df.groupby(["original_split", "label_name"])

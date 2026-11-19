@@ -17,10 +17,10 @@ refuses to start if any target combined CSV already exists.
 
 Usage
 -----
-    python scripts/run_mdl_ablation.py                              # both studies, full ladder
-    python scripts/run_mdl_ablation.py --study ngram
-    python scripts/run_mdl_ablation.py --study smoothing
-    python scripts/run_mdl_ablation.py --configs mdl_n4_k1 --sizes 100 --seeds 42 --results-tag debug
+    python scripts/experiments/run_mdl_ablation.py                              # both studies, full ladder
+    python scripts/experiments/run_mdl_ablation.py --study ngram
+    python scripts/experiments/run_mdl_ablation.py --study smoothing
+    python scripts/experiments/run_mdl_ablation.py --configs mdl_n4_k1 --sizes 100 --seeds 42 --results-tag debug
 """
 
 from __future__ import annotations
@@ -30,9 +30,10 @@ import logging
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from emotion_ait.data_loader import load_processed_dataframe  # noqa: E402
 from emotion_ait.ablation import (  # noqa: E402
     REFERENCE_MODEL_NAME,
     STUDIES,
@@ -45,7 +46,6 @@ from emotion_ait.config import load_config  # noqa: E402
 from emotion_ait.experiments import run_experiment  # noqa: E402
 from emotion_ait.mdl_classifier import MDLClassifier  # noqa: E402
 from emotion_ait.sampling import load_ladder_subset_dataframe  # noqa: E402
-from run_ladder_experiments import load_processed_df  # noqa: E402
 
 logger = logging.getLogger("run_mdl_ablation")
 
@@ -84,7 +84,7 @@ def main() -> None:
     if existing:
         parser.error(f"Refusing to overwrite/append existing results: {existing}. Move them away or use --results-tag.")
 
-    processed_df = load_processed_df(config)
+    processed_df = load_processed_dataframe(config)
     sizes = args.sizes or config.sampling.ladder_sizes
     seeds = args.seeds or config.sampling.ladder_seeds
     total, index = len(runs) * len(sizes) * len(seeds), 0
@@ -108,7 +108,7 @@ def main() -> None:
                     "[%d/%d] %s seed=%d size=%d: val_macro_f1=%.4f test_macro_f1=%.4f",
                     index, total, name, seed, size, record.validation_macro_f1, record.test_macro_f1,
                 )
-    logger.info("Done: %d runs. Next: python scripts/report_mdl_ablation.py", total)
+    logger.info("Done: %d runs. Next: python scripts/analysis/report_mdl_ablation.py", total)
 
 
 if __name__ == "__main__":

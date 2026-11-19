@@ -9,9 +9,9 @@ same fixed validation/test splits every time and logs to
 
 Usage
 -----
-    python scripts/train_mdl.py                         # all 9 configured subsets, increasing size
-    python scripts/train_mdl.py --subsets train_abs100   # a single subset
-    python scripts/train_mdl.py --n 3 --k 1.0            # override hyperparameters
+    python scripts/experiments/train_mdl.py                         # all 9 configured subsets, increasing size
+    python scripts/experiments/train_mdl.py --subsets train_abs100   # a single subset
+    python scripts/experiments/train_mdl.py --n 3 --k 1.0            # override hyperparameters
 """
 
 from __future__ import annotations
@@ -23,9 +23,10 @@ from pathlib import Path
 
 import pandas as pd
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from emotion_ait.data_loader import load_processed_dataframe  # noqa: E402
 from emotion_ait.config import load_config  # noqa: E402
 from emotion_ait.experiments import run_experiment  # noqa: E402
 from emotion_ait.mdl_classifier import MDLClassifier  # noqa: E402
@@ -49,16 +50,6 @@ DEFAULT_SUBSET_ORDER = [
 ]
 
 
-def load_processed_df(config) -> pd.DataFrame:
-    """Load the already-prepared processed splits from disk (written by
-    `scripts/prepare_data.py`); never re-filters or re-splits the data."""
-    frames = []
-    for split in config.dataset.splits:
-        path = config.paths.processed_dir / f"{split}.csv"
-        if not path.exists():
-            raise FileNotFoundError(f"{path} not found; run `python scripts/prepare_data.py` first.")
-        frames.append(pd.read_csv(path))
-    return pd.concat(frames, ignore_index=True)
 
 
 def main() -> None:
@@ -77,7 +68,7 @@ def main() -> None:
     args = parser.parse_args()
 
     config = load_config(args.config)
-    processed_df = load_processed_df(config)
+    processed_df = load_processed_dataframe(config)
     subset_names = args.subsets or DEFAULT_SUBSET_ORDER
 
     for subset_name in subset_names:

@@ -2,8 +2,8 @@
 """Run the LSTM on named training subsets (or the full configured schedule).
 
 Usage:
-    python scripts/run_lstm_experiments.py --subset train_abs100
-    python scripts/run_lstm_experiments.py
+    python scripts/experiments/run_lstm_experiments.py --subset train_abs100
+    python scripts/experiments/run_lstm_experiments.py
 """
 
 from __future__ import annotations
@@ -14,7 +14,7 @@ from pathlib import Path
 
 import pandas as pd
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from emotion_ait.config import load_config  # noqa: E402
@@ -49,7 +49,7 @@ def main() -> None:
     for name in subsets:
         subset_path = config.paths.subsets_dir / f"{name}.json"
         if not subset_path.exists():
-            parser.error(f"Subset not found: {subset_path}. Run scripts/prepare_data.py first.")
+            parser.error(f"Subset not found: {subset_path}. Run scripts/data/prepare_data.py first.")
 
     processed = pd.concat(
         [pd.read_csv(config.paths.processed_dir / f"{split}.csv") for split in config.dataset.splits],

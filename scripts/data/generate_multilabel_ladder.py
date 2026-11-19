@@ -8,8 +8,8 @@ Every ladder invariant is validated before anything is written.
 
 Usage
 -----
-    python scripts/generate_multilabel_ladder.py            # refuses to overwrite existing manifests
-    python scripts/generate_multilabel_ladder.py --force    # regenerate (deterministic)
+    python scripts/data/generate_multilabel_ladder.py            # refuses to overwrite existing manifests
+    python scripts/data/generate_multilabel_ladder.py --force    # regenerate (deterministic)
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ import logging
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from emotion_ait.multilabel.config import load_multilabel_config  # noqa: E402

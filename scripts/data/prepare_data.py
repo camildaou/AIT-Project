@@ -8,7 +8,7 @@
 
 Usage
 -----
-    python scripts/prepare_data.py [--config configs/default.yaml] [--force-download]
+    python scripts/data/prepare_data.py [--config configs/default.yaml] [--force-download]
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ import logging
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from emotion_ait.config import load_config  # noqa: E402

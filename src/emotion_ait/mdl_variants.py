@@ -1,7 +1,5 @@
 """Experimental variants of the MDL emotion classifier.
 
-Owned by: Camil DAOU.
-
 Every variant reuses :class:`~emotion_ait.mdl_classifier.MDLClassifier`
 unchanged -- same tokenization, shared prediction vocabulary ``V``,
 n-gram order, add-``k`` smoothing and conditional description length::
